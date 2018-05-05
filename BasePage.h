@@ -40,6 +40,7 @@ protected:
 	WText *pagetitle_text;
 	WText *help_text;
 	WContainerWidget *datacolumn;
+	WPushButton *save_button;
 };
 
 #endif /* SETTINGSPAGE_H_ */

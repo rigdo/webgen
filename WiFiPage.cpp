@@ -25,7 +25,6 @@ WiFiPage::WiFiPage(SettingsDir *sd) : BasePage()
 	psk_lineedit->setTextSize(49);
 	psk_lineedit->setStyleClass("settingvalue");
 	
-	save_button = new WPushButton(tr("Save"));
 	{
 		{
 		WContainerWidget *c = new WContainerWidget();
@@ -54,11 +53,6 @@ WiFiPage::WiFiPage(SettingsDir *sd) : BasePage()
 		c->addWidget( psk_lineedit );
 		datacolumn->addWidget( c );
 		}
-		
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
 	}
 	save_button->clicked().connect( this, &WiFiPage::saveParams );
 	loadParams();

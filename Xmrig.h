@@ -38,9 +38,8 @@ private:
 	WLineEdit *user_lineedit;
 	WLineEdit *pass_lineedit;
 	WComboBox *algo_combobox;
+	WComboBox *nicehash_combobox;
 	WComboBox *console_combobox;
-	
-	WPushButton *save_button;
 };
 
 #endif /* XMRIGPAGE_H_ */

@@ -25,7 +25,6 @@ Console::Console(SettingsDir *sd) : BasePage()
 		owner_combobox[i]->addItem( tr("owner_ethminer") );
 	}
 	
-	save_button = new WPushButton(tr("Save"));
 	{
 		for(unsigned i=0; i< 6; i++){
 			WContainerWidget *configmode_conteiner = new WContainerWidget();
@@ -37,11 +36,6 @@ Console::Console(SettingsDir *sd) : BasePage()
 			configmode_conteiner->addWidget( owner_combobox[i] );
 			datacolumn->addWidget( configmode_conteiner );
 		}
-		
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
 	}
 	save_button->clicked().connect( this, &Console::saveParams );
 	loadParams();

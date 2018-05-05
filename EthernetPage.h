@@ -40,8 +40,6 @@ private:
 	WLineEdit *mask_lineedit;
 	WLineEdit *gateway_lineedit;
 	WLineEdit *dns_lineedit;
-	
-	WPushButton *save_button;
 };
 
 #endif /* ETHERNETPAGE_H_ */

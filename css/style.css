@@ -120,7 +120,7 @@ ul.submenu li a {
 	width: 10em;
 }
 .xmrig_tty {
-	float: left;
+	/*float: left;*/
 }
 .portlineedit {
     text-align: center;

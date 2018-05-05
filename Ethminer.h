@@ -37,8 +37,6 @@ private:
 	WLineEdit *pool_lineedit;
 	WLineEdit *user_lineedit;
 	WComboBox *console_combobox;
-	
-	WPushButton *save_button;
 };
 
 #endif /* ETHMINER_H_ */

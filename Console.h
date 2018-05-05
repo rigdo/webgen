@@ -34,8 +34,6 @@ private:
 	WComboBox *owner_combobox[6];
 	WLineEdit *pool_lineedit;
 	WLineEdit *user_lineedit;
-	
-	WPushButton *save_button;
 };
 
 #endif /* CONSOLEPAGE_H_ */

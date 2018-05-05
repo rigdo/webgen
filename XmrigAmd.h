@@ -36,9 +36,8 @@ private:
 	WLineEdit *pass_lineedit;
 	WLineEdit *opencl_launch_lineedit;
 	WComboBox *algo_combobox;
+	WComboBox *nicehash_combobox;
 	WComboBox *console_combobox;
-	
-	WPushButton *save_button;
 };
 
 #endif /* XMRIGAPAGE_H_ */

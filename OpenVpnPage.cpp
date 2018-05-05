@@ -119,8 +119,7 @@ OpenVpnPage::OpenVpnPage( SettingsDir *sd, int idx ) : BasePage()
 	additionaloptsserver_textarea->setRows(2);
 	WLengthValidator *validator3 = new WLengthValidator( 0, 4095 );
 	additionaloptsserver_textarea->setValidator( validator3 );
-	
-	save_button = new WPushButton( tr("Save") );
+
 	{
 		datacolumn->addWidget( servicecontrol );
 		{
@@ -301,12 +300,6 @@ OpenVpnPage::OpenVpnPage( SettingsDir *sd, int idx ) : BasePage()
 		}
 		files_container->addWidget( ftable );
 		datacolumn->addWidget( files_container );
-		
-
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
 	}
 //	servicecontrol->autostart_checkbox->checked().connect( this,
 //			&OpenVpnPage::enableChanged );

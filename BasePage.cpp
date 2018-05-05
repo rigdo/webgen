@@ -62,6 +62,7 @@ ServiceControlWidget::ServiceControlWidget( std::string service )
 BasePage::BasePage() : WContainerWidget()
 {
 	help_text = new WText( );
+	save_button = new WPushButton(tr("Save"));
 	
 	WContainerWidget *label_div = new WContainerWidget();
 	label_div->setStyleClass("pagetitle");
@@ -81,6 +82,13 @@ BasePage::BasePage() : WContainerWidget()
 		helpcolumn->addWidget(help_panel);
 
 		ep->addWidget( datacolumn );
+		ep->addWidget( new WBreak() );
+		WContainerWidget *buttonscontainer = new WContainerWidget();
+		buttonscontainer->setStyleClass("buttonscontainer");
+		buttonscontainer->addWidget( save_button );
+		datacolumn->addWidget( buttonscontainer );
+		ep->addWidget( buttonscontainer );
+		ep->addWidget( new WBreak() );
 		ep->addWidget( helpcolumn );
 
 	}

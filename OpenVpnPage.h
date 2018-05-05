@@ -92,8 +92,6 @@ private:
 	WContainerWidget *files_container;
 	UploadedFileWidget *config_fileupload;
 	UploadedFilesTable *ftable;
-	
-	WPushButton *save_button;
 };
 
 #endif /* OPENVPN_H_ */

@@ -35,8 +35,6 @@ private:
 	WCheckBox *autostart_checkbox;
 	WLineEdit *ssid_lineedit;
 	WLineEdit *psk_lineedit;
-	
-	WPushButton *save_button;
 };
 
 #endif /* WIFIPAGE_H_ */

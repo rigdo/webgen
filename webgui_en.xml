@@ -27,8 +27,16 @@
 <message id='xmrig_user'>User:</message>
 <message id='xmrig_pass'>Pass:</message>
 <message id='xmrig_algo'>Algo:</message>
+<message id='xmrig_nicehash_mode'>Nicehash mode:</message>
 <message id='xmrig_bind_tty'>Bind to screen(tty):</message>
-<message id='xmrig_help'>CryptoNight: monero(XMR), sumocoin(SUMO), aeon(AEON), ... Use ALT+F1,ALT+F2,... on rig for switch console(screen,tty). For monero: cryptonight, for aeon: cryptonight-lite, for sumocoin: cryptonight-heavy. Mining on CPU.</message>
+<message id='xmrig_help'>
+<div>
+CryptoNight: monero(XMR), sumocoin(SUMO), aeon(AEON), ...
+</div>
+Use ALT+F1,ALT+F2,... on rig for switch console(screen,tty). 
+For monero: cryptonight, for aeon: cryptonight-lite, for sumocoin: cryptonight-heavy. 
+Mining on CPU.
+</message>
 
 
 <message id='xmrig-nvidia'>Xmrig-Nvidia</message>

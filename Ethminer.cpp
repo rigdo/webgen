@@ -7,7 +7,6 @@
 
 #include "Ethminer.h"
 #include <Wt/WRegExpValidator>
-#include <Wt/WBreak>
 
 //==============================================================================
 //===================== Ethminer ===========================================
@@ -32,8 +31,6 @@ Ethminer::Ethminer(SettingsDir *sd) : BasePage()
 	console_combobox->addItem( "3" );	
 	console_combobox->setStyleClass("xmrig_tty");
 
-	
-	save_button = new WPushButton(tr("Save"));
 	{
 		{
 		WContainerWidget *c = new WContainerWidget();
@@ -42,6 +39,15 @@ Ethminer::Ethminer(SettingsDir *sd) : BasePage()
 		label->setStyleClass("label");
 		c->addWidget( label );
 		c->addWidget( autostart_checkbox );
+		datacolumn->addWidget( c );
+		}
+		{
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("xmrig_bind_tty"));
+		label->setStyleClass("label");
+		c->addWidget( label );
+		c->addWidget( console_combobox );
 		datacolumn->addWidget( c );
 		}
 		{
@@ -62,22 +68,6 @@ Ethminer::Ethminer(SettingsDir *sd) : BasePage()
 		c->addWidget( user_lineedit );
 		datacolumn->addWidget( c );
 		}
-		{
-		WContainerWidget *c = new WContainerWidget();
-		c->setStyleClass("setting");
-		WText *label = new WText(tr("xmrig_bind_tty"));
-		label->setStyleClass("label");
-		c->addWidget( label );
-		c->addWidget( console_combobox );
-		datacolumn->addWidget( c );
-		}
-		
-		datacolumn->addWidget( new WBreak() );
-		
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
 	}
 	save_button->clicked().connect( this, &Ethminer::saveParams );
 	loadParams();

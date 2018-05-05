@@ -7,7 +7,6 @@
 
 #include "XmrigNvidia.h"
 #include <Wt/WRegExpValidator>
-#include <Wt/WBreak>
 
 //==============================================================================
 //===================== XmrigNvidia ===========================================
@@ -24,7 +23,7 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd) : BasePage()
 	pool_lineedit->setStyleClass("settingvalue");
 	user_lineedit = new WLineEdit();
 	user_lineedit->setTextSize(49);
-	user_lineedit->setStyleClass("xmrig_user");
+	user_lineedit->setStyleClass("settingvalue");
 	pass_lineedit = new WLineEdit();
 	pass_lineedit->setTextSize(49);
 	pass_lineedit->setStyleClass("settingvalue");
@@ -36,7 +35,13 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd) : BasePage()
 	algo_combobox->addItem( "cryptonight" );
 	algo_combobox->addItem( "cryptonight-heavy" );
 	algo_combobox->addItem( "cryptonight-lite" );
-	algo_combobox->setStyleClass("settingvalue");
+	algo_combobox->setStyleClass("xmrig_tty");
+	
+	nicehash_combobox = new WComboBox();
+	nicehash_combobox->addItem( "auto" );
+	nicehash_combobox->addItem( "on" );
+	nicehash_combobox->addItem( "off" );
+	nicehash_combobox->setStyleClass("xmrig_tty");
 
 	console_combobox = new WComboBox();
 	console_combobox->addItem( "" );
@@ -45,7 +50,6 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd) : BasePage()
 	console_combobox->addItem( "3" );	
 	console_combobox->setStyleClass("xmrig_tty");
 	
-	save_button = new WPushButton(tr("Save"));
 	{
 		{
 		WContainerWidget *c = new WContainerWidget();
@@ -54,6 +58,15 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd) : BasePage()
 		label->setStyleClass("label");
 		c->addWidget( label );
 		c->addWidget( autostart_checkbox );
+		datacolumn->addWidget( c );
+		}
+		{
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("xmrig-nvidia_bind_tty"));
+		label->setStyleClass("label");
+		c->addWidget( label );
+		c->addWidget( console_combobox );
 		datacolumn->addWidget( c );
 		}
 		{
@@ -86,15 +99,6 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd) : BasePage()
 		{
 		WContainerWidget *c = new WContainerWidget();
 		c->setStyleClass("setting");
-		WText *label = new WText(tr("xmrig-nvidia_cuda-launch"));
-		label->setStyleClass("label");
-		c->addWidget( label );
-		c->addWidget( cuda_launch_lineedit );
-		datacolumn->addWidget( c );
-		}
-		{
-		WContainerWidget *c = new WContainerWidget();
-		c->setStyleClass("setting");
 		WText *label = new WText(tr("xmrig_algo"));
 		label->setStyleClass("label");
 		c->addWidget( label );
@@ -104,19 +108,21 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd) : BasePage()
 		{
 		WContainerWidget *c = new WContainerWidget();
 		c->setStyleClass("setting");
-		WText *label = new WText(tr("xmrig-nvidia_bind_tty"));
+		WText *label = new WText(tr("xmrig_nicehash_mode"));
 		label->setStyleClass("label");
 		c->addWidget( label );
-		c->addWidget( console_combobox );
+		c->addWidget( nicehash_combobox );
 		datacolumn->addWidget( c );
 		}
-		
-		datacolumn->addWidget( new WBreak() );
-		
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
+		{
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("xmrig-nvidia_cuda-launch"));
+		label->setStyleClass("label");
+		c->addWidget( label );
+		c->addWidget( cuda_launch_lineedit );
+		datacolumn->addWidget( c );
+		}
 	}
 	save_button->clicked().connect( this, &XmrigNvidia::saveParams );
 	loadParams();
@@ -138,6 +144,13 @@ void XmrigNvidia::loadParams()
 	else
 		algo_combobox->setCurrentIndex( 0 );
 	
+	WString nicehash_str = s.value("XMRIGN_NICEHASH_MODE", "auto");
+	int nicehash_idx = nicehash_combobox->findText(nicehash_str);
+	if(nicehash_idx >= 0 )
+		nicehash_combobox->setCurrentIndex( nicehash_idx );
+	else
+		nicehash_combobox->setCurrentIndex( 0 );
+	
 	WString v_str = s.value("XMRIGN_BIND_TTY", "");
 	int idx = console_combobox->findText(v_str);
 	if(idx >= 0 )
@@ -155,6 +168,7 @@ void XmrigNvidia::saveParams()
 	s.save( "XMRIGN_PASS", pass_lineedit->text() );
 	s.save( "XMRIGN_CUDA_LAUNCH", cuda_launch_lineedit->text() );
 	s.save( "XMRIGN_ALGO", algo_combobox->currentText() );
+	s.save( "XMRIG_NICEHASH_MODE", nicehash_combobox->currentText() );
 	s.save( "XMRIGN_BIND_TTY", console_combobox->currentText() );
 	s.saveInt( "AUTOSTART", autostart_checkbox->isChecked());
 }

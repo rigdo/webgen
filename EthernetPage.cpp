@@ -38,7 +38,6 @@ EthernetPage::EthernetPage(SettingsDir *sd) : BasePage()
 	dns_lineedit->setValidator( ip_validaor );
 	dns_lineedit->setStyleClass("iplineedit");
 	
-	save_button = new WPushButton(tr("Save"));
 	{
 		{
 		WContainerWidget *configmode_conteiner = new WContainerWidget();
@@ -88,11 +87,6 @@ EthernetPage::EthernetPage(SettingsDir *sd) : BasePage()
 		c->addWidget( dns_lineedit );
 		static_mode_conteiner->addWidget( c );
 		}
-		
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
 	}
 	save_button->clicked().connect( this, &EthernetPage::saveParams );
 	mode_combobox->activated().connect( this, 
