@@ -9,7 +9,6 @@
 #include "XmrigNvidia.h"
 #include "XmrigAmd.h"
 #include "Ethminer.h"
-#include "Console.h"
 
 #include <vector>
 #include <string>

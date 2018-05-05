@@ -37,7 +37,7 @@ endif
 
 OBJS=main.o Settings.o SiteGui.o BasePage.o \
 	EthernetPage.o OpenVpnPage.o UploadedFileWidget.o \
-	WiFiPage.o Xmrig.o Ethminer.o Console.o XmrigNvidia.o XmrigAmd.o
+	WiFiPage.o Xmrig.o Ethminer.o XmrigNvidia.o XmrigAmd.o
 
 $(TARGET): $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(LDFLAGS)
@@ -77,9 +77,6 @@ XmrigAmd.o: XmrigAmd.cpp XmrigAmd.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 Ethminer.o: Ethminer.cpp Ethminer.h
-	$(CXX) $(CPPFLAGS) -c $< -o $@
-
-Console.o: Console.cpp Console.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 clean:

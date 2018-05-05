@@ -68,11 +68,9 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
 	Ethminer *ethminer = new Ethminer(sd); 
-	Console *console = new Console(sd);
 	
 	ZipGen *zip_gen = new ZipGen(settings_dir);
 	
-
 	WContainerWidget *header;
 	{
 		header = new WContainerWidget();
@@ -108,7 +106,6 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		topmenu->addItem(tr("xmrig-nvidia"), xmrig_nvidia);
 		topmenu->addItem(tr("xmrig-amd"), xmrig_amd);
 		topmenu->addItem(tr("ethminer"), ethminer);
-	//	topmenu->addItem(tr("console"), content->console);
 		navigation->addWidget( topmenu );
 	}
 	
