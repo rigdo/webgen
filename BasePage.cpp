@@ -12,85 +12,75 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-
 //==============================================================================
 //===================== ServiceControlWidget =========================================
 //==============================================================================
-ServiceControlWidget::ServiceControlWidget( std::string service )
+ServiceControlWidget::ServiceControlWidget(std::string service)
 {
 	this->service = service;
-	setTitle( tr("Service Contol"));
+	setTitle(tr("Service Contol"));
 	autostart_checkbox = new WCheckBox();
 
 	WContainerWidget *buttonscontainer = new WContainerWidget();
 	buttonscontainer->setStyleClass("servicebuttonscontainer");
 //	addWidget( buttonscontainer );
-	
+
 	{
-	WContainerWidget *c = new WContainerWidget();
-	c->setStyleClass("setting");
-	WText *label = new WText(tr("Control"));
-	label->setStyleClass("shortlabel");
-	c->addWidget( label );
-	c->addWidget( buttonscontainer );
-	addWidget( c );
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("Control"));
+		label->setStyleClass("shortlabel");
+		c->addWidget(label);
+		c->addWidget(buttonscontainer);
+		addWidget(c);
 	}
 	{
-	WContainerWidget *c = new WContainerWidget();
-	c->setStyleClass("setting");
-	WText *label = new WText(tr("State"));
-	label->setStyleClass("shortlabel");
-	c->addWidget( label );
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("State"));
+		label->setStyleClass("shortlabel");
+		c->addWidget(label);
 //	c->addWidget( startstopstate );
-	addWidget( c );
+		addWidget(c);
 	}
 	{
-	WContainerWidget *c = new WContainerWidget();
-	c->setStyleClass("setting");
-	WText *label = new WText(tr("Autostart"));
-	label->setStyleClass("shortlabel");
-	c->addWidget( label );
-	c->addWidget( autostart_checkbox );
-	addWidget( c );
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("Autostart"));
+		label->setStyleClass("shortlabel");
+		c->addWidget(label);
+		c->addWidget(autostart_checkbox);
+		addWidget(c);
 	}
 }
-
 
 //==============================================================================
 //===================== BasePage ===========================================
 //==============================================================================
-BasePage::BasePage() : WContainerWidget()
+BasePage::BasePage() :
+		WContainerWidget()
 {
-	help_text = new WText( );
-	save_button = new WPushButton(tr("Save"));
-	
-	WContainerWidget *label_div = new WContainerWidget();
-	label_div->setStyleClass("pagetitle");
+	WContainerWidget *pagetitle_div = new WContainerWidget();
+	pagetitle_div->setStyleClass("pagetitle");
 	pagetitle_text = new WText();
-	label_div->addWidget( pagetitle_text );
-	addWidget( label_div);
+	pagetitle_div->addWidget(pagetitle_text);
+	
+	datacolumn = new WContainerWidget();
+	datacolumn->setStyleClass("datacolumn");
+	
+	help_text = new WText();
+	WPanel *help_panel = new WPanel();
+	help_panel->setTitle(tr("Help"));
+	help_panel->setCentralWidget(help_text);
+
+	save_button = new WPushButton(tr("Save"));
+
+	addWidget(pagetitle_div);
 	WContainerWidget *ep = new WContainerWidget();
-	{
-		datacolumn = new WContainerWidget();
-		datacolumn->setStyleClass("datacolumn");
-		WContainerWidget *helpcolumn = new WContainerWidget();
-		helpcolumn->setStyleClass("helpcolumn");
-		
-		WPanel *help_panel = new WPanel();
-		help_panel->setTitle(tr("Help"));
-		help_panel->setCentralWidget( help_text );
-		helpcolumn->addWidget(help_panel);
-
-		ep->addWidget( datacolumn );
-		ep->addWidget( new WBreak() );
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( save_button );
-		datacolumn->addWidget( buttonscontainer );
-		ep->addWidget( buttonscontainer );
-		ep->addWidget( new WBreak() );
-		ep->addWidget( helpcolumn );
-
-	}
-	addWidget( ep );
+	ep->addWidget(datacolumn);
+	ep->addWidget(new WBreak());
+	ep->addWidget(save_button);
+	ep->addWidget(new WBreak());
+	ep->addWidget(help_panel);
+	addWidget(ep);
 }

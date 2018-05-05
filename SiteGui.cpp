@@ -79,10 +79,7 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		header->setStyleClass("header");
 		header->addWidget( new WText(tr("Header")) );
 		WPushButton *zip_button = new WPushButton(tr("download_zip"));
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( zip_button );
-		header->addWidget( buttonscontainer );
+		header->addWidget( zip_button );
 		
 		zip_button->setLink(WLink(zip_gen->url()));
 	}
@@ -100,7 +97,6 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		navigation->setStyleClass("navigation");
 		
 		topmenu = new WMenu( content, Vertical);
-		topmenu->setRenderAsList(true);
 		topmenu->setStyleClass("menu");
 		topmenu->setInternalPathEnabled();
 		topmenu->setInternalBasePath("/");
