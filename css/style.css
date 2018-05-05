@@ -1,0 +1,171 @@
+.wrap {
+	width: 1024px;
+	margin: 0px auto;
+}
+
+.header {
+	text-align: left;
+	border: 2px solid #596678;
+	height: 50px;
+}
+
+.footer {
+	text-align: center;
+	border: 2px solid #596678;
+	clear: both;
+}
+
+.navigation {
+	float: left;
+	width: 15%;
+	height: 180px;
+}
+
+.content {
+	float: right;
+	width: 84%;
+	margin-left: 1%;
+}
+
+ul.menu {
+    margin: 0px;
+    padding: 0px;
+    text-indent:5px;
+    list-style:none;
+
+    overflow: auto;
+    height: 98%;
+}
+
+ul.menu li {
+    padding-top: 8px;
+}
+
+ul.menu a {
+    letter-spacing:1px;
+    text-decoration:none;
+    padding-bottom:5px;
+}
+
+ul.menu .itemselected, ul.menu .itemselected a, ul.menu .itemselected a {
+    color: black;
+}
+
+ul.menu .item, ul.menu a.item, ul.menu .item a {
+    color: #7E7E7E;
+}
+
+ul.menu a:hover, ul.menu .item a:hover {
+    color: #A8B8D0;
+    text-decoration: none;
+}
+
+ul.submenu {
+    font-size: 90%;
+    margin-left: 15px;
+    padding-bottom: 0px;
+    width: auto;
+    border-right: 0px;
+    display: none;
+}
+
+.itemselected ul.submenu {
+    display: block;
+}
+
+ul.submenu li {
+    padding-top: 4px;
+}
+
+ul.submenu li a {
+    padding-bottom: 0px;
+}
+
+
+.setting .label {
+	float: left;
+	width: 12em;
+}
+.setting .settingvalue {
+	/*float: left;*/
+	width: 49em;
+}
+
+.setting .xmrig_user {
+	/*float: left;*/
+	width: 27em;
+}
+
+.setting .shortlabel {
+    float: left;
+    width: 9em;
+}
+
+.labelcomment {
+    float: left;
+    width: 9em;
+}
+
+.buttonscontainer{
+    /*float: right;*/
+    margin-top: 8px;
+    display: block;
+}
+.servicebuttonscontainer{
+    margin:  0px auto;
+}
+
+.iplineedit {
+	text-align: center;
+	width: 10em;
+}
+.xmrig_tty {
+	float: left;
+}
+.portlineedit {
+    text-align: center;
+    width: 5em;
+}
+
+.wizardbutton {
+    text-align: center;
+    width: 90%;
+    margin: 1% 5%;
+}
+
+.datacolumn {
+    /*float: left;*/
+   /* width: 70%;*/
+}
+
+.helpcolumn {
+    /*float: right;*/
+    /*width: 30%;*/
+}
+
+.helpcolumn h5 {
+    margin: 0px;
+}
+
+.pagetitle {
+    color: #FFFFFF;
+    background: #223F68 url(title-gradient.png) repeat-x scroll 0 -20px;
+    font: bold 12px Verdana;
+    padding: 3px 6px;
+    cursor: default;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.Wt-form .Wt-fields input{
+	border: 1px solid #223F68;
+}
+.Wt-form p {
+	border-bottom: 1px solid #223F68;
+}
+
+.versionlabel{
+	float: right;
+	margin-right: 2em;
+}
+
