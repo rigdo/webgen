@@ -30,9 +30,10 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 	OpenVpnPage *openvpn_page = new OpenVpnPage(sd,0);
 	WiFiPage *wfi_page = new WiFiPage(sd);
 	Xmrig *xmrig = new Xmrig(sd);
-	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
-	Ethminer *ethminer = new Ethminer(sd); 
+	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
+	Ethminer *ethminer_amd = new Ethminer(sd, "amd"); 
+	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia"); 
 	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
 		
 	WContainerWidget *header;
@@ -75,9 +76,10 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		topmenu->addItem(tr("wifi_client"), wfi_page);
 	//	topmenu->addItem(tr("openvpn"), content->openvpn_page);
 		topmenu->addItem(tr("xmrig"), xmrig);
-		topmenu->addItem(tr("xmrig-nvidia"), xmrig_nvidia);
 		topmenu->addItem(tr("xmrig-amd"), xmrig_amd);
-		topmenu->addItem(tr("ethminer"), ethminer);
+		topmenu->addItem(tr("xmrig-nvidia"), xmrig_nvidia);
+		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
+		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
 		topmenu->addItem(tr("zipgen"), zipgen);
 		navigation->addWidget( topmenu );
 	}

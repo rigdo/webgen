@@ -23,7 +23,7 @@ using namespace Wt;
 class Ethminer : public BasePage
 {
 public:
-	Ethminer(SettingsDir *sd );
+	Ethminer(SettingsDir *sd, std::string gpu_vendor);
 	virtual ~Ethminer(){}
 	
 private:
@@ -33,9 +33,12 @@ private:
 
 private:
 	SettingsDir *sd;
+	std::string gpu_vendor;
 	WCheckBox *autostart_checkbox;
 	WLineEdit *pool_lineedit;
 	WLineEdit *user_lineedit;
+	WLineEdit *worker_lineedit;
+	WComboBox *scheme_combobox;
 	WComboBox *console_combobox;
 };
 

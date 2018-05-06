@@ -162,13 +162,38 @@ Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 </message>
 
-<message id='ethminer'>Ethminer</message>
+<message id='ethminer-amd'>Ethminer-Amd</message>
+<message id='ethminer_amd_title'>Ethminer on AMD</message>
+<message id='ethminer-nvidia'>Ethminer-NVIDIA</message>
+<message id='ethminer_nvidia_title'>Ethminer on NVIDIA</message>
+<message id='ethminer_scheme'>Scheme</message>
 <message id='ethminer_pool'>Pool</message>
 <message id='ethminer_user'>User</message>
+<message id='ethminer_worker'>Worker</message>
 <message id='ethminer_bind_tty'>Bind to screen(tty):</message>
-<message id='ethminer_help'>
+<message id='ethminer_help_amd'>
 <div>
-ethminer - этот майнер считает хэш по алгоритму Dagger-Hashimoto (ethash) на видеокартах (NVIDIA или AMD).
+ethminer - этот майнер считает хэш по алгоритму Dagger-Hashimoto (ethash) на видеокартах AMD.
+</div>
+<div>
+Монеты для примера:  Ethereum(ETH), EthereumClassic(ETC).
+</div>
+<div>
+Autostart: запускать ли майнер при загрузке рига
+</div>
+<div>
+Bind to screen(tty): на каком экране показывать вывод манера (экраны переключаются с помощью ALT+F1,ALT+F2,...)
+</div>
+<div>
+Pool: адрес_пула:порт_пула
+</div>
+<div>
+User: пользователь на пуле
+</div>
+</message>
+<message id='ethminer_help_nvidia'>
+<div>
+ethminer - этот майнер считает хэш по алгоритму Dagger-Hashimoto (ethash) на видеокартах NVIDIA.
 </div>
 <div>
 Монеты для примера:  Ethereum(ETH), EthereumClassic(ETC).

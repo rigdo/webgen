@@ -161,11 +161,32 @@ Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-h
 </message>
 
 <message id='ethminer'>Ethminer</message>
+<message id='ethminer-amd'>Ethminer-Amd</message>
+<message id='ethminer_amd_title'>Ethminer on AMD</message>
+<message id='ethminer-nvidia'>Ethminer-NVIDIA</message>
+<message id='ethminer_nvidia_title'>Ethminer on NVIDIA</message>
+<message id='ethminer_scheme'>Scheme</message>
 <message id='ethminer_pool'>Pool</message>
 <message id='ethminer_user'>User</message>
+<message id='ethminer_worker'>Worker</message>
 <message id='ethminer_bind_tty'>Bind to screen(tty):</message>
-<message id='ethminer_help'>
-ethminer - miner for calc hash by Dagger-Hashimoto (ethash) algo on GPU (AMD and NVIDIA).
+<message id='ethminer_help_amd'>
+ethminer - miner for calc hash by Dagger-Hashimoto (ethash) algo on GPU AMD.
+<div>
+Autostart: run miner on startup
+</div>
+<div>
+Bind to screen(tty): screen(tty) for miner output (swithed by ALT+F1,ALT+F2,...)
+</div>
+<div>
+Pool: pool_addr:pool_port
+</div>
+<div>
+Coins on Dagger-Hashimoto: Ethereum(ETH), EthereumClassic(ETC) and others
+</div>
+</message>
+<message id='ethminer_help_nvidia'>
+ethminer - miner for calc hash by Dagger-Hashimoto (ethash) algo on GPU NVIDIA.
 <div>
 Autostart: run miner on startup
 </div>
