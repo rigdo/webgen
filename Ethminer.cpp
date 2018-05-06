@@ -106,7 +106,7 @@ void Ethminer::loadParams()
 {
 	Settings s = sd->byService("ethminer-"+ gpu_vendor +"0");
 	
-	pool_lineedit->setText( s.value("ETHMINER_POOL", "eth-eu.dwarfpool.com:80") );
+	pool_lineedit->setText( s.value("ETHMINER_POOL", "eu1.ethermine.org:4444") );
 	user_lineedit->setText( s.value("ETHMINER_WALLET", "0x00747e59ee64851ecb100d18f3d51878463c0f94") );
 	worker_lineedit->setText( s.value("ETHMINER_WORKER", "donate") );
 	
