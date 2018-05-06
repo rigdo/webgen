@@ -5,7 +5,6 @@
  *      Author: bond
  */
 #include "BasePage.h"
-#include <Wt/WPanel>
 #include <Wt/WBreak>
 #include <stdio.h>
 #include <sys/types.h>
@@ -69,7 +68,7 @@ BasePage::BasePage() :
 	datacolumn->setStyleClass("datacolumn");
 	
 	help_text = new WText();
-	WPanel *help_panel = new WPanel();
+	help_panel = new WPanel();
 	help_panel->setTitle(tr("Help"));
 	help_panel->setCentralWidget(help_text);
 

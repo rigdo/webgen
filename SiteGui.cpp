@@ -1,58 +1,23 @@
 #include "SiteGui.h"
-#include <Wt/WSubMenuItem>
 #include <Wt/WString>
-#include <Wt/Http/Response>
 #include <Wt/WMenu>
 #include <Wt/WStackedWidget>
+#include <Wt/WApplication>
+
+#include "Settings.h"
+#include "EthernetPage.h"
+#include "OpenVpnPage.h"
+#include "WiFiPage.h"
+#include "Xmrig.h"
+#include "XmrigNvidia.h"
+#include "XmrigAmd.h"
+#include "Ethminer.h"
+#include "ZipGenPage.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
-
-//==============================================================================
-//===================== ZipGen ================================================= 
-//==============================================================================
-ZipGen::ZipGen(std::string settings_dir)
-{
-	this->settings_dir = settings_dir;
-	suggestFileName("rigdo_settings.zip");
-}
-
-ZipGen::~ZipGen()
-{
-	beingDeleted(); // see "Concurrency issues" below.
-}
-
-void ZipGen::handleRequest(const Wt::Http::Request& request,
-		Wt::Http::Response& response)
-{
-	response.setMimeType("application/zip");
-		
-	char cmd[ 1024 ];
-	snprintf(cmd, 1023, "cd %s/.. && zip -r - settings", settings_dir.c_str());
-	printf("run : '%s'\n", cmd);
-
-	FILE *fp = popen(cmd, "r");
-	if (!fp) {
-		printf("can't do popen for cmd: \"%s\"\n", cmd);
-		response.setStatus(500);
-		return;
-	}
-	int maxsize = 100 * 1024;
-	char *buf = new char[maxsize];
-	while (!feof(fp)) {
-		int ret = fread(buf, 1, maxsize, fp);
-		if (ret <= 0)
-			break;
-		response.out().write(buf, ret);
-	}
-	delete[] buf;
-
-	int retcode = pclose(fp);
-	if (retcode != 0)
-		response.setStatus(500);
-}
 
 //==============================================================================
 //===================== SiteGui ================================================ 
@@ -68,18 +33,25 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
 	Ethminer *ethminer = new Ethminer(sd); 
-	
-	ZipGen *zip_gen = new ZipGen(settings_dir);
-	
+	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
+		
 	WContainerWidget *header;
 	{
 		header = new WContainerWidget();
 		header->setStyleClass("header");
 		header->addWidget( new WText(tr("Header")) );
-		WPushButton *zip_button = new WPushButton(tr("download_zip"));
-		header->addWidget( zip_button );
 		
-		zip_button->setLink(WLink(zip_gen->url()));
+		WPushButton *lang_en_button = new WPushButton("en");
+		lang_en_button->clicked().connect( this, &SiteGui::setLangEn );
+		WPushButton *lang_ru_button = new WPushButton("ru");
+		lang_ru_button->clicked().connect( this, &SiteGui::setLangRu );
+		
+		WContainerWidget *lang_box = new WContainerWidget();
+		
+		lang_box->setStyleClass("langbox");
+		lang_box->addWidget( lang_en_button );
+		lang_box->addWidget( lang_ru_button );
+		header->addWidget( lang_box );
 	}
 	
 	WStackedWidget *content = new WStackedWidget();
@@ -106,6 +78,7 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		topmenu->addItem(tr("xmrig-nvidia"), xmrig_nvidia);
 		topmenu->addItem(tr("xmrig-amd"), xmrig_amd);
 		topmenu->addItem(tr("ethminer"), ethminer);
+		topmenu->addItem(tr("zipgen"), zipgen);
 		navigation->addWidget( topmenu );
 	}
 	
@@ -113,4 +86,16 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 	addWidget( header );
 	addWidget( navigation );
 	addWidget( content );
+}
+
+void SiteGui::setLangEn()
+{
+	WApplication* app = WApplication::instance();
+	app->setLocale( "en" );
+}
+
+void SiteGui::setLangRu()
+{
+	WApplication* app = WApplication::instance();
+	app->setLocale( "ru" );
 }

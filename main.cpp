@@ -21,7 +21,7 @@ WApplication *createApplication(const WEnvironment& env)
 {
 	WApplication* app = new WApplication(env);
 	app->setCssTheme("polished");
-	app->messageResourceBundle().use(app->docRoot() + "/webgui_en");
+	app->messageResourceBundle().use(app->docRoot() + "/webgui");
 	
 	std::string sdir = generateSettingsDir();
 

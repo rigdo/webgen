@@ -1,12 +1,10 @@
 /*
  * WiFiPage.cpp
  *
- *  Created on: 04.04.2012
  *      Author: bond
  */
 
 #include "WiFiPage.h"
-#include <Wt/WRegExpValidator>
 
 //==============================================================================
 //===================== WiFiPage ===========================================
@@ -29,7 +27,7 @@ WiFiPage::WiFiPage(SettingsDir *sd) : BasePage()
 		{
 		WContainerWidget *c = new WContainerWidget();
 		c->setStyleClass("setting");
-		WText *label = new WText(tr("wifi_autostart"));
+		WText *label = new WText(tr("autostart"));
 		label->setStyleClass("label");
 		c->addWidget( label );
 		c->addWidget( autostart_checkbox );

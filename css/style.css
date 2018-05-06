@@ -9,6 +9,10 @@
 	height: 50px;
 }
 
+.langbox {
+	float: right;
+}
+
 .footer {
 	text-align: center;
 	border: 2px solid #596678;
@@ -18,7 +22,7 @@
 .navigation {
 	float: left;
 	width: 15%;
-	height: 180px;
+	height: 2100px;
 }
 
 .content {

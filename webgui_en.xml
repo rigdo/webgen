@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <messages>
 <message id='Header'>rigdo settings generator</message>
-<message id='download_zip'>Download ZIP</message>
 
 <message id='Save'>Save</message>
 <message id='Help'>Help:</message>
 
 <message id='ethernet'>Ethernet</message>
 <message id='ethernet_mode'>Config via</message>
+<message id='ethernet_DHCP_help'>
+The wired network will be configured using DHCP
+</message>
 <message id='static'>static</message>
-<message id='ethernet_DHCP_help'></message>
 <message id='DHCP'>DHCP</message>
 <message id='ethernet_ipaddr'>IP Address</message>
 <message id='ethernet_netmask'>Netmask</message>
 <message id='gateway'>Gateway</message>
 <message id='DNS'>DNS</message>
-<message id='ethernet_static_help'></message>
+<message id='ethernet_static_help'>
+<div>
+Manually configuring a wired network
+</div>
+</message>
+
+<message id='autostart'>Autostart</message>
 
 <message id='wifi_client'>Wi-Fi</message>
 <message id='SSID'>SSID</message>
 <message id='PSK'>PSK</message>
-<message id='wifi_client_help'></message>
+<message id='wifi_client_help'>
+<div>
+Configuring a Wireless Network
+</div>
+<div>
+Autostart: run wi-fi
+</div>
+<div>
+SSID: network name
+</div>
+<div>
+PSK: network password
+</div>
+</message>
 
 <message id='xmrig'>Xmrig</message>
 <message id='xmrig_pool'>Pool:</message>
@@ -31,13 +51,36 @@
 <message id='xmrig_bind_tty'>Bind to screen(tty):</message>
 <message id='xmrig_help'>
 <div>
-CryptoNight: monero(XMR), sumocoin(SUMO), aeon(AEON), ...
+xmrig - miner for calc hash by CryptoNight algo on CPU.
 </div>
-Use ALT+F1,ALT+F2,... on rig for switch console(screen,tty). 
-For monero: cryptonight, for aeon: cryptonight-lite, for sumocoin: cryptonight-heavy. 
-Mining on CPU.
+<div>
+Since April 2018, various variations of this algorithm have appeared: cryptonight, cryptonight-lite, cryptonight-heavy.
+</div>
+<div>
+Autostart: run miner on startup
+</div>
+<div>
+Bind to screen(tty): screen(tty) for miner output (swithed by ALT+F1,ALT+F2,...)
+</div>
+<div>
+Pool: pool_addr:pool_port
+</div>
+<div>
+User: pool user
+</div>
+<div>
+Pass: pool password
+</div>
+<div>
+Algo: CryptoNight variant
+</div>
+<div>
+Nicehash mode: set on for mine on nicehash.com
+</div>
+<div>
+Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite, and others
+</div>
 </message>
-
 
 <message id='xmrig-nvidia'>Xmrig-Nvidia</message>
 <message id='xmrig-nvidia_pool'>Pool:</message>
@@ -45,7 +88,38 @@ Mining on CPU.
 <message id='xmrig-nvidia_pass'>Pass:</message>
 <message id='xmrig-nvidia_cuda-launch'>cuda-launch:</message>
 <message id='xmrig-nvidia_bind_tty'>Bind to screen(tty):</message>
-<message id='xmrig-nvidia_help'>CryptoNight: monero(XMR), aeon(AEON), ... Use ALT+F1,ALT+F2,... on rig for switch console(screen,tty). Mining on NVIDIA GPU</message>
+<message id='xmrig-nvidia_help'>
+<div>
+xmrig-nvidia - miner for calc hash by CryptoNight algo on NVIDIA GPU.
+</div>
+<div>
+Since April 2018, various variations of this algorithm have appeared: cryptonight, cryptonight-lite, cryptonight-heavy.
+</div>
+<div>
+Autostart: run miner on startup
+</div>
+<div>
+Bind to screen(tty): screen(tty) for miner output (swithed by ALT+F1,ALT+F2,...)
+</div>
+<div>
+Pool: pool_addr:pool_port
+</div>
+<div>
+User: pool user
+</div>
+<div>
+Pass: pool password
+</div>
+<div>
+Algo: CryptoNight variant
+</div>
+<div>
+Nicehash mode: set on for mine on nicehash.com
+</div>
+<div>
+Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite, and others
+</div>
+</message>
 
 <message id='xmrig-amd'>Xmrig-Amd</message>
 <message id='xmrig-amd_pool'>Pool:</message>
@@ -53,23 +127,64 @@ Mining on CPU.
 <message id='xmrig-amd_pass'>Pass:</message>
 <message id='xmrig-amd_opencl-launch'>opencl-launch:</message>
 <message id='xmrig-amd_bind_tty'>Bind to screen(tty):</message>
-<message id='xmrig-amd_help'>CryptoNight: monero(XMR), aeon(AEON), ... Use ALT+F1,ALT+F2,... on rig for switch console(screen,tty). Mining on AMD GPU</message>
+<message id='xmrig-amd_help'>
+<div>
+xmrig-amd - miner for calc hash by CryptoNight algo on AMD GPU.
+</div>
+<div>
+Since April 2018, various variations of this algorithm have appeared: cryptonight, cryptonight-lite, cryptonight-heavy.
+</div>
+<div>
+Autostart: run miner on startup
+</div>
+<div>
+Bind to screen(tty): screen(tty) for miner output (swithed by ALT+F1,ALT+F2,...)
+</div>
+<div>
+Pool: pool_addr:pool_port
+</div>
+<div>
+User: pool user
+</div>
+<div>
+Pass: pool password
+</div>
+<div>
+Algo: CryptoNight variant
+</div>
+<div>
+Nicehash mode: set on for mine on nicehash.com
+</div>
+<div>
+Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite, and others
+</div>
+</message>
 
 <message id='ethminer'>Ethminer</message>
 <message id='ethminer_pool'>Pool</message>
 <message id='ethminer_user'>User</message>
 <message id='ethminer_bind_tty'>Bind to screen(tty):</message>
-<message id='ethminer_help'>Ethash: Ethereum(ETH), EthereumClassic(ETC), ... Use ALT+F1,ALT+F2,... on rig for switch console(screen,tty). Minig on AMD GPU.</message>
+<message id='ethminer_help'>
+ethminer - miner for calc hash by Dagger-Hashimoto (ethash) algo on GPU (AMD and NVIDIA).
+<div>
+Autostart: run miner on startup
+</div>
+<div>
+Bind to screen(tty): screen(tty) for miner output (swithed by ALT+F1,ALT+F2,...)
+</div>
+<div>
+Pool: pool_addr:pool_port
+</div>
+<div>
+Coins on Dagger-Hashimoto: Ethereum(ETH), EthereumClassic(ETC) and others
+</div>
+</message>
 
-<message id='console'>Console</message>
-<message id='owner_none'>none</message>
-<message id='owner_getty'>getty</message>
-<message id='owner_xmrig'>xmrig</message>
-<message id='owner_ethminer'>ethminer</message>
-<message id='console_help'>Use ALT+F1,ALT+F2,... on rig for switch console</message>
-
-<message id='wifi_autostart'>Enable</message>
-<message id='autostart'>Autostart</message>
+<message id='zipgen'>Zipgen</message>
+<message id='zipgen_title'>Zipgen</message>
+<message id='Result'>Result</message>
+<message id='zipgen_help'></message>
+<message id='download_zip'>Download ZIP</message>
 
 </messages>
 

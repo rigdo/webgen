@@ -12,6 +12,8 @@
 #include <Wt/WCheckBox>
 #include <Wt/WPushButton>
 #include <Wt/WGroupBox>
+#include <Wt/WPanel>
+
 using namespace Wt;
 
 //==============================================================================
@@ -39,6 +41,7 @@ public:
 protected:
 	WText *pagetitle_text;
 	WText *help_text;
+	WPanel *help_panel;
 	WContainerWidget *datacolumn;
 	WPushButton *save_button;
 };

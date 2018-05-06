@@ -1,7 +1,6 @@
 /*
  * WiFiPage.h
  *
- *  Created on: 04.04.2012
  *      Author: bond
  */
 
@@ -28,7 +27,6 @@ public:
 private:
 	void loadParams();
 	void saveParams();
-	void modeChanged();
 
 private:
 	SettingsDir *sd;
