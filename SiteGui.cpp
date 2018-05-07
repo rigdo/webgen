@@ -74,7 +74,7 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		
 		topmenu->addItem(tr("ethernet"), ethernet_page);
 		topmenu->addItem(tr("wifi_client"), wfi_page);
-	//	topmenu->addItem(tr("openvpn"), content->openvpn_page);
+//		topmenu->addItem(tr("openvpn"), openvpn_page);
 		topmenu->addItem(tr("xmrig"), xmrig);
 		topmenu->addItem(tr("xmrig-amd"), xmrig_amd);
 		topmenu->addItem(tr("xmrig-nvidia"), xmrig_nvidia);
