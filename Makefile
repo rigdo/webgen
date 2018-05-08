@@ -1,4 +1,4 @@
-TARGET=webgui
+TARGET=webgui 
 
 #arch=nios2
 #arch=x86_stretch
@@ -82,6 +82,27 @@ Ethminer.o: Ethminer.cpp Ethminer.h
 
 ZipGenPage.o: ZipGenPage.cpp ZipGenPage.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
+
+##########################################
+
+OBJS2=main2.o Settings.o LocalGui.o BasePage.o \
+	EthernetPage.o OpenVpnPage.o UploadedFileWidget.o \
+	WiFiPage.o Xmrig.o Ethminer.o XmrigNvidia.o XmrigAmd.o \
+	SummaryPage.o
+
+localgui: $(OBJS2)
+	$(CXX) -o $@ $(OBJS2) $(LDFLAGS)
+	$(STRIP) $(TARGET)
+
+main2.o: main2.cpp SiteGui.h Settings.h
+	$(CXX) $(CPPFLAGS) -c $< -o $@
+
+LocalGui.o: LocalGui.cpp LocalGui.h Settings.h EthernetPage.h
+	$(CXX) $(CPPFLAGS) -c $< -o $@
+
+SummaryPage.o: SummaryPage.cpp SummaryPage.h Settings.h EthernetPage.h
+	$(CXX) $(CPPFLAGS) -c $< -o $@
+
 
 clean:
 	rm -rf $(TARGET) $(OBJS)

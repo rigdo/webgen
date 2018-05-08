@@ -218,5 +218,44 @@ User: пользователь на пуле
 <message id='zipgen_help'></message>
 <message id='download_zip'>Скачать ZIP</message>
 
+<message id='rigdo control pannel'>Панель управления rigdo</message>
+<message id='control panel header'>
+Используйте Alt+F2,Alt+F2 для переключения между экранами майнеров, Alt+F1 для этого экрана
+</message>
+<message id='summary_1'>
+<div>
+Время запуска: {1}
+</div>
+<div>
+Работает: {2}ч. {3}мин.
+</div>
+<div>
+Текущее время: {4}
+</div>
+<div>
+Имя рига: {5}
+</div>
+</message>
+
+<message id='summary_wifi'>
+<div>
+Состояние Wi-Fi: {1}
+</div>
+<div>
+Wi-Fi ip: {2}
+</div>
+</message>
+<message id='wifi_state_search'>Поиск сети</message>
+
+<message id='summary_eth'>
+<div>
+Состояние Ethernet: {1}
+</div>
+<div>
+Ethernet ip: {2}
+</div>
+</message>
+<message id='eth_state_link_up'>Провод подсоединён</message>
+
 </messages>
 
