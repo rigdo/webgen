@@ -8,6 +8,8 @@ export WEBGUI_SETTNGSDIR="settings"
 
 export PATH=${PATH}:bin
 
+export LD_LIBRARY_PATH=/home/bond/projects/ad_rigdo/buildroot-2017.11/output/target/usr/lib
+
 #valgrind --trace-children=yes ./webgui --docroot . --http-address 0.0.0.0 --http-port 8081
 #exec valgrind  ./webgui --docroot . --http-address 0.0.0.0 --http-port 8081
 #strace -f ./webgui --docroot . --http-address 0.0.0.0 --http-port 8081

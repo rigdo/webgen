@@ -18,7 +18,7 @@ XmrigAmd::XmrigAmd(SettingsDir *sd) : BasePage()
 	pool_lineedit->setTextSize(49);
 	pool_lineedit->setStyleClass("settingvalue");
 	user_lineedit = new WLineEdit();
-	user_lineedit->setTextSize(49);
+	user_lineedit->setTextSize(100);
 	user_lineedit->setStyleClass("settingvalue");
 	pass_lineedit = new WLineEdit();
 	pass_lineedit->setTextSize(49);

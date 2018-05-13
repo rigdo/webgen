@@ -1,8 +1,8 @@
 TARGET=webgui 
 
-#arch=nios2
+arch=rigdo
 #arch=x86_stretch
-arch=x86_stretch_local
+#arch=x86_stretch_local
 
 ifeq ($(arch),x86_stretch)
 CXX=g++
@@ -24,9 +24,9 @@ LDFLAGS=-L$(WTDESTDIR)/usr/local/lib -pthread -lwthttp -lwt -Wl,-Bstatic  \
         -lboost_signals -lboost_date_time -lboost_program_options -lboost_random\
         -Wl,-Bdynamic -ldl -lz -lcrypt
 else
-BR=/home/bond/projects/a4_mp7a/rootfs/2017.02/buildroot-2017.02
-CXX=$(BR)/output/host/usr/bin/nios2-linux-gnu-g++ --sysroot $(BR)/output/staging 
-STRIP=$(BR)/output/host/usr/bin/nios2-linux-gnu-strip
+BR=/home/bond/projects/ad_rigdo/buildroot-2017.11
+CXX=$(BR)/output/host/usr/bin/x86_64-linux-g++ --sysroot $(BR)/output/staging 
+STRIP=$(BR)/output/host/usr/bin/x86_64-linux-strip
 #STRIP=/bin/true
 LDFLAGS=-pthread -lwthttp -lwt \
 	-lboost_thread -lboost_system -lboost_filesystem -lboost_regex \
@@ -42,7 +42,7 @@ OBJS=main.o Settings.o SiteGui.o BasePage.o \
 
 $(TARGET): $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(LDFLAGS)
-	$(STRIP) $(TARGET)
+	$(STRIP) $@
 
 main.o: main.cpp SiteGui.h Settings.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
@@ -92,7 +92,7 @@ OBJS2=main2.o Settings.o LocalGui.o BasePage.o \
 
 localgui: $(OBJS2)
 	$(CXX) -o $@ $(OBJS2) $(LDFLAGS)
-	$(STRIP) $(TARGET)
+	#$(STRIP) $@
 
 main2.o: main2.cpp SiteGui.h Settings.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
@@ -105,4 +105,4 @@ SummaryPage.o: SummaryPage.cpp SummaryPage.h Settings.h EthernetPage.h
 
 
 clean:
-	rm -rf $(TARGET) $(OBJS)
+	rm -rf $(TARGET) $(OBJS) localgui $(OBJS2)

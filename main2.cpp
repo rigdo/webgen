@@ -14,6 +14,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <Wt/WString>
+using namespace Wt;                                                             
+
 
 WApplication *createApplication(const WEnvironment& env)
 {
@@ -27,6 +29,7 @@ WApplication *createApplication(const WEnvironment& env)
 	app->root()->addWidget( new LocalGui(sdir) );
 	app->setTitle("rigdo control pannel");
 	app->useStyleSheet("css/style.css");
+//	app->addMetaHeader(MetaHttpHeader,"refresh", "1");
 	return app;
 }
 

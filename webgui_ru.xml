@@ -222,18 +222,17 @@ User: пользователь на пуле
 <message id='control panel header'>
 Используйте Alt+F2,Alt+F2 для переключения между экранами майнеров, Alt+F1 для этого экрана
 </message>
+
+<message id='summary_title'></message>
 <message id='summary_1'>
 <div>
-Время запуска: {1}
+Имя рига: {6}
 </div>
 <div>
-Работает: {2}ч. {3}мин.
+Работает: {2}д. {3}ч. {4}мин.
 </div>
 <div>
-Текущее время: {4}
-</div>
-<div>
-Имя рига: {5}
+Текущее время: {5}
 </div>
 </message>
 
@@ -245,7 +244,9 @@ User: пользователь на пуле
 Wi-Fi ip: {2}
 </div>
 </message>
-<message id='wifi_state_search'>Поиск сети</message>
+<message id='NODEV'>Нет устройства</message>
+<message id='SCANNING'>Поиск сети</message>
+<message id='COMPLETED'>Соединено</message>
 
 <message id='summary_eth'>
 <div>
@@ -256,6 +257,6 @@ Ethernet ip: {2}
 </div>
 </message>
 <message id='eth_state_link_up'>Провод подсоединён</message>
-
+<message id='eth_state_link_down'>Провод не подсоединён!</message>
 </messages>
 

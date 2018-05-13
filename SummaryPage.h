@@ -10,10 +10,7 @@
 
 #include "BasePage.h"
 #include "Settings.h"
-#include <Wt/WLineEdit>
-#include <Wt/WPushButton>
-#include <Wt/WComboBox>
-#include <Wt/WCheckBox>
+#include <Wt/WText>
 
 using namespace Wt;
 
@@ -25,8 +22,12 @@ public:
 	virtual ~SummaryPage(){}
 
 private:
+	void updateSummary();
+private:
 	SettingsDir *sd;
-
+	WText *text_w;
+	WText *wifi_state_w;
+	WText *eth_state_w;
 };
 
 #endif /* SUMMARYPAGE_H_ */
