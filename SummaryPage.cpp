@@ -68,7 +68,7 @@ std::string nowDateTime()
 	time(&rawtime);
 	struct tm *info = localtime(&rawtime);
 	char buf[128];
-	strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M", info);
+	strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", info);
 	return std::string(buf);
 }
 

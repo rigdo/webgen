@@ -13,6 +13,7 @@
 #include "XmrigAmd.h"
 #include "Ethminer.h"
 #include "SummaryPage.h"
+#include "NvidiaPage.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -27,6 +28,7 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 	SettingsDir *sd = new SettingsDir(settings_dir);
 	
 	SummaryPage *summarry_page = new SummaryPage(sd);
+	NvidiaPage *nvidia_page = new NvidiaPage(sd);
 
 	EthernetPage *ethernet_page = new EthernetPage(sd);
 	OpenVpnPage *openvpn_page = new OpenVpnPage(sd,0);
@@ -76,6 +78,7 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 		
 
 		topmenu->addItem(tr("summary"), summarry_page);
+		topmenu->addItem(tr("nvidia_oc"), nvidia_page);
 		topmenu->addItem(tr("ethernet"), ethernet_page);
 		topmenu->addItem(tr("wifi_client"), wfi_page);
 //		topmenu->addItem(tr("openvpn"), openvpn_page);

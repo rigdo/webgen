@@ -1,8 +1,8 @@
 TARGET=webgui 
 
-arch=rigdo
+#arch=rigdo
 #arch=x86_stretch
-#arch=x86_stretch_local
+arch=x86_stretch_local
 
 ifeq ($(arch),x86_stretch)
 CXX=g++
@@ -88,10 +88,12 @@ ZipGenPage.o: ZipGenPage.cpp ZipGenPage.h
 OBJS2=main2.o Settings.o LocalGui.o BasePage.o \
 	EthernetPage.o OpenVpnPage.o UploadedFileWidget.o \
 	WiFiPage.o Xmrig.o Ethminer.o XmrigNvidia.o XmrigAmd.o \
-	SummaryPage.o
+	SummaryPage.o NvidiaPage.o
 
+#LDFLAGS2=$(LDFLAGS) -lnvidia-ml -L .
+LDFLAGS2=$(LDFLAGS)
 localgui: $(OBJS2)
-	$(CXX) -o $@ $(OBJS2) $(LDFLAGS)
+	$(CXX) -o $@ $(OBJS2) $(LDFLAGS2)
 	#$(STRIP) $@
 
 main2.o: main2.cpp SiteGui.h Settings.h
@@ -101,6 +103,9 @@ LocalGui.o: LocalGui.cpp LocalGui.h Settings.h EthernetPage.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 SummaryPage.o: SummaryPage.cpp SummaryPage.h Settings.h EthernetPage.h
+	$(CXX) $(CPPFLAGS) -c $< -o $@
+
+NvidiaPage.o: NvidiaPage.cpp NvidiaPage.h Settings.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 
