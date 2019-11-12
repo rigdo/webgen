@@ -42,6 +42,3 @@ target_link_libraries( ${PROJECT_NAME}
 	wt
 )
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX})
-
-
