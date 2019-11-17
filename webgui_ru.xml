@@ -56,9 +56,6 @@ PSK: пароль
 xmrig - этот майнер считает хэш по алгоритму CryptoNight на процессоре.
 </div>
 <div>
-С апреля 2018 появились разные вариации этого алгоритма: cryptonight, cryptonight-lite, cryptonight-heavy. 
-</div>
-<div>
 Autostart: запускать ли майнер при загрузке рига
 </div>
 <div>
@@ -80,7 +77,8 @@ Algo: вариация алгоритма CryptoNight
 Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 <div>
-Монеты для примера: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite.
+Монеты для примера: monero(XMR),sumokoin(SUMO),aeon(AEON).
+Прочитать про алгоритмы: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
 
@@ -95,9 +93,6 @@ Nicehash mode: если вы копаете на nicehash.com - ставте on
 xmrig-nvidia - этот майнер считает хэш по алгоритму CryptoNight на видеокартах NVIDIA (используя CUDA).
 </div>
 <div>
-С апреля 2018 появились разные вариации этого алгоритма: cryptonight, cryptonight-lite, cryptonight-heavy. 
-</div>
-<div>
 Autostart: запускать ли майнер при загрузке рига
 </div>
 <div>
@@ -119,7 +114,8 @@ Algo: вариация алгоритма CryptoNight
 Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 <div>
-Монеты для примера: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite.
+Монеты для примера: monero(XMR),sumokoin(SUMO),aeon(AEON).                      
+Прочитать про алгоритмы: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
 
@@ -134,9 +130,6 @@ Nicehash mode: если вы копаете на nicehash.com - ставте on
 xmrig-amd - этот майнер считает хэш по алгоритму CryptoNight на видеокартах AMD (используя OpenCL).
 </div>
 <div>
-С апреля 2018 появились разные вариации этого алгоритма: cryptonight, cryptonight-lite, cryptonight-heavy. 
-</div>
-<div>
 Autostart: запускать ли майнер при загрузке рига
 </div>
 <div>
@@ -158,7 +151,8 @@ Algo: вариация алгоритма CryptoNight
 Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 <div>
-Монеты для примера: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite.
+Монеты для примера: monero(XMR),sumokoin(SUMO),aeon(AEON).                      
+Прочитать про алгоритмы: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
 
@@ -224,6 +218,7 @@ User: пользователь на пуле
 </message>
 
 <message id='summary_title'></message>
+<message id='summary'>Общее</message>
 <message id='summary_1'>
 <div>
 Имя рига: {6}
