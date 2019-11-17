@@ -28,6 +28,8 @@ add_executable(${PROJECT_NAME}
 	XmrigNvidia.cpp
 	XmrigAmd.h
 	XmrigAmd.cpp
+	xmrig_algos.h
+	xmrig_algos.cpp
 )
 
 target_include_directories( ${PROJECT_NAME}

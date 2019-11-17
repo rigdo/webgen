@@ -6,10 +6,12 @@
  */
 
 #include "Xmrig.h"
+#include "xmrig_algos.h"
 
 //==============================================================================
 //===================== Xmrig ===========================================
 //==============================================================================
+
 Xmrig::Xmrig(SettingsDir *sd) : BasePage()
 {
 	this->sd = sd;
@@ -28,9 +30,9 @@ Xmrig::Xmrig(SettingsDir *sd) : BasePage()
 	pass_lineedit->setStyleClass("settingvalue");
 	
 	algo_combobox = new WComboBox();
-	algo_combobox->addItem( "cryptonight" );
-	algo_combobox->addItem( "cryptonight-heavy" );
-	algo_combobox->addItem( "cryptonight-lite" );
+	for (int i=0; i<25; i++){
+		algo_combobox->addItem( xmrig_algos[i] );
+	}
 	algo_combobox->setStyleClass("xmrig_tty");
 
 	nicehash_combobox = new WComboBox();
