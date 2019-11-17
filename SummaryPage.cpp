@@ -156,6 +156,7 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 			continue;
 		res[std::string(name)] = std::string(value);
 	} while (1);
+	close(sockfd);
 	return res;
 }
 
