@@ -23,8 +23,8 @@ WApplication *createApplication(const WEnvironment& env)
 	app->setCssTheme("polished");
 	app->messageResourceBundle().use(app->docRoot() + "/webgui");
 
-//	std::string sdir = "/mnt/store/settings";
-	std::string sdir = "settings";
+	std::string sdir = "";
+	//std::string sdir = "settings";
 
 	app->root()->addWidget( new LocalGui(sdir) );
 	app->setTitle("rigdo control pannel");
