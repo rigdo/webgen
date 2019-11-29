@@ -25,6 +25,8 @@ OpenVpnPage::OpenVpnPage(SettingsDir *sd, int idx):
 	this->idx = idx;
 	pagetitle_text->setText(tr("OpenVPN{1}").arg(idx + 1));
 
+	autostart_checkbox = new WCheckBox();
+
 	WString servicename = WString("openvpn{1}").arg(idx);
 	servicecontrol = new ServiceControlWidget(servicename.toUTF8());
 
@@ -133,6 +135,15 @@ OpenVpnPage::OpenVpnPage(SettingsDir *sd, int idx):
 
 	{
 		datacolumn->addWidget(servicecontrol);
+		{
+			WContainerWidget *c = new WContainerWidget();
+			c->setStyleClass("setting");
+			WText *label = new WText(tr("Autostart"));
+			label->setStyleClass("shortlabel");
+			c->addWidget(label);
+			c->addWidget(autostart_checkbox);
+			datacolumn->addWidget(c);
+		}
 		{
 			configmode_conteiner = new WContainerWidget();
 			configmode_conteiner->setStyleClass("setting");
@@ -312,9 +323,9 @@ OpenVpnPage::OpenVpnPage(SettingsDir *sd, int idx):
 		files_container->addWidget(ftable);
 		datacolumn->addWidget(files_container);
 	}
-//	servicecontrol->autostart_checkbox->checked().connect( this,
+//	autostart_checkbox->checked().connect( this,
 //			&OpenVpnPage::enableChanged );
-//	servicecontrol->autostart_checkbox->unChecked().connect( this,
+//	autostart_checkbox->unChecked().connect( this,
 //			&OpenVpnPage::enableChanged );
 	save_button->clicked().connect(this, &OpenVpnPage::saveParams);
 	configmode_combobox->activated().connect(this,
@@ -483,14 +494,14 @@ void OpenVpnPage::loadParams()
 //	std::string sk = Settings::loadFile( fname.toUTF8().c_str(), 4096 );
 //	statickey_textarea->setText( WString::fromUTF8(sk) );
 
-	servicecontrol->autostart_checkbox->setChecked(s.valueInt("AUTOSTART", 0));
+	autostart_checkbox->setChecked(s.valueInt("AUTOSTART", 0));
 	enableChanged();
 }
 
 void OpenVpnPage::saveParams()
 {
 	Settings s = sd->byService("openvpn", idx);
-	s.saveInt("AUTOSTART", servicecontrol->autostart_checkbox->isChecked());
+	s.saveInt("AUTOSTART", autostart_checkbox->isChecked());
 	s.saveInt("OPENVPN_CONFIGMODE", configmode_combobox->currentIndex());
 
 	s.save("OPENVPN_PROTOCOL", proto_combobox->currentText());

@@ -93,6 +93,8 @@ private:
 	WContainerWidget *files_container;
 	UploadedFileWidget *config_fileupload;
 	UploadedFilesTable *ftable;
+
+	WCheckBox *autostart_checkbox;
 };
 
 #endif /* OPENVPN_H_ */

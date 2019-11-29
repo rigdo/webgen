@@ -36,6 +36,8 @@ add_executable(${PROJECT_NAME}
         PasswordPage.cpp
         RebootPage.h
         RebootPage.cpp
+        ServiceControlWidget.h
+        ServiceControlWidget.cpp
         )
 
 target_include_directories(${PROJECT_NAME}

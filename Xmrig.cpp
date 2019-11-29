@@ -12,8 +12,8 @@
 //===================== Xmrig ===========================================
 //==============================================================================
 
-Xmrig::Xmrig(SettingsDir *sd):
-		BasePage()
+Xmrig::Xmrig(SettingsDir *sd, std::string servicename):
+		BaseServicePage(servicename)
 {
 	this->sd = sd;
 	pagetitle_text->setText(tr("xmrig"));
@@ -116,7 +116,7 @@ Xmrig::Xmrig(SettingsDir *sd):
 
 void Xmrig::loadParams()
 {
-	Settings s = sd->byService("xmrig0");
+	Settings s = sd->byService(servicename);
 
 	pool_lineedit->setText(s.value("XMRIG_POOL", "xmr-eu.dwarfpool.com:8080"));
 	user_lineedit->setText(s.value("XMRIG_USER",
@@ -149,7 +149,7 @@ void Xmrig::loadParams()
 
 void Xmrig::saveParams()
 {
-	Settings s = sd->byService("xmrig0");
+	Settings s = sd->byService(servicename);
 	s.save("XMRIG_POOL", pool_lineedit->text());
 	s.save("XMRIG_USER", user_lineedit->text());
 	s.save("XMRIG_PASS", pass_lineedit->text());

@@ -20,10 +20,10 @@ using namespace Wt;
 //==============================================================================
 //===================== Xmrig ===========================================
 //==============================================================================
-class Xmrig: public BasePage
+class Xmrig: public BaseServicePage
 {
 public:
-	Xmrig(SettingsDir *sd);
+	Xmrig(SettingsDir *sd, std::string servicename);
 
 	virtual ~Xmrig()
 	{}

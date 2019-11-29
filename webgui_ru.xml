@@ -260,12 +260,16 @@ Ethernet ip: {2}
 <message id='Root password'>Изменение пароля</message>
 <message id='New root password'>Новый пароль</message>
 <message id='Reboot'>Перезагрузка</message>
-<message id='password_page_help'>
-Пароль для входа по ssh
-</message>
-    <message id='reboot_page_help'>
-        Перезагрузить компьютер
-    </message>
-
+<message id='password_page_help'>Пароль для входа по ssh</message>
+<message id='reboot_page_help'>Перезагрузить компьютер</message>
+<message id='Service Contol'>Управление сервисом</message>
+<message id='Start'>Старт</message>
+<message id='Stop'>Стоп</message>
+<message id='Restart'>Перезапуск</message>
+<message id='disabled'>Отключён</message>
+<message id='run'>Работает</message>
+<message id='down'>Остановлен</message>
+<message id='State'>Состояние</message>
+<message id='Control'>Управление</message>
 </messages>
 

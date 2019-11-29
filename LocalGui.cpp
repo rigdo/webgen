@@ -43,7 +43,7 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 	RebootPage *reboot_page = new RebootPage();
 
 
-	Xmrig *xmrig = new Xmrig(sd);
+	Xmrig *xmrig = new Xmrig(sd,"xmrig0");
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
 	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
 	Ethminer *ethminer_amd = new Ethminer(sd, "amd");
@@ -72,8 +72,6 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 		header->setStyleClass("header");
 		WApplication *app = WApplication::instance();
 
-		std::cout << "app->environment().clientAddress(): " <<
-				app->environment().clientAddress() << std::endl;
 		if (app->environment().clientAddress() == "127.0.0.1") {
 			header->addWidget(new WText(tr("control_panel_header_local")));
 		}
