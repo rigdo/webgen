@@ -19,8 +19,8 @@ class ZipGen: public Wt::WResource
 public:
 	ZipGen(std::string settings_dir);
 	~ZipGen();
-	void handleRequest(const Wt::Http::Request& request,
-			Wt::Http::Response& response);
+	void handleRequest(const Wt::Http::Request &request,
+			Wt::Http::Response &response);
 private:
 	std::string settings_dir;
 };
@@ -28,12 +28,14 @@ private:
 //==============================================================================
 //===================== ZipGenPage ===========================================
 //==============================================================================
-class ZipGenPage : public BasePage
+class ZipGenPage: public BasePage
 {
 public:
-	ZipGenPage( std::string settings_dir );
-	virtual ~ZipGenPage(){}
-	
+	ZipGenPage(std::string settings_dir);
+
+	virtual ~ZipGenPage()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();

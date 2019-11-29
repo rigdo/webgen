@@ -18,22 +18,24 @@
 
 using namespace Wt;
 
-void copy_file( const char *input, const char *output );
+void copy_file(const char *input, const char *output);
 //==============================================================================
 //===================== UploadedFileWidget =====================================
 //==============================================================================
-class UploadedFileWidget : public WContainerWidget
+class UploadedFileWidget: public WContainerWidget
 {
 public:
-	UploadedFileWidget( std::string workingdir, std::string filename, 
-			WString comment = "" );
-	virtual ~UploadedFileWidget(){}
-	
+	UploadedFileWidget(std::string workingdir, std::string filename,
+			WString comment = "");
+
+	virtual ~UploadedFileWidget()
+	{}
+
 	void updateView();
 
 private:
 	void fileUploaded();
-	void fileTooLarge( int64_t size );
+	void fileTooLarge(int64_t size);
 	void delFile();
 public:
 	WString comment;
@@ -55,32 +57,36 @@ private:
 //==============================================================================
 //===================== UploadedFilesTable ======================================
 //==============================================================================
-class UploadedFilesTable : public WGroupBox
+class UploadedFilesTable: public WGroupBox
 {
 public:
-	UploadedFilesTable( std::string workingdir );
-	virtual ~UploadedFilesTable(){}
-	void setDir( std::string dir );
-	void addFile( WString name, std::string filepath );
+	UploadedFilesTable(std::string workingdir);
+
+	virtual ~UploadedFilesTable()
+	{}
+
+	void setDir(std::string dir);
+	void addFile(WString name, std::string filepath);
 
 private:
-	void loadFromDir( std::string dir );
+	void loadFromDir(std::string dir);
 	void fileUploaded();
-	void fileTooLarge( int64_t size );
-	void delFileByName( WString name );
-	void delFileByidx( int idx );
+	void fileTooLarge(int64_t size);
+	void delFileByName(WString name);
+	void delFileByidx(int idx);
 private:
 	std::string workingdir;
 	WTable *table;
 	WFileUpload *fileupload;
 	WPushButton *uploadbutton;
-	
-	struct filewidgets{
+
+	struct filewidgets
+	{
 		WFileResource *fresource;
 		WAnchor *fanchor;
 		WPushButton *delbutton;
 	};
-	std::vector< struct filewidgets > files;
+	std::vector<struct filewidgets> files;
 };
 
 

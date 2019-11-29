@@ -17,12 +17,14 @@ using namespace Wt;
 //==============================================================================
 //===================== XmrigAmd ===========================================
 //==============================================================================
-class XmrigAmd : public BasePage
+class XmrigAmd: public BasePage
 {
 public:
-	XmrigAmd(SettingsDir *sd );
-	virtual ~XmrigAmd(){}
-	
+	XmrigAmd(SettingsDir *sd);
+
+	virtual ~XmrigAmd()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();

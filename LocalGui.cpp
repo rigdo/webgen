@@ -21,15 +21,16 @@
 #include <errno.h>
 #include <stdlib.h>
 
-static VtState *vts[6+1];
+static VtState *vts[6 + 1];
 
 //==============================================================================
 //===================== LocalGui ================================================
 //==============================================================================
-LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
+LocalGui::LocalGui(std::string settings_dir):
+		WContainerWidget()
 {
 	SettingsDir *sd = new SettingsDir(settings_dir);
-	
+
 	SummaryPage *summarry_page = new SummaryPage(sd);
 	//NvidiaPage *nvidia_page = new NvidiaPage(sd);
 
@@ -39,33 +40,32 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 	Xmrig *xmrig = new Xmrig(sd);
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
 	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
-	Ethminer *ethminer_amd = new Ethminer(sd, "amd"); 
-	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia"); 
+	Ethminer *ethminer_amd = new Ethminer(sd, "amd");
+	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia");
 //	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
-	VtPage *vt_pages[6+1];
-	for(int vt_idx=1; vt_idx<= 6; vt_idx++){
+	VtPage *vt_pages[6 + 1];
+	for (int vt_idx = 1; vt_idx <= 6; vt_idx++) {
 		VtState *vt = 0;
-		if(!vts[vt_idx]){
+		if (!vts[vt_idx]) {
 			vts[vt_idx] = new VtState();
 			bool ok = vts[vt_idx]->init(vt_idx);
-			if(ok)
+			if (ok)
 				vt = vts[vt_idx];
-		}
-		else{
+		} else {
 			vt = vts[vt_idx];
 		}
 		vt_pages[vt_idx] = 0;
-		if(vt){
+		if (vt) {
 			vt_pages[vt_idx] = new VtPage(vt);
 		}
 	}
-		
+
 	WContainerWidget *header;
 	{
 		header = new WContainerWidget();
 		header->setStyleClass("header");
-		header->addWidget( new WText(tr("control panel header")) );
-		
+		header->addWidget(new WText(tr("control panel header")));
+
 //		WPushButton *lang_en_button = new WPushButton("en");
 //		lang_en_button->clicked().connect( this, &LocalGui::setLangEn );
 //		WPushButton *lang_ru_button = new WPushButton("ru");
@@ -78,7 +78,7 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 //		lang_box->addWidget( lang_ru_button );
 //		header->addWidget( lang_box );
 	}
-	
+
 	WStackedWidget *content = new WStackedWidget();
 	{
 		content = new WStackedWidget();
@@ -90,12 +90,12 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 	{
 		navigation = new WContainerWidget();
 		navigation->setStyleClass("navigation");
-		
-		topmenu = new WMenu( content, Vertical);
+
+		topmenu = new WMenu(content, Vertical);
 		topmenu->setStyleClass("menu");
 		topmenu->setInternalPathEnabled();
 		topmenu->setInternalBasePath("/");
-		
+
 
 		topmenu->addItem(tr("summary"), summarry_page);
 		//topmenu->addItem(tr("nvidia_oc"), nvidia_page);
@@ -108,28 +108,28 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
 		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
 //		topmenu->addItem(tr("zipgen"), zipgen);
-		for(int i=1;i<=6;i++){
-			if(!vt_pages[i])
+		for (int i = 1; i <= 6; i++) {
+			if (!vt_pages[i])
 				continue;
-			topmenu->addItem(WString("vt{1}").arg(i),vt_pages[i]);
+			topmenu->addItem(WString("vt{1}").arg(i), vt_pages[i]);
 		}
-		navigation->addWidget( topmenu );
+		navigation->addWidget(topmenu);
 	}
-	
+
 	setStyleClass("wrap");
-	addWidget( header );
-	addWidget( navigation );
-	addWidget( content );
+	addWidget(header);
+	addWidget(navigation);
+	addWidget(content);
 }
 
 void LocalGui::setLangEn()
 {
-	WApplication* app = WApplication::instance();
-	app->setLocale( "en" );
+	WApplication *app = WApplication::instance();
+	app->setLocale("en");
 }
 
 void LocalGui::setLangRu()
 {
-	WApplication* app = WApplication::instance();
-	app->setLocale( "ru" );
+	WApplication *app = WApplication::instance();
+	app->setLocale("ru");
 }

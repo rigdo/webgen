@@ -14,21 +14,27 @@
 #include <Wt/WTextArea>
 #include <Wt/WSocketNotifier>
 #include <stdio.h>
+
 using namespace Wt;
 
-class VtState{
+class VtState
+{
 public:
 	VtState();
 	~VtState();
 	bool init(int idx);
 	WString grabScreen();
-	
-	int rows(){
+
+	int rows()
+	{
 		return vt_rows;
 	}
-	int cols(){
+
+	int cols()
+	{
 		return vt_cols;
 	}
+
 public:
 	int idx;
 private:
@@ -40,11 +46,14 @@ private:
 //==============================================================================
 //===================== VtPage ===========================================
 //==============================================================================
-class VtPage : public WContainerWidget
+class VtPage: public WContainerWidget
 {
 public:
-	VtPage( VtState *vt);
-	virtual ~VtPage(){}
+	VtPage(VtState *vt);
+
+	virtual ~VtPage()
+	{}
+
 private:
 	void readLog();
 private:

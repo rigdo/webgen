@@ -7,6 +7,7 @@
 
 #ifndef SETTINGSPAGE_H_
 #define SETTINGSPAGE_H_
+
 #include <Wt/WContainerWidget>
 #include <Wt/WText>
 #include <Wt/WCheckBox>
@@ -20,28 +21,33 @@ using namespace Wt;
 //==============================================================================
 //===================== ServiceControlWidget =========================================
 //==============================================================================
-class ServiceControlWidget : public WGroupBox
+class ServiceControlWidget: public WGroupBox
 {
 public:
-	ServiceControlWidget( std::string service );
-	virtual ~ServiceControlWidget(){}
-	
+	ServiceControlWidget(std::string service);
+
+	virtual ~ServiceControlWidget()
+	{}
+
 	WCheckBox *autostart_checkbox;
 private:
 	std::string service;
 
 };
 
-WComboBox* buildConsoleComboBox();
+WComboBox *buildConsoleComboBox();
 
 //==============================================================================
 //===================== BasePage ===========================================
 //==============================================================================
-class BasePage : public WContainerWidget
+class BasePage: public WContainerWidget
 {
 public:
-	BasePage( );
-	virtual ~BasePage(){}
+	BasePage();
+
+	virtual ~BasePage()
+	{}
+
 protected:
 	WText *pagetitle_text;
 	WText *help_text;

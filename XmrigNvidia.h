@@ -20,12 +20,14 @@ using namespace Wt;
 //==============================================================================
 //===================== XmrigNvidia ===========================================
 //==============================================================================
-class XmrigNvidia : public BasePage
+class XmrigNvidia: public BasePage
 {
 public:
-	XmrigNvidia(SettingsDir *sd );
-	virtual ~XmrigNvidia(){}
-	
+	XmrigNvidia(SettingsDir *sd);
+
+	virtual ~XmrigNvidia()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();

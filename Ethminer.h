@@ -20,12 +20,14 @@ using namespace Wt;
 //==============================================================================
 //===================== Ethminer ===========================================
 //==============================================================================
-class Ethminer : public BasePage
+class Ethminer: public BasePage
 {
 public:
 	Ethminer(SettingsDir *sd, std::string gpu_vendor);
-	virtual ~Ethminer(){}
-	
+
+	virtual ~Ethminer()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();

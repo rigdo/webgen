@@ -14,17 +14,20 @@
 #include <Wt/WLineEdit>
 #include <Wt/WPushButton>
 #include <Wt/WComboBox>
+
 using namespace Wt;
 
 //==============================================================================
 //===================== EthernetPage ===========================================
 //==============================================================================
-class EthernetPage : public BasePage
+class EthernetPage: public BasePage
 {
 public:
-	EthernetPage( SettingsDir *sd );
-	virtual ~EthernetPage(){}
-	
+	EthernetPage(SettingsDir *sd);
+
+	virtual ~EthernetPage()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();
@@ -33,7 +36,7 @@ private:
 private:
 	SettingsDir *sd;
 	WComboBox *mode_combobox;
-	
+
 	//Static net
 	WContainerWidget *static_mode_conteiner;
 	WLineEdit *ip_lineedit;

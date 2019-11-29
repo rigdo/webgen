@@ -23,12 +23,12 @@ ZipGen::~ZipGen()
 	beingDeleted(); // see "Concurrency issues" below.
 }
 
-void ZipGen::handleRequest(const Wt::Http::Request& request,
-		Wt::Http::Response& response)
+void ZipGen::handleRequest(const Wt::Http::Request &request,
+		Wt::Http::Response &response)
 {
 	response.setMimeType("application/zip");
-		
-	char cmd[ 1024 ];
+
+	char cmd[1024];
 	snprintf(cmd, 1023, "cd %s/.. && zip -r - settings", settings_dir.c_str());
 	printf("run : '%s'\n", cmd);
 
@@ -56,27 +56,28 @@ void ZipGen::handleRequest(const Wt::Http::Request& request,
 //==============================================================================
 //===================== ZipGenPage ===========================================
 //==============================================================================
-ZipGenPage::ZipGenPage(std::string settings_dir) : BasePage()
+ZipGenPage::ZipGenPage(std::string settings_dir):
+		BasePage()
 {
 	pagetitle_text->setText(tr("zipgen_title"));
-	help_text->setText( tr("zipgen_help"));
-		
+	help_text->setText(tr("zipgen_help"));
+
 	ZipGen *zip_gen = new ZipGen(settings_dir);
 
 	zip_button = new WPushButton(tr("download_zip"));
 	{
-	WContainerWidget *c = new WContainerWidget();
-	c->setStyleClass("setting");
-	WText *label = new WText(tr("Result"));
-	label->setStyleClass("label");
-	c->addWidget( label );
-	c->addWidget( zip_button );
-	datacolumn->addWidget( c );
+		WContainerWidget *c = new WContainerWidget();
+		c->setStyleClass("setting");
+		WText *label = new WText(tr("Result"));
+		label->setStyleClass("label");
+		c->addWidget(label);
+		c->addWidget(zip_button);
+		datacolumn->addWidget(c);
 	}
-	
+
 	save_button->hide();
 	help_panel->hide();
-	
+
 	zip_button->setLink(WLink(zip_gen->url()));
 }
 

@@ -13,17 +13,20 @@
 #include <Wt/WPushButton>
 #include <Wt/WComboBox>
 #include <Wt/WCheckBox>
+
 using namespace Wt;
 
 //==============================================================================
 //===================== WiFiPage ===========================================
 //==============================================================================
-class WiFiPage : public BasePage
+class WiFiPage: public BasePage
 {
 public:
-	WiFiPage( SettingsDir *sd );
-	virtual ~WiFiPage(){}
-	
+	WiFiPage(SettingsDir *sd);
+
+	virtual ~WiFiPage()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();

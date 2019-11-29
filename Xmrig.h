@@ -20,12 +20,14 @@ using namespace Wt;
 //==============================================================================
 //===================== Xmrig ===========================================
 //==============================================================================
-class Xmrig : public BasePage
+class Xmrig: public BasePage
 {
 public:
-	Xmrig(SettingsDir *sd );
-	virtual ~Xmrig(){}
-	
+	Xmrig(SettingsDir *sd);
+
+	virtual ~Xmrig()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();

@@ -24,8 +24,8 @@
 //==============================================================================
 //===================== SummaryPage ===========================================
 //==============================================================================
-SummaryPage::SummaryPage(SettingsDir *sd)
-		: BasePage()
+SummaryPage::SummaryPage(SettingsDir *sd):
+		BasePage()
 {
 	this->sd = sd;
 	pagetitle_text->setText(tr("summary_title"));
@@ -160,8 +160,9 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 	return res;
 }
 
-std::string wpaAt(const std::map<std::string, std::string> &st,
-		std::string name, std::string def_val)
+std::string
+wpaAt(const std::map<std::string, std::string> &st, std::string name,
+		std::string def_val)
 {
 	std::map<std::string, std::string>::const_iterator ptr = st.find(name);
 	if (ptr == st.end())
@@ -177,8 +178,8 @@ void SummaryPage::updateSummary()
 	unsigned uptime_sec = loadUptime();
 	unsigned uptime_day = uptime_sec / (3600 * 24);
 	unsigned uptime_hour = (uptime_sec - uptime_day * 3600 * 24) / 3600;
-	unsigned uptime_min = (uptime_sec - uptime_day * 3600 * 24
-			- uptime_hour * 3600) / 60;
+	unsigned uptime_min =
+			(uptime_sec - uptime_day * 3600 * 24 - uptime_hour * 3600) / 60;
 
 	std::string now_time = nowDateTime();
 
@@ -186,12 +187,12 @@ void SummaryPage::updateSummary()
 	uname(&un);
 	std::string rigname(un.nodename);
 
-	text_w->setText(
-			tr("summary_1").arg(start_time).arg(uptime_day).arg(uptime_hour).arg(
-					uptime_min).arg(now_time).arg(rigname));
+	text_w->setText(tr("summary_1").arg(start_time).arg(uptime_day).arg(
+			uptime_hour).arg(uptime_min).arg(now_time).arg(rigname));
 
 	std::map<std::string, std::string> st = getWpaSupplicantStatus();
-	std::string wifi_state = wpaAt(st, "wpa_state", "NODEV"); // COMPLETED, SCANNING
+	std::string
+			wifi_state = wpaAt(st, "wpa_state", "NODEV"); // COMPLETED, SCANNING
 	std::string wifi_ip = getIfaceIp("wlan0", "");
 	wifi_state_w->setText(tr("summary_wifi").arg(tr(wifi_state)).arg(wifi_ip));
 

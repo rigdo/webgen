@@ -5,7 +5,6 @@
  *      Author: bond
  */
 
-
 #include <Wt/WApplication>
 #include <Wt/WEnvironment>
 #include <Wt/WServer>
@@ -14,26 +13,23 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <Wt/WString>
-using namespace Wt;                                                             
 
+using namespace Wt;
 
-WApplication *createApplication(const WEnvironment& env)
+WApplication *createApplication(const WEnvironment &env)
 {
-	WApplication* app = new WApplication(env);
+	WApplication *app = new WApplication(env);
 	app->setCssTheme("polished");
 	app->messageResourceBundle().use(app->docRoot() + "/webgui");
 
 	std::string sdir = "";
-	//std::string sdir = "settings";
-
-	app->root()->addWidget( new LocalGui(sdir) );
+	app->root()->addWidget(new LocalGui(sdir));
 	app->setTitle("rigdo control pannel");
 	app->useStyleSheet("css/style.css");
-//	app->addMetaHeader(MetaHttpHeader,"refresh", "1");
 	return app;
 }
 
-int main( int argc, char *argv[] )
+int main(int argc, char *argv[])
 {
 	try {
 		WServer server(argv[0]);
@@ -43,7 +39,7 @@ int main( int argc, char *argv[] )
 			WServer::waitForShutdown();
 			server.stop();
 		}
-	} catch (WServer::Exception& e) {
+	} catch (WServer::Exception &e) {
 		std::cerr << e.what() << std::endl;
 	} catch (std::exception &e) {
 		std::cerr << "exception: " << e.what() << std::endl;

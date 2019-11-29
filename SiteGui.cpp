@@ -22,39 +22,40 @@
 //==============================================================================
 //===================== SiteGui ================================================ 
 //==============================================================================
-SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
+SiteGui::SiteGui(std::string settings_dir):
+		WContainerWidget()
 {
 	SettingsDir *sd = new SettingsDir(settings_dir);
-	
+
 	EthernetPage *ethernet_page = new EthernetPage(sd);
-	OpenVpnPage *openvpn_page = new OpenVpnPage(sd,0);
+	OpenVpnPage *openvpn_page = new OpenVpnPage(sd, 0);
 	WiFiPage *wfi_page = new WiFiPage(sd);
 	Xmrig *xmrig = new Xmrig(sd);
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
 	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
-	Ethminer *ethminer_amd = new Ethminer(sd, "amd"); 
-	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia"); 
+	Ethminer *ethminer_amd = new Ethminer(sd, "amd");
+	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia");
 	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
-		
+
 	WContainerWidget *header;
 	{
 		header = new WContainerWidget();
 		header->setStyleClass("header");
-		header->addWidget( new WText(tr("Header")) );
-		
+		header->addWidget(new WText(tr("Header")));
+
 		WPushButton *lang_en_button = new WPushButton("en");
-		lang_en_button->clicked().connect( this, &SiteGui::setLangEn );
+		lang_en_button->clicked().connect(this, &SiteGui::setLangEn);
 		WPushButton *lang_ru_button = new WPushButton("ru");
-		lang_ru_button->clicked().connect( this, &SiteGui::setLangRu );
-		
+		lang_ru_button->clicked().connect(this, &SiteGui::setLangRu);
+
 		WContainerWidget *lang_box = new WContainerWidget();
-		
+
 		lang_box->setStyleClass("langbox");
-		lang_box->addWidget( lang_en_button );
-		lang_box->addWidget( lang_ru_button );
-		header->addWidget( lang_box );
+		lang_box->addWidget(lang_en_button);
+		lang_box->addWidget(lang_ru_button);
+		header->addWidget(lang_box);
 	}
-	
+
 	WStackedWidget *content = new WStackedWidget();
 	{
 		content = new WStackedWidget();
@@ -66,12 +67,12 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 	{
 		navigation = new WContainerWidget();
 		navigation->setStyleClass("navigation");
-		
-		topmenu = new WMenu( content, Vertical);
+
+		topmenu = new WMenu(content, Vertical);
 		topmenu->setStyleClass("menu");
 		topmenu->setInternalPathEnabled();
 		topmenu->setInternalBasePath("/");
-		
+
 		topmenu->addItem(tr("ethernet"), ethernet_page);
 		topmenu->addItem(tr("wifi_client"), wfi_page);
 //		topmenu->addItem(tr("openvpn"), openvpn_page);
@@ -81,23 +82,23 @@ SiteGui::SiteGui( std::string settings_dir) : WContainerWidget()
 		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
 		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
 		topmenu->addItem(tr("zipgen"), zipgen);
-		navigation->addWidget( topmenu );
+		navigation->addWidget(topmenu);
 	}
-	
+
 	setStyleClass("wrap");
-	addWidget( header );
-	addWidget( navigation );
-	addWidget( content );
+	addWidget(header);
+	addWidget(navigation);
+	addWidget(content);
 }
 
 void SiteGui::setLangEn()
 {
-	WApplication* app = WApplication::instance();
-	app->setLocale( "en" );
+	WApplication *app = WApplication::instance();
+	app->setLocale("en");
 }
 
 void SiteGui::setLangRu()
 {
-	WApplication* app = WApplication::instance();
-	app->setLocale( "ru" );
+	WApplication *app = WApplication::instance();
+	app->setLocale("ru");
 }

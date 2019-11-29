@@ -15,11 +15,13 @@
 using namespace Wt;
 
 
-class SummaryPage : public BasePage
+class SummaryPage: public BasePage
 {
 public:
 	SummaryPage(SettingsDir *sd);
-	virtual ~SummaryPage(){}
+
+	virtual ~SummaryPage()
+	{}
 
 private:
 	void updateSummary();

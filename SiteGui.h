@@ -10,12 +10,15 @@ using namespace Wt;
 //==============================================================================
 //===================== SiteGui ================================================ 
 //==============================================================================
-class SiteGui : public WContainerWidget
+class SiteGui: public WContainerWidget
 {
 public:
 	SiteGui(std::string settings_dir);
-	virtual ~SiteGui( ){}
-private:	
+
+	virtual ~SiteGui()
+	{}
+
+private:
 	void setLangEn();
 	void setLangRu();
 private:

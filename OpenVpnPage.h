@@ -24,21 +24,23 @@ using namespace Wt;
 //==============================================================================
 //===================== OpenVpnPage ======================================
 //==============================================================================
-class OpenVpnPage : public BasePage
+class OpenVpnPage: public BasePage
 {
 public:
-	OpenVpnPage(SettingsDir *sd, int idx );
-	virtual ~OpenVpnPage(){}
-	
+	OpenVpnPage(SettingsDir *sd, int idx);
+
+	virtual ~OpenVpnPage()
+	{}
+
 private:
 	void loadParams();
 	void saveParams();
 	void genStaticKey();
-	void enableChanged( );
-	void configModeChanged( int newval );
-	void workModeChanged( int );
-	void authByChanged( int newval );
-	
+	void enableChanged();
+	void configModeChanged(int newval);
+	void workModeChanged(int);
+	void authByChanged(int newval);
+
 private:
 	SettingsDir *sd;
 	int idx;
@@ -46,7 +48,7 @@ private:
 	ServiceControlWidget *servicecontrol;
 	WContainerWidget *configmode_conteiner;
 	WComboBox *configmode_combobox;
-	
+
 	WGroupBox *mainsettings_groupbox;
 
 	WComboBox *workmode_combobox;
@@ -59,14 +61,14 @@ private:
 	WLineEdit *connectaddr_lineedit;
 	WLineEdit *connectport_lineedit;
 	WLineEdit *listenport_lineedit;
-	
+
 	WGroupBox *p2psettings_groupbox;
 	WLineEdit *ifconfiglocalip_lineedit;
 	WLineEdit *ifconfigremoteip_lineedit;
 //	WTextArea *statickey_textarea;
 	UploadedFileWidget *statickey_fileupload;
 	WPushButton *generatestatickey_button;
-	
+
 	WGroupBox *clientsettings_groupbox;
 	UploadedFileWidget *cacrt_fileupload;
 	WComboBox *authby_combobox;
@@ -78,7 +80,7 @@ private:
 	WLineEdit *authuser_lineedit;
 	WLineEdit *authpass_lineedit;
 	WTextArea *additionaloptsclient_textarea;
-	
+
 	WGroupBox *serversettings_groupbox;
 	WLineEdit *servifconfig_lineedit;
 	UploadedFileWidget *servcacrt_fileupload;
@@ -88,7 +90,6 @@ private:
 	UploadedFileWidget *dhkey_fileupload;
 	WTextArea *additionaloptsserver_textarea;
 
-	
 	WContainerWidget *files_container;
 	UploadedFileWidget *config_fileupload;
 	UploadedFilesTable *ftable;

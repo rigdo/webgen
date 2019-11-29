@@ -17,11 +17,14 @@ using namespace Wt;
 //==============================================================================
 //===================== SiteGui ================================================
 //==============================================================================
-class LocalGui : public WContainerWidget
+class LocalGui: public WContainerWidget
 {
 public:
 	LocalGui(std::string settings_dir);
-	virtual ~LocalGui( ){}
+
+	virtual ~LocalGui()
+	{}
+
 private:
 	void setLangEn();
 	void setLangRu();
