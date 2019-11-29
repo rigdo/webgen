@@ -18,8 +18,8 @@
 #include <netinet/in.h>
 #include <net/if.h>
 #include <arpa/inet.h>
-
 #include <sys/un.h>
+#include <unistd.h>
 
 //==============================================================================
 //===================== SummaryPage ===========================================
@@ -85,12 +85,13 @@ int loadFromSysFileInt(const char *fname, int def_val)
 	return val;
 }
 
-std::string getIfaceIp(std::string ifname, std::string def_val)
+std::string getIfaceIp(const std::string &ifname, std::string def_val)
 {
 	int fd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (fd < 0)
 		return def_val;
 	struct ifreq ifr;
+	memset(&ifr, 0, sizeof(ifr));
 	ifr.ifr_addr.sa_family = AF_INET;
 	strncpy(ifr.ifr_name, ifname.c_str(), IFNAMSIZ - 1);
 	int ret = ioctl(fd, SIOCGIFADDR, &ifr);
@@ -125,9 +126,14 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 		return res;
 	}
 	char buf[1024];
-	int bytes = read(sockfd, buf, sizeof(buf));
+	int bytes = read(sockfd, buf, sizeof(buf) - 1);
 	close(sockfd);
-	printf("bytes: %s\n", buf);
+	if (bytes <= 0) {
+		close(sockfd);
+		return res;
+	}
+	buf[bytes] = 0;
+
 	char *bufp = buf;
 	char *saveptr1 = 0;
 	do {
@@ -144,15 +150,14 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 			continue;
 		res[std::string(name)] = std::string(value);
 	} while (1);
-	close(sockfd);
 	return res;
 }
 
 std::string
-wpaAt(const std::map<std::string, std::string> &st, std::string name,
+wpaAt(const std::map<std::string, std::string> &st, const std::string& name,
 		std::string def_val)
 {
-	std::map<std::string, std::string>::const_iterator ptr = st.find(name);
+	auto ptr = st.find(name);
 	if (ptr == st.end())
 		return def_val;
 	return ptr->second;
@@ -160,7 +165,6 @@ wpaAt(const std::map<std::string, std::string> &st, std::string name,
 
 void SummaryPage::updateSummary()
 {
-
 	std::string start_time = "";
 
 	unsigned uptime_sec = loadUptime();
@@ -171,9 +175,12 @@ void SummaryPage::updateSummary()
 
 	std::string now_time = nowDateTime();
 
+	std::string rigname = "unk";
 	struct utsname un;
-	uname(&un);
-	std::string rigname(un.nodename);
+	int ret = uname(&un);
+	if( ret == 0) {
+		rigname = std::string(un.nodename);
+	}
 
 	text_w->setText(tr("summary_1").arg(start_time).arg(uptime_day).arg(
 			uptime_hour).arg(uptime_min).arg(now_time).arg(rigname));
@@ -191,4 +198,3 @@ void SummaryPage::updateSummary()
 	std::string eth_ip = getIfaceIp("eth0", "");
 	eth_state_w->setText(tr("summary_eth").arg(tr(eth_state)).arg(eth_ip));
 }
-
