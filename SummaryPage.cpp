@@ -110,6 +110,21 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 		return res;
 
 	int ret;
+	// There's a trick to using unix datagram sockets.
+	// Unlike stream sockets (tcp or unix domain), datagram sockets need
+	// endpoints defined for both the server AND the client.
+	struct sockaddr_un client_addr;
+	memset(&client_addr, 0, sizeof(client_addr));
+	client_addr.sun_family = AF_UNIX;
+	static int req;
+	req++;
+	sprintf(client_addr.sun_path, "/tmp/web_wpa_ctrl_%d-%u", getpid(), req);
+	ret = bind(sockfd, (struct sockaddr *) &client_addr, sizeof(client_addr));
+	if (ret) {
+		close(sockfd);
+		return res;
+	}
+
 	struct sockaddr_un server_addr;
 	memset(&server_addr, 0, sizeof(server_addr));
 	server_addr.sun_family = AF_UNIX;
@@ -117,19 +132,21 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 	ret = connect(sockfd, (struct sockaddr *) &server_addr,
 			sizeof(server_addr));
 	if (ret) {
+		unlink(client_addr.sun_path);
 		close(sockfd);
 		return res;
 	}
 	ret = write(sockfd, "STATUS", 6);
 	if (ret != 6) {
+		unlink(client_addr.sun_path);
 		close(sockfd);
 		return res;
 	}
 	char buf[1024];
 	int bytes = read(sockfd, buf, sizeof(buf) - 1);
 	close(sockfd);
+	unlink(client_addr.sun_path);
 	if (bytes <= 0) {
-		close(sockfd);
 		return res;
 	}
 	buf[bytes] = 0;

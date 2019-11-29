@@ -215,7 +215,7 @@ User: пользователь на пуле
 <message id='zipgen_help'></message>
 <message id='download_zip'>Скачать ZIP</message>
 
-<message id='rigdo control pannel '>Панель управления rigdo {1}</message>
+<message id='rigdo control pannel'>Панель управления rigdo {1}</message>
 <message id='control_panel_header_local'>
 Используйте Alt+F2,Alt+F3 для переключения между экранами майнеров, Alt+F7 для этого экрана, Ctrl+R обновить этот экран
 </message>
