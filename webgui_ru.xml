@@ -50,6 +50,7 @@ PSK: пароль
 <message id='xmrig_pass'>Pass:</message>
 <message id='xmrig_algo'>Algo:</message>
 <message id='xmrig_nicehash_mode'>Nicehash mode:</message>
+<message id='xmrig_pass'>Donate:</message>
 <message id='xmrig_bind_tty'>Bind to screen(tty):</message>
 <message id='xmrig-cpu_help'>
 <div>
@@ -75,6 +76,9 @@ Algo: вариация алгоритма CryptoNight
 </div>
 <div>
 Nicehash mode: если вы копаете на nicehash.com - ставте on
+</div>
+<div>
+Donate: сколько % времени будет майнить на разработчика майнера (минимум: 1)
 </div>
 <div>
 Монеты для примера: monero(XMR),sumokoin(SUMO),aeon(AEON).
@@ -109,6 +113,9 @@ Algo: вариация алгоритма CryptoNight
 Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 <div>
+Donate: сколько % времени будет майнить на разработчика майнера (минимум: 1)
+</div>
+<div>
 Монеты для примера: monero(XMR),sumokoin(SUMO),aeon(AEON).                      
 Прочитать про алгоритмы: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
@@ -141,12 +148,18 @@ Algo: вариация алгоритма CryptoNight
 Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 <div>
+Donate: сколько % времени будет майнить на разработчика майнера (минимум: 1)
+</div>
+<div>
 Монеты для примера: monero(XMR),sumokoin(SUMO),aeon(AEON).                      
 Прочитать про алгоритмы: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
+<message id='xmrig-amd_opencl-launch'>opencl-launch</message>
+<message id='xmrig-nvidia_cuda-launch'>cuda-launch</message>
 
-<message id='ethminer-amd'>Ethminer-Amd</message>
+
+    <message id='ethminer-amd'>Ethminer-Amd</message>
 <message id='ethminer_amd_title'>Ethminer on AMD</message>
 <message id='ethminer-nvidia'>Ethminer-NVIDIA</message>
 <message id='ethminer_nvidia_title'>Ethminer on NVIDIA</message>

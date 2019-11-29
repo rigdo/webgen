@@ -40,6 +40,7 @@ private:
 	WLineEdit *pool_lineedit;
 	WLineEdit *user_lineedit;
 	WLineEdit *pass_lineedit;
+	WLineEdit *donate_lineedit;
 	WComboBox *algo_combobox;
 	WComboBox *nicehash_combobox;
 	WComboBox *console_combobox;

@@ -31,6 +31,10 @@ Xmrig::Xmrig(SettingsDir *sd, std::string gpu_vendor, std::string servicename):
 	pass_lineedit->setTextSize(49);
 	pass_lineedit->setStyleClass("settingvalue");
 
+	donate_lineedit = new WLineEdit();
+	donate_lineedit->setTextSize(3);
+	donate_lineedit->setStyleClass("settingvalue");
+
 	opencl_launch_lineedit = new WLineEdit();
 	opencl_launch_lineedit->setTextSize(49);
 	opencl_launch_lineedit->setStyleClass("settingvalue");
@@ -119,24 +123,33 @@ Xmrig::Xmrig(SettingsDir *sd, std::string gpu_vendor, std::string servicename):
 			c->addWidget(nicehash_combobox);
 			datacolumn->addWidget(c);
 		}
-		if (gpu_vendor == "amd") {
+		{
 			WContainerWidget *c = new WContainerWidget();
 			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig-amd_opencl-launch"));
+			WText *label = new WText(tr("xmrig_donate"));
 			label->setStyleClass("label");
 			c->addWidget(label);
-			c->addWidget(opencl_launch_lineedit);
+			c->addWidget(donate_lineedit);
 			datacolumn->addWidget(c);
 		}
-		if (gpu_vendor == "nvidia") {
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig-nvidia_cuda-launch"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(opencl_launch_lineedit);
-			datacolumn->addWidget(c);
-		}
+//		if (gpu_vendor == "amd") {
+//			WContainerWidget *c = new WContainerWidget();
+//			c->setStyleClass("setting");
+//			WText *label = new WText(tr("xmrig-amd_opencl-launch"));
+//			label->setStyleClass("label");
+//			c->addWidget(label);
+//			c->addWidget(opencl_launch_lineedit);
+//			datacolumn->addWidget(c);
+//		}
+//		if (gpu_vendor == "nvidia") {
+//			WContainerWidget *c = new WContainerWidget();
+//			c->setStyleClass("setting");
+//			WText *label = new WText(tr("xmrig-nvidia_cuda-launch"));
+//			label->setStyleClass("label");
+//			c->addWidget(label);
+//			c->addWidget(opencl_launch_lineedit);
+//			datacolumn->addWidget(c);
+//		}
 	}
 	save_button->clicked().connect(this, &Xmrig::saveParams);
 	loadParams();
@@ -150,6 +163,8 @@ void Xmrig::loadParams()
 	user_lineedit->setText(s.value("XMRIG_USER",
 			"45v1SBynnRMKxz3faNASnR2GiEc1TDbFgcZym94VuaJkCMSRsw66VxGRXHtDSHw84eYrW4HtPHcxCc3sP29SNDcnGB5PvXh"));
 	pass_lineedit->setText(s.value("XMRIG_PASS", ""));
+
+	donate_lineedit->setText(s.value("XMRIG_DONATE", "5"));
 
 	opencl_launch_lineedit->setText(s.value("XMRIG_OPENCL_LAUNCH", ""));
 	cuda_launch_lineedit->setText(s.value("XMRIG_CUDA_LAUNCH", ""));
@@ -184,6 +199,7 @@ void Xmrig::saveParams()
 	s.save("XMRIG_POOL", pool_lineedit->text());
 	s.save("XMRIG_USER", user_lineedit->text());
 	s.save("XMRIG_PASS", pass_lineedit->text());
+	s.save("XMRIG_DONATE", donate_lineedit->text());
 	s.save("XMRIG_OPENCL_LAUNCH", opencl_launch_lineedit->text());
 	s.save("XMRIG_CUDA_LAUNCH", cuda_launch_lineedit->text());
 	s.save("XMRIG_ALGO", algo_combobox->currentText());
