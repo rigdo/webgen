@@ -30,6 +30,8 @@ add_executable(${PROJECT_NAME}
 	XmrigAmd.cpp
 	xmrig_algos.h
 	xmrig_algos.cpp
+	VtPage.h
+	VtPage.cpp
 )
 
 target_include_directories( ${PROJECT_NAME}

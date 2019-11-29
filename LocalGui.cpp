@@ -14,11 +14,14 @@
 #include "Ethminer.h"
 #include "SummaryPage.h"
 #include "NvidiaPage.h"
+#include "VtPage.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
+
+static VtState *vts[6+1];
 
 //==============================================================================
 //===================== LocalGui ================================================
@@ -39,6 +42,23 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 	Ethminer *ethminer_amd = new Ethminer(sd, "amd"); 
 	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia"); 
 //	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
+	VtPage *vt_pages[6+1];
+	for(int vt_idx=1; vt_idx<= 6; vt_idx++){
+		VtState *vt = 0;
+		if(!vts[vt_idx]){
+			vts[vt_idx] = new VtState();
+			bool ok = vts[vt_idx]->init(vt_idx);
+			if(ok)
+				vt = vts[vt_idx];
+		}
+		else{
+			vt = vts[vt_idx];
+		}
+		vt_pages[vt_idx] = 0;
+		if(vt){
+			vt_pages[vt_idx] = new VtPage(vt);
+		}
+	}
 		
 	WContainerWidget *header;
 	{
@@ -88,6 +108,11 @@ LocalGui::LocalGui( std::string settings_dir) : WContainerWidget()
 		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
 		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
 //		topmenu->addItem(tr("zipgen"), zipgen);
+		for(int i=1;i<=6;i++){
+			if(!vt_pages[i])
+				continue;
+			topmenu->addItem(WString("vt{1}").arg(i),vt_pages[i]);
+		}
 		navigation->addWidget( topmenu );
 	}
 	
