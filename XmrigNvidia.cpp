@@ -11,8 +11,8 @@
 //==============================================================================
 //===================== XmrigNvidia ===========================================
 //==============================================================================
-XmrigNvidia::XmrigNvidia(SettingsDir *sd):
-		BasePage()
+XmrigNvidia::XmrigNvidia(SettingsDir *sd, std::string servicename):
+		BaseServicePage(servicename)
 {
 	this->sd = sd;
 	pagetitle_text->setText(tr("xmrig-nvidia"));
@@ -127,7 +127,7 @@ XmrigNvidia::XmrigNvidia(SettingsDir *sd):
 
 void XmrigNvidia::loadParams()
 {
-	Settings s = sd->byService("xmrig-nvidia0");
+	Settings s = sd->byService(servicename);
 
 	pool_lineedit->setText(s.value("XMRIGN_POOL", "xmr-eu.dwarfpool.com:8080"));
 	user_lineedit->setText(s.value("XMRIGN_USER",
@@ -160,7 +160,7 @@ void XmrigNvidia::loadParams()
 
 void XmrigNvidia::saveParams()
 {
-	Settings s = sd->byService("xmrig-nvidia0");
+	Settings s = sd->byService(servicename);
 	s.save("XMRIGN_POOL", pool_lineedit->text());
 	s.save("XMRIGN_USER", user_lineedit->text());
 	s.save("XMRIGN_PASS", pass_lineedit->text());

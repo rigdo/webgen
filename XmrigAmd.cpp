@@ -8,8 +8,8 @@
 //==============================================================================
 //===================== XmrigAmd ===========================================
 //==============================================================================
-XmrigAmd::XmrigAmd(SettingsDir *sd):
-		BasePage()
+XmrigAmd::XmrigAmd(SettingsDir *sd, std::string servicename):
+		BaseServicePage(servicename)
 {
 	this->sd = sd;
 	pagetitle_text->setText(tr("xmrig-amd"));
@@ -123,7 +123,7 @@ XmrigAmd::XmrigAmd(SettingsDir *sd):
 
 void XmrigAmd::loadParams()
 {
-	Settings s = sd->byService("xmrig-amd0");
+	Settings s = sd->byService(servicename);
 
 	pool_lineedit->setText(s.value("XMRIGA_POOL", "xmr-eu.dwarfpool.com:8080"));
 	user_lineedit->setText(s.value("XMRIGA_USER",
@@ -156,7 +156,7 @@ void XmrigAmd::loadParams()
 
 void XmrigAmd::saveParams()
 {
-	Settings s = sd->byService("xmrig-amd0");
+	Settings s = sd->byService(servicename);
 	s.save("XMRIGA_POOL", pool_lineedit->text());
 	s.save("XMRIGA_USER", user_lineedit->text());
 	s.save("XMRIGA_PASS", pass_lineedit->text());

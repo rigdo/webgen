@@ -20,10 +20,10 @@ using namespace Wt;
 //==============================================================================
 //===================== XmrigNvidia ===========================================
 //==============================================================================
-class XmrigNvidia: public BasePage
+class XmrigNvidia: public BaseServicePage
 {
 public:
-	XmrigNvidia(SettingsDir *sd);
+	XmrigNvidia(SettingsDir *sd,std::string servicename);
 
 	virtual ~XmrigNvidia()
 	{}

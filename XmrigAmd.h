@@ -17,10 +17,10 @@ using namespace Wt;
 //==============================================================================
 //===================== XmrigAmd ===========================================
 //==============================================================================
-class XmrigAmd: public BasePage
+class XmrigAmd: public BaseServicePage
 {
 public:
-	XmrigAmd(SettingsDir *sd);
+	XmrigAmd(SettingsDir *sd,std::string servicename);
 
 	virtual ~XmrigAmd()
 	{}

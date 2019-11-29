@@ -44,10 +44,10 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 
 
 	Xmrig *xmrig = new Xmrig(sd,"xmrig0");
-	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
-	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
-	Ethminer *ethminer_amd = new Ethminer(sd, "amd");
-	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia");
+	XmrigAmd *xmrig_amd = new XmrigAmd(sd, "xmrig-amd0");
+	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd, "xmrig-nvidia0");
+	Ethminer *ethminer_amd = new Ethminer(sd, "amd", "ethminer-amd0");
+	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia", "ethminer-amd0");
 //	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
 	VtPage *vt_pages[6 + 1];
 	for (int vt_idx = 1; vt_idx <= 6; vt_idx++) {

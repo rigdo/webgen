@@ -10,8 +10,8 @@
 //==============================================================================
 //===================== Ethminer ===========================================
 //==============================================================================
-Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor):
-		BasePage()
+Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor, std::string servicename):
+		BaseServicePage(servicename)
 {
 	this->sd = sd;
 	this->gpu_vendor = gpu_vendor;
@@ -101,7 +101,7 @@ Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor):
 
 void Ethminer::loadParams()
 {
-	Settings s = sd->byService("ethminer-" + gpu_vendor + "0");
+	Settings s = sd->byService(servicename);
 
 	pool_lineedit->setText(s.value("ETHMINER_POOL", "eu1.ethermine.org:4444"));
 	user_lineedit->setText(s.value("ETHMINER_WALLET",
@@ -126,7 +126,7 @@ void Ethminer::loadParams()
 
 void Ethminer::saveParams()
 {
-	Settings s = sd->byService("ethminer-" + gpu_vendor + "0");
+	Settings s = sd->byService(servicename);
 	s.save("ETHMINER_POOL", pool_lineedit->text());
 	s.save("ETHMINER_WALLET", user_lineedit->text());
 	s.save("ETHMINER_WORKER", worker_lineedit->text());
