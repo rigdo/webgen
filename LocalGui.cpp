@@ -116,9 +116,9 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 		topmenu->addItem(tr("Reboot"), reboot_page);
 
 //		topmenu->addItem(tr("openvpn"), openvpn_page);
-		topmenu->addItem(tr("xmrig"), xmrig);
-		topmenu->addItem(tr("xmrig-amd"), xmrig_amd);
-		topmenu->addItem(tr("xmrig-nvidia"), xmrig_nvidia);
+		topmenu->addItem(tr("xmrig-cpu_title"), xmrig);
+		topmenu->addItem(tr("xmrig-amd_title"), xmrig_amd);
+		topmenu->addItem(tr("xmrig-nvidia_title"), xmrig_nvidia);
 		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
 		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
 //		topmenu->addItem(tr("zipgen"), zipgen);
