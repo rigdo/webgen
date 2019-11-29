@@ -35,11 +35,7 @@ Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor) : BasePage()
 	scheme_combobox->addItem( "stratum+tcp" );
 	scheme_combobox->addItem( "http" );
 	
-	console_combobox = new WComboBox();
-	console_combobox->addItem( "" );
-	console_combobox->addItem( "1" );
-	console_combobox->addItem( "2" );
-	console_combobox->addItem( "3" );	
+	console_combobox = buildConsoleComboBox();
 	console_combobox->setStyleClass("xmrig_tty");
 
 	{

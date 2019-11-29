@@ -53,6 +53,15 @@ ServiceControlWidget::ServiceControlWidget(std::string service)
 	}
 }
 
+WComboBox* buildConsoleComboBox()
+{
+	WComboBox *console_combobox = new WComboBox();
+	console_combobox->addItem( "" );
+	for(int i=1; i<=6; i++ ){
+		console_combobox->addItem( WString("{1}").arg(i) );
+	}
+	return console_combobox;
+}
 //==============================================================================
 //===================== BasePage ===========================================
 //==============================================================================

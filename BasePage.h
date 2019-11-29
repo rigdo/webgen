@@ -13,6 +13,7 @@
 #include <Wt/WPushButton>
 #include <Wt/WGroupBox>
 #include <Wt/WPanel>
+#include <Wt/WComboBox>
 
 using namespace Wt;
 
@@ -30,6 +31,9 @@ private:
 	std::string service;
 
 };
+
+WComboBox* buildConsoleComboBox();
+
 //==============================================================================
 //===================== BasePage ===========================================
 //==============================================================================

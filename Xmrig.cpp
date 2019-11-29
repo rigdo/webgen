@@ -41,11 +41,7 @@ Xmrig::Xmrig(SettingsDir *sd) : BasePage()
 	nicehash_combobox->addItem( "off" );
 	nicehash_combobox->setStyleClass("xmrig_tty");
 	
-	console_combobox = new WComboBox();
-	console_combobox->addItem( "" );
-	console_combobox->addItem( "1" );
-	console_combobox->addItem( "2" );
-	console_combobox->addItem( "3" );	
+	console_combobox = buildConsoleComboBox();
 	console_combobox->setStyleClass("xmrig_tty");
 	
 	{
