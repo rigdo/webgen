@@ -212,12 +212,15 @@ User: пользователь на пуле
 <message id='zipgen_help'></message>
 <message id='download_zip'>Скачать ZIP</message>
 
-<message id='rigdo control pannel'>Панель управления rigdo</message>
-<message id='control panel header'>
-Используйте Alt+F2,Alt+F2 для переключения между экранами майнеров, Alt+F1 для этого экрана
+<message id='rigdo control pannel '>Панель управления rigdo {1}</message>
+<message id='control_panel_header_local'>
+Используйте Alt+F2,Alt+F3 для переключения между экранами майнеров, Alt+F7 для этого экрана
+</message>
+<message id='control_panel_header_remote'>
+Панель управления
 </message>
 
-<message id='summary_title'></message>
+<message id='summary_title'>Общая информация</message>
 <message id='summary'>Общее</message>
 <message id='summary_1'>
 <div>
@@ -253,5 +256,16 @@ Ethernet ip: {2}
 </message>
 <message id='eth_state_link_up'>Провод подсоединён</message>
 <message id='eth_state_link_down'>Провод не подсоединён!</message>
+<message id='Password'>Пароль</message>
+<message id='Root password'>Изменение пароля</message>
+<message id='New root password'>Новый пароль</message>
+<message id='Reboot'>Перезагрузка</message>
+<message id='password_page_help'>
+Пароль для входа по ssh
+</message>
+    <message id='reboot_page_help'>
+        Перезагрузить компьютер
+    </message>
+
 </messages>
 

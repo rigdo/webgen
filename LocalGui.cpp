@@ -3,11 +3,15 @@
 #include <Wt/WMenu>
 #include <Wt/WStackedWidget>
 #include <Wt/WApplication>
+#include <Wt/WEnvironment>
 
 #include "Settings.h"
 #include "EthernetPage.h"
 #include "OpenVpnPage.h"
 #include "WiFiPage.h"
+#include "RebootPage.h"
+#include "PasswordPage.h"
+
 #include "Xmrig.h"
 #include "XmrigNvidia.h"
 #include "XmrigAmd.h"
@@ -26,17 +30,19 @@ static VtState *vts[6 + 1];
 //==============================================================================
 //===================== LocalGui ================================================
 //==============================================================================
-LocalGui::LocalGui(std::string settings_dir):
-		WContainerWidget()
+LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 {
 	SettingsDir *sd = new SettingsDir(settings_dir);
 
 	SummaryPage *summarry_page = new SummaryPage(sd);
 	//NvidiaPage *nvidia_page = new NvidiaPage(sd);
-
 	EthernetPage *ethernet_page = new EthernetPage(sd);
 	//OpenVpnPage *openvpn_page = new OpenVpnPage(sd,0);
 	WiFiPage *wfi_page = new WiFiPage(sd);
+	PasswordPage *password_page = new PasswordPage( sd );
+	RebootPage *reboot_page = new RebootPage();
+
+
 	Xmrig *xmrig = new Xmrig(sd);
 	XmrigAmd *xmrig_amd = new XmrigAmd(sd);
 	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd);
@@ -64,7 +70,16 @@ LocalGui::LocalGui(std::string settings_dir):
 	{
 		header = new WContainerWidget();
 		header->setStyleClass("header");
-		header->addWidget(new WText(tr("control panel header")));
+		WApplication *app = WApplication::instance();
+
+		std::cout << "app->environment().clientAddress(): " <<
+				app->environment().clientAddress() << std::endl;
+		if (app->environment().clientAddress() == "127.0.0.1") {
+			header->addWidget(new WText(tr("control_panel_header_local")));
+		}
+		else{
+			header->addWidget(new WText(tr("control_panel_header_remote")));
+		}
 
 //		WPushButton *lang_en_button = new WPushButton("en");
 //		lang_en_button->clicked().connect( this, &LocalGui::setLangEn );
@@ -101,6 +116,9 @@ LocalGui::LocalGui(std::string settings_dir):
 		//topmenu->addItem(tr("nvidia_oc"), nvidia_page);
 		topmenu->addItem(tr("ethernet"), ethernet_page);
 		topmenu->addItem(tr("wifi_client"), wfi_page);
+		topmenu->addItem(tr("Password"), password_page);
+		topmenu->addItem(tr("Reboot"), reboot_page);
+
 //		topmenu->addItem(tr("openvpn"), openvpn_page);
 		topmenu->addItem(tr("xmrig"), xmrig);
 		topmenu->addItem(tr("xmrig-amd"), xmrig_amd);
