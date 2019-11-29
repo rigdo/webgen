@@ -109,18 +109,6 @@ std::map<std::string, std::string> getWpaSupplicantStatus()
 		return res;
 
 	int ret;
-	struct sockaddr_un client_addr;
-	memset(&client_addr, 0, sizeof(client_addr));
-	client_addr.sun_family = AF_UNIX;
-	static int req;
-	req++;
-	sprintf(client_addr.sun_path, "/tmp/web_wpa_ctrl_%d-%u", getpid(), req);
-	ret = bind(sockfd, (struct sockaddr *) &client_addr, sizeof(client_addr));
-	if (ret) {
-		close(sockfd);
-		return res;
-	}
-
 	struct sockaddr_un server_addr;
 	memset(&server_addr, 0, sizeof(server_addr));
 	server_addr.sun_family = AF_UNIX;
