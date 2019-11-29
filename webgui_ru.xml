@@ -44,14 +44,14 @@ PSK: пароль
 </div>
 </message>
 
-<message id='xmrig'>Xmrig</message>
+<message id='xmrig-cpu_title'>Xmrig</message>
 <message id='xmrig_pool'>Pool:</message>
 <message id='xmrig_user'>User:</message>
 <message id='xmrig_pass'>Pass:</message>
 <message id='xmrig_algo'>Algo:</message>
 <message id='xmrig_nicehash_mode'>Nicehash mode:</message>
 <message id='xmrig_bind_tty'>Bind to screen(tty):</message>
-<message id='xmrig_help'>
+<message id='xmrig-cpu_help'>
 <div>
 xmrig - этот майнер считает хэш по алгоритму CryptoNight на процессоре.
 </div>
@@ -82,12 +82,7 @@ Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 </message>
 
-<message id='xmrig-nvidia'>Xmrig-Nvidia</message>
-<message id='xmrig-nvidia_pool'>Pool:</message>
-<message id='xmrig-nvidia_user'>User:</message>
-<message id='xmrig-nvidia_pass'>Pass:</message>
-<message id='xmrig-nvidia_cuda-launch'>cuda-launch:</message>
-<message id='xmrig-nvidia_bind_tty'>Bind to screen(tty):</message>
+<message id='xmrig-nvidia_title'>Xmrig-Nvidia</message>
 <message id='xmrig-nvidia_help'>
 <div>
 xmrig-nvidia - этот майнер считает хэш по алгоритму CryptoNight на видеокартах NVIDIA (используя CUDA).
@@ -119,12 +114,7 @@ Nicehash mode: если вы копаете на nicehash.com - ставте on
 </div>
 </message>
 
-<message id='xmrig-amd'>Xmrig-Amd</message>
-<message id='xmrig-amd_pool'>Pool:</message>
-<message id='xmrig-amd_user'>User:</message>
-<message id='xmrig-amd_pass'>Pass:</message>
-<message id='xmrig-amd_opencl-launch'>opencl-launch:</message>
-<message id='xmrig-amd_bind_tty'>Bind to screen(tty):</message>
+<message id='xmrig-amd_title'>Xmrig-Amd</message>
 <message id='xmrig-amd_help'>
 <div>
 xmrig-amd - этот майнер считает хэш по алгоритму CryptoNight на видеокартах AMD (используя OpenCL).
@@ -214,7 +204,7 @@ User: пользователь на пуле
 
 <message id='rigdo control pannel '>Панель управления rigdo {1}</message>
 <message id='control_panel_header_local'>
-Используйте Alt+F2,Alt+F3 для переключения между экранами майнеров, Alt+F7 для этого экрана
+Используйте Alt+F2,Alt+F3 для переключения между экранами майнеров, Alt+F7 для этого экрана, Ctrl+R обновить этот экран
 </message>
 <message id='control_panel_header_remote'>
 Панель управления

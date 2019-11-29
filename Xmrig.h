@@ -23,7 +23,7 @@ using namespace Wt;
 class Xmrig: public BaseServicePage
 {
 public:
-	Xmrig(SettingsDir *sd, std::string servicename);
+	Xmrig(SettingsDir *sd, std::string gpu_vendor, std::string servicename);
 
 	virtual ~Xmrig()
 	{}
@@ -35,6 +35,7 @@ private:
 
 private:
 	SettingsDir *sd;
+	std::string gpu_vendor;
 	WCheckBox *autostart_checkbox;
 	WLineEdit *pool_lineedit;
 	WLineEdit *user_lineedit;
@@ -42,6 +43,9 @@ private:
 	WComboBox *algo_combobox;
 	WComboBox *nicehash_combobox;
 	WComboBox *console_combobox;
+
+	WLineEdit *opencl_launch_lineedit;
+	WLineEdit *cuda_launch_lineedit;
 };
 
 #endif /* XMRIGPAGE_H_ */

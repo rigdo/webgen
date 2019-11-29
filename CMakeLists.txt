@@ -24,10 +24,6 @@ add_executable(${PROJECT_NAME}
         Xmrig.cpp
         Ethminer.h
         Ethminer.cpp
-        XmrigNvidia.h
-        XmrigNvidia.cpp
-        XmrigAmd.h
-        XmrigAmd.cpp
         xmrig_algos.h
         xmrig_algos.cpp
         VtPage.h

@@ -13,8 +13,6 @@
 #include "PasswordPage.h"
 
 #include "Xmrig.h"
-#include "XmrigNvidia.h"
-#include "XmrigAmd.h"
 #include "Ethminer.h"
 #include "SummaryPage.h"
 #include "NvidiaPage.h"
@@ -43,9 +41,9 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 	RebootPage *reboot_page = new RebootPage();
 
 
-	Xmrig *xmrig = new Xmrig(sd,"xmrig0");
-	XmrigAmd *xmrig_amd = new XmrigAmd(sd, "xmrig-amd0");
-	XmrigNvidia *xmrig_nvidia = new XmrigNvidia(sd, "xmrig-nvidia0");
+	Xmrig *xmrig = new Xmrig(sd, "cpu", "xmrig0");
+	Xmrig *xmrig_amd = new Xmrig(sd, "amd", "xmrig-amd0");
+	Xmrig *xmrig_nvidia = new Xmrig(sd, "nvidia", "xmrig-nvidia0");
 	Ethminer *ethminer_amd = new Ethminer(sd, "amd", "ethminer-amd0");
 	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia", "ethminer-amd0");
 //	ZipGenPage *zipgen = new ZipGenPage(settings_dir);

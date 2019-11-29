@@ -12,12 +12,13 @@
 //===================== Xmrig ===========================================
 //==============================================================================
 
-Xmrig::Xmrig(SettingsDir *sd, std::string servicename):
+Xmrig::Xmrig(SettingsDir *sd, std::string gpu_vendor, std::string servicename):
 		BaseServicePage(servicename)
 {
 	this->sd = sd;
-	pagetitle_text->setText(tr("xmrig"));
-	help_text->setText(tr("xmrig_help"));
+	this->gpu_vendor = gpu_vendor;
+	pagetitle_text->setText(tr("xmrig-" + gpu_vendor + "_title"));
+	help_text->setText(tr("xmrig-" + gpu_vendor + "_help"));
 
 	autostart_checkbox = new WCheckBox();
 	pool_lineedit = new WLineEdit();
@@ -29,6 +30,15 @@ Xmrig::Xmrig(SettingsDir *sd, std::string servicename):
 	pass_lineedit = new WLineEdit();
 	pass_lineedit->setTextSize(49);
 	pass_lineedit->setStyleClass("settingvalue");
+
+	opencl_launch_lineedit = new WLineEdit();
+	opencl_launch_lineedit->setTextSize(49);
+	opencl_launch_lineedit->setStyleClass("settingvalue");
+
+	cuda_launch_lineedit = new WLineEdit();
+	cuda_launch_lineedit->setTextSize(49);
+	cuda_launch_lineedit->setStyleClass("settingvalue");
+
 
 	algo_combobox = new WComboBox();
 	for (int i = 0; i < 25; i++) {
@@ -109,6 +119,24 @@ Xmrig::Xmrig(SettingsDir *sd, std::string servicename):
 			c->addWidget(nicehash_combobox);
 			datacolumn->addWidget(c);
 		}
+		if (gpu_vendor == "amd") {
+			WContainerWidget *c = new WContainerWidget();
+			c->setStyleClass("setting");
+			WText *label = new WText(tr("xmrig-amd_opencl-launch"));
+			label->setStyleClass("label");
+			c->addWidget(label);
+			c->addWidget(opencl_launch_lineedit);
+			datacolumn->addWidget(c);
+		}
+		if (gpu_vendor == "nvidia") {
+			WContainerWidget *c = new WContainerWidget();
+			c->setStyleClass("setting");
+			WText *label = new WText(tr("xmrig-nvidia_cuda-launch"));
+			label->setStyleClass("label");
+			c->addWidget(label);
+			c->addWidget(opencl_launch_lineedit);
+			datacolumn->addWidget(c);
+		}
 	}
 	save_button->clicked().connect(this, &Xmrig::saveParams);
 	loadParams();
@@ -122,6 +150,9 @@ void Xmrig::loadParams()
 	user_lineedit->setText(s.value("XMRIG_USER",
 			"45v1SBynnRMKxz3faNASnR2GiEc1TDbFgcZym94VuaJkCMSRsw66VxGRXHtDSHw84eYrW4HtPHcxCc3sP29SNDcnGB5PvXh"));
 	pass_lineedit->setText(s.value("XMRIG_PASS", ""));
+
+	opencl_launch_lineedit->setText(s.value("XMRIG_OPENCL_LAUNCH", ""));
+	cuda_launch_lineedit->setText(s.value("XMRIG_CUDA_LAUNCH", ""));
 
 	WString algo_str = s.value("XMRIG_ALGO", "");
 	int algo_idx = algo_combobox->findText(algo_str);
@@ -137,14 +168,14 @@ void Xmrig::loadParams()
 	else
 		nicehash_combobox->setCurrentIndex(0);
 
-	WString tty_str = s.value("XMRIG_BIND_TTY", "1");
+	WString tty_str = s.value("XMRIG_BIND_TTY", "");
 	int tty_idx = console_combobox->findText(tty_str);
 	if (tty_idx >= 0)
 		console_combobox->setCurrentIndex(tty_idx);
 	else
 		console_combobox->setCurrentIndex(0);
 
-	autostart_checkbox->setChecked(s.valueInt("AUTOSTART", 1));
+	autostart_checkbox->setChecked(s.valueInt("AUTOSTART", 0));
 }
 
 void Xmrig::saveParams()
@@ -153,6 +184,8 @@ void Xmrig::saveParams()
 	s.save("XMRIG_POOL", pool_lineedit->text());
 	s.save("XMRIG_USER", user_lineedit->text());
 	s.save("XMRIG_PASS", pass_lineedit->text());
+	s.save("XMRIG_OPENCL_LAUNCH", opencl_launch_lineedit->text());
+	s.save("XMRIG_CUDA_LAUNCH", cuda_launch_lineedit->text());
 	s.save("XMRIG_ALGO", algo_combobox->currentText());
 	s.save("XMRIG_NICEHASH_MODE", nicehash_combobox->currentText());
 	s.save("XMRIG_BIND_TTY", console_combobox->currentText());
