@@ -269,9 +269,9 @@ Ethernet ip: {2}
 <message id='Start'>Старт</message>
 <message id='Stop'>Стоп</message>
 <message id='Restart'>Перезапуск</message>
-<message id='disabled'>Отключён</message>
+<message id='disabled'>Остановлен</message>
 <message id='run'>Работает</message>
-<message id='down'>Остановлен</message>
+<message id='down'>Остановлен2</message>
 <message id='State'>Состояние</message>
 <message id='Control'>Управление</message>
 </messages>

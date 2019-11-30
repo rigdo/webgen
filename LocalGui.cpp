@@ -47,20 +47,24 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 	Ethminer *ethminer_amd = new Ethminer(sd, "amd", "ethminer-amd0");
 	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia", "ethminer-amd0");
 //	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
+	bool localgui = WApplication::instance()->environment().clientAddress() == "127.0.0.1";
+
 	VtPage *vt_pages[6 + 1];
-	for (int vt_idx = 1; vt_idx <= 6; vt_idx++) {
-		VtState *vt = 0;
-		if (!vts[vt_idx]) {
-			vts[vt_idx] = new VtState();
-			bool ok = vts[vt_idx]->init(vt_idx);
-			if (ok)
+	if (!localgui){
+		for (int vt_idx = 1; vt_idx <= 6; vt_idx++) {
+			VtState *vt = 0;
+			if (!vts[vt_idx]) {
+				vts[vt_idx] = new VtState();
+				bool ok = vts[vt_idx]->init(vt_idx);
+				if (ok)
+					vt = vts[vt_idx];
+			} else {
 				vt = vts[vt_idx];
-		} else {
-			vt = vts[vt_idx];
-		}
-		vt_pages[vt_idx] = 0;
-		if (vt) {
-			vt_pages[vt_idx] = new VtPage(vt);
+			}
+			vt_pages[vt_idx] = 0;
+			if (vt) {
+				vt_pages[vt_idx] = new VtPage(vt);
+			}
 		}
 	}
 
@@ -68,9 +72,7 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 	{
 		header = new WContainerWidget();
 		header->setStyleClass("header");
-		WApplication *app = WApplication::instance();
-
-		if (app->environment().clientAddress() == "127.0.0.1") {
+		if (localgui) {
 			header->addWidget(new WText(tr("control_panel_header_local")));
 		}
 		else{
@@ -122,10 +124,12 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
 		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
 //		topmenu->addItem(tr("zipgen"), zipgen);
-		for (int i = 1; i <= 6; i++) {
-			if (!vt_pages[i])
-				continue;
-			topmenu->addItem(WString("vt{1}").arg(i), vt_pages[i]);
+		if (!localgui){
+			for (int i = 1; i <= 6; i++) {
+				if (!vt_pages[i])
+					continue;
+				topmenu->addItem(WString("vt{1}").arg(i), vt_pages[i]);
+			}
 		}
 		navigation->addWidget(topmenu);
 	}
