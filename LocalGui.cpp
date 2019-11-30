@@ -18,11 +18,6 @@
 #include "NvidiaPage.h"
 #include "VtPage.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <stdlib.h>
-
 static VtState *vts[6 + 1];
 
 //==============================================================================
@@ -45,7 +40,7 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 	Xmrig *xmrig_amd = new Xmrig(sd, "amd", "xmrig-amd0");
 	Xmrig *xmrig_nvidia = new Xmrig(sd, "nvidia", "xmrig-nvidia0");
 	Ethminer *ethminer_amd = new Ethminer(sd, "amd", "ethminer-amd0");
-	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia", "ethminer-amd0");
+	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia", "ethminer-nvidia0");
 //	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
 	bool localgui = WApplication::instance()->environment().clientAddress() == "127.0.0.1";
 
