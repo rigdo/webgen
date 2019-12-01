@@ -159,7 +159,7 @@ Donate: сколько % времени будет майнить на разр�
 <message id='xmrig-nvidia_cuda-launch'>cuda-launch</message>
 
 
-    <message id='ethminer-amd'>Ethminer-Amd</message>
+<message id='ethminer-amd'>Ethminer-Amd</message>
 <message id='ethminer_amd_title'>Ethminer on AMD</message>
 <message id='ethminer-nvidia'>Ethminer-NVIDIA</message>
 <message id='ethminer_nvidia_title'>Ethminer on NVIDIA</message>

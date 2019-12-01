@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <messages>
-<message id='Header'>rigdo settings generator</message>
+<message id='Header'>
+rigdo settings generator
+</message>
 
 <message id='Save'>Save</message>
 <message id='Help'>Help:</message>
@@ -32,7 +34,7 @@ Manually configuring a wired network
 Configuring a Wireless Network
 </div>
 <div>
-Autostart: run wi-fi
+Autostart: automaticaly start wi-fi after reboot
 </div>
 <div>
 SSID: network name
@@ -42,19 +44,17 @@ PSK: network password
 </div>
 </message>
 
-<message id='xmrig'>Xmrig</message>
+<message id='xmrig-cpu_title'>Xmrig</message>
 <message id='xmrig_pool'>Pool:</message>
 <message id='xmrig_user'>User:</message>
 <message id='xmrig_pass'>Pass:</message>
 <message id='xmrig_algo'>Algo:</message>
 <message id='xmrig_nicehash_mode'>Nicehash mode:</message>
 <message id='xmrig_bind_tty'>Bind to screen(tty):</message>
-<message id='xmrig_help'>
+<message id='xmrig_donate'>Donate:</message>
+<message id='xmrig-cpu_help'>
 <div>
-xmrig - miner for calc hash by CryptoNight algo on CPU.
-</div>
-<div>
-Since April 2018, various variations of this algorithm have appeared: cryptonight, cryptonight-lite, cryptonight-heavy.
+xmrig - miner for calc hash by CryptoNight/RandomX algo on CPU.
 </div>
 <div>
 Autostart: run miner on startup
@@ -72,28 +72,24 @@ User: pool user
 Pass: pool password
 </div>
 <div>
-Algo: CryptoNight variant
+Algo: CryptoNight/RandomX variant
 </div>
 <div>
 Nicehash mode: set on for mine on nicehash.com
 </div>
 <div>
-Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite, and others
+Donate: donate to xmrig developer, % of time, minimum 1
+</div>
+<div>
+Coins for example: monero(XMR), sumokoin(SUMO),aeon(AEON)
+Alto types: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
 
-<message id='xmrig-nvidia'>Xmrig-Nvidia</message>
-<message id='xmrig-nvidia_pool'>Pool:</message>
-<message id='xmrig-nvidia_user'>User:</message>
-<message id='xmrig-nvidia_pass'>Pass:</message>
-<message id='xmrig-nvidia_cuda-launch'>cuda-launch:</message>
-<message id='xmrig-nvidia_bind_tty'>Bind to screen(tty):</message>
+<message id='xmrig-nvidia_title'>Xmrig-Nvidia</message>
 <message id='xmrig-nvidia_help'>
 <div>
-xmrig-nvidia - miner for calc hash by CryptoNight algo on NVIDIA GPU.
-</div>
-<div>
-Since April 2018, various variations of this algorithm have appeared: cryptonight, cryptonight-lite, cryptonight-heavy.
+xmrig-nvidia - miner for calc hash by CryptoNight/RandomX algo on NVIDIA GPU.
 </div>
 <div>
 Autostart: run miner on startup
@@ -111,28 +107,24 @@ User: pool user
 Pass: pool password
 </div>
 <div>
-Algo: CryptoNight variant
+Algo: CryptoNight/RandomX variant
 </div>
 <div>
 Nicehash mode: set on for mine on nicehash.com
 </div>
 <div>
-Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite, and others
+Donate: donate to xmrig developer, % of time, minimum 1
+</div>
+<div>
+Coins for example: monero(XMR), sumokoin(SUMO),aeon(AEON)
+Alto types: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
 
-<message id='xmrig-amd'>Xmrig-Amd</message>
-<message id='xmrig-amd_pool'>Pool:</message>
-<message id='xmrig-amd_user'>User:</message>
-<message id='xmrig-amd_pass'>Pass:</message>
-<message id='xmrig-amd_opencl-launch'>opencl-launch:</message>
-<message id='xmrig-amd_bind_tty'>Bind to screen(tty):</message>
+<message id='xmrig-amd_title'>Xmrig-Amd</message>
 <message id='xmrig-amd_help'>
 <div>
-xmrig-amd - miner for calc hash by CryptoNight algo on AMD GPU.
-</div>
-<div>
-Since April 2018, various variations of this algorithm have appeared: cryptonight, cryptonight-lite, cryptonight-heavy.
+xmrig-amd - miner for calc hash by CryptoNight/RandomX algo on AMD GPU.
 </div>
 <div>
 Autostart: run miner on startup
@@ -150,17 +142,22 @@ User: pool user
 Pass: pool password
 </div>
 <div>
-Algo: CryptoNight variant
+Algo: CryptoNight/RandomX variant
 </div>
 <div>
 Nicehash mode: set on for mine on nicehash.com
 </div>
 <div>
-Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-heavy, aeon(AEON) - cryptonight-lite, and others
+Donate: donate to xmrig developer, % of time, minimum 1
+</div>
+<div>
+Coins for example: monero(XMR), sumokoin(SUMO),aeon(AEON)
+Alto types: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 </div>
 </message>
+<message id='xmrig-amd_opencl-launch'>opencl-launch</message>
+<message id='xmrig-nvidia_cuda-launch'>cuda-launch</message>
 
-<message id='ethminer'>Ethminer</message>
 <message id='ethminer-amd'>Ethminer-Amd</message>
 <message id='ethminer_amd_title'>Ethminer on AMD</message>
 <message id='ethminer-nvidia'>Ethminer-NVIDIA</message>
@@ -171,7 +168,9 @@ Coins on CryptoNight: monero(XMR) - cryptonight,  sumokoin(SUMO) - cryptonight-h
 <message id='ethminer_worker'>Worker</message>
 <message id='ethminer_bind_tty'>Bind to screen(tty):</message>
 <message id='ethminer_help_amd'>
+<div>
 ethminer - miner for calc hash by Dagger-Hashimoto (ethash) algo on GPU AMD.
+</div>
 <div>
 Autostart: run miner on startup
 </div>
@@ -207,5 +206,65 @@ Coins on Dagger-Hashimoto: Ethereum(ETH), EthereumClassic(ETC) and others
 <message id='zipgen_help'></message>
 <message id='download_zip'>Download ZIP</message>
 
+<message id='rigdo control pannel'>Control pannel rigdo {1}</message>
+<message id='control_panel_header_local'>
+Use Alt+F2,Alt+F3 дfor switch miners screen, Alt+F7 for this screen, Ctrl+R for refresh
+</message>
+<message id='control_panel_header_remote'>
+Control pannel
+</message>
+
+
+<message id='summary_title'>Summary</message>
+<message id='summary'>Summary</message>
+<message id='summary_1'>
+<div>
+Rig name: {6}
+</div>
+<div>
+Uptime: {2}d. {3}h. {4}min.
+</div>
+<div>
+Current time: {5}
+</div>
+</message>
+
+<message id='summary_wifi'>
+<div>
+Wi-Fi state: {1}
+</div>
+<div>
+Wi-Fi ip: {2}
+</div>
+</message>
+<message id='NODEV'>No device</message>
+<message id='SCANNING'>Scanning</message>
+<message id='COMPLETED'>Completed</message>
+
+<message id='summary_eth'>
+<div>
+Ethernet state: {1}
+</div>
+<div>
+Ethernet ip: {2}
+</div>
+</message>
+<message id='eth_state_link_up'>Link up</message>
+<message id='eth_state_link_down'>Link down!</message>
+<message id='Password'>Password</message>
+<message id='Root password'>Change password</message>
+<message id='New root password'>New password</message>
+<message id='Reboot'>Reboot</message>
+<message id='password_page_help'>Password for ssh</message>
+<message id='reboot_page_help'>Reboot</message>
+<message id='Service Contol'>Service Contol</message>
+<message id='Start'>[Start]</message>
+<message id='Stop'>[Stop]</message>
+<message id='Restart'>[Restart]</message>
+<message id='disabled'>disabled</message>
+<message id='run'>run</message>
+<message id='down'>down</message>
+<message id='State'>State</message>
+<message id='Control'>Control</message>
 </messages>
 
