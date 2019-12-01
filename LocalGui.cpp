@@ -67,24 +67,26 @@ LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
 	{
 		header = new WContainerWidget();
 		header->setStyleClass("header");
+
 		if (localgui) {
+			WPushButton *lang_en_button = new WPushButton("[en]");
+			lang_en_button->clicked().connect( this, &LocalGui::setLangEn );
+			WPushButton *lang_ru_button = new WPushButton("[ru]");
+			lang_ru_button->clicked().connect( this, &LocalGui::setLangRu );
+
+			WContainerWidget *lang_box = new WContainerWidget();
+
+			lang_box->setStyleClass("langbox");
+			lang_box->addWidget( lang_en_button );
+			lang_box->addWidget( lang_ru_button );
+			header->addWidget( lang_box );
+
 			header->addWidget(new WText(tr("control_panel_header_local")));
 		}
 		else{
 			header->addWidget(new WText(tr("control_panel_header_remote")));
 		}
 
-//		WPushButton *lang_en_button = new WPushButton("en");
-//		lang_en_button->clicked().connect( this, &LocalGui::setLangEn );
-//		WPushButton *lang_ru_button = new WPushButton("ru");
-//		lang_ru_button->clicked().connect( this, &LocalGui::setLangRu );
-//
-//		WContainerWidget *lang_box = new WContainerWidget();
-//
-//		lang_box->setStyleClass("langbox");
-//		lang_box->addWidget( lang_en_button );
-//		lang_box->addWidget( lang_ru_button );
-//		header->addWidget( lang_box );
 	}
 
 	WStackedWidget *content = new WStackedWidget();
