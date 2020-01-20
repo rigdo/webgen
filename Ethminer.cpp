@@ -39,6 +39,13 @@ Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor, std::string servicen
 	console_combobox = buildConsoleComboBox();
 	console_combobox->setStyleClass("xmrig_tty");
 
+	opencl_mode_combobox = 0;
+	if (gpu_vendor == "amd"){
+		opencl_mode_combobox = new WComboBox();
+		opencl_mode_combobox->addItem("amdgpu-pro");
+		opencl_mode_combobox->addItem("rocm");
+	}
+
 	{
 		{
 			WContainerWidget *c = new WContainerWidget();
@@ -94,6 +101,16 @@ Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor, std::string servicen
 			c->addWidget(worker_lineedit);
 			datacolumn->addWidget(c);
 		}
+		if (opencl_mode_combobox){
+			WContainerWidget *c = new WContainerWidget();
+			c->setStyleClass("setting");
+			WText *label = new WText(tr("amd_opencl_mode"));
+			label->setStyleClass("label");
+			c->addWidget(label);
+			c->addWidget(opencl_mode_combobox);
+			datacolumn->addWidget(c);
+		}
+
 	}
 	save_button->clicked().connect(this, &Ethminer::saveParams);
 	loadParams();
@@ -115,6 +132,15 @@ void Ethminer::loadParams()
 	else
 		scheme_combobox->setCurrentIndex(0);
 
+	if (opencl_mode_combobox){
+		WString opencl_mode_str = s.value("ETHMINER_OPENCL_MODE", "amdgpu-pro");
+		int opencl_mode_idx = opencl_mode_combobox->findText(opencl_mode_str);
+		if (opencl_mode_idx >= 0)
+			opencl_mode_combobox->setCurrentIndex(opencl_mode_idx);
+		else
+			opencl_mode_combobox->setCurrentIndex(0);
+	}
+
 	WString v_str = s.value("ETHMINER_BIND_TTY", "");
 	int idx = console_combobox->findText(v_str);
 	if (idx >= 0)
@@ -132,5 +158,8 @@ void Ethminer::saveParams()
 	s.save("ETHMINER_WORKER", worker_lineedit->text());
 	s.save("ETHMINER_SCHEME", scheme_combobox->currentText());
 	s.save("ETHMINER_BIND_TTY", console_combobox->currentText());
+	if(opencl_mode_combobox){
+		s.save("ETHMINER_OPENCL_MODE", opencl_mode_combobox->currentText());
+	}
 	s.saveInt("AUTOSTART", autostart_checkbox->isChecked());
 }

@@ -168,6 +168,7 @@ Donate: сколько % времени будет майнить на разр�
 <message id='ethminer_user'>User</message>
 <message id='ethminer_worker'>Worker</message>
 <message id='ethminer_bind_tty'>Bind to screen(tty):</message>
+<message id='amd_opencl_mode'>OpenCL libraries</message>
 <message id='ethminer_help_amd'>
 <div>
 ethminer - этот майнер считает хэш по алгоритму Dagger-Hashimoto (ethash) на видеокартах AMD.

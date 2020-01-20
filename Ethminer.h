@@ -42,6 +42,7 @@ private:
 	WLineEdit *worker_lineedit;
 	WComboBox *scheme_combobox;
 	WComboBox *console_combobox;
+	WComboBox *opencl_mode_combobox;
 };
 
 #endif /* ETHMINER_H_ */

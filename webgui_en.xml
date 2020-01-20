@@ -166,6 +166,7 @@ Alto types: https://github.com/xmrig/xmrig/blob/master/doc/ALGORITHMS.md
 <message id='ethminer_pool'>Pool</message>
 <message id='ethminer_user'>User</message>
 <message id='ethminer_worker'>Worker</message>
+<message id='amd_opencl_mode'>OpenCL libraries</message>
 <message id='ethminer_bind_tty'>Bind to screen(tty):</message>
 <message id='ethminer_help_amd'>
 <div>
