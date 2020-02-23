@@ -275,5 +275,11 @@ Ethernet ip: {2}
 <message id='down'>Остановлен2</message>
 <message id='State'>Состояние</message>
 <message id='Control'>Управление</message>
+
+<message id='nvidia_oc'>Nvidia разгон</message>
+<message id='amd_oc'>Amd разгон</message>
+<message id='apply'>Применить</message>
+<message id='save'>Сохранить</message>
+
 </messages>
 

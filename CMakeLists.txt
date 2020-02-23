@@ -34,6 +34,8 @@ add_executable(${PROJECT_NAME}
         RebootPage.cpp
         ServiceControlWidget.h
         ServiceControlWidget.cpp
+        AmdPage.h
+        AmdPage.cpp
         )
 
 target_include_directories(${PROJECT_NAME}
@@ -47,5 +49,6 @@ target_link_libraries(${PROJECT_NAME}
         wthttp
         wt
         crypt
+        rocm_smi64
         )
 

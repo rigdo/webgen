@@ -267,5 +267,11 @@ Ethernet ip: {2}
 <message id='down'>down</message>
 <message id='State'>State</message>
 <message id='Control'>Control</message>
+
+<message id='nvidia_oc'>Nvidia OC</message>
+<message id='amd_oc'>Amd OC</message>
+<message id='apply'>Apply</message>
+<message id='save'>Save</message>
+
 </messages>
 
