@@ -10,7 +10,7 @@
 
 #include "BasePage.h"
 #include "Settings.h"
-#include <Wt/WText>
+#include <Wt/WText.h>
 
 using namespace Wt;
 

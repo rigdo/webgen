@@ -8,13 +8,13 @@
 #ifndef UPLOADEDFILEWIDGET_H_
 #define UPLOADEDFILEWIDGET_H_
 
-#include <Wt/WContainerWidget>
-#include <Wt/WFileUpload>
-#include <Wt/WPushButton>
-#include <Wt/WFileResource>
-#include <Wt/WAnchor>
-#include <Wt/WGroupBox>
-#include <Wt/WTable>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WFileUpload.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WFileResource.h>
+#include <Wt/WAnchor.h>
+#include <Wt/WGroupBox.h>
+#include <Wt/WTable.h>
 
 using namespace Wt;
 

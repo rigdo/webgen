@@ -5,8 +5,8 @@
  *      Author: bond
  */
 #include "ServiceControlWidget.h"
-#include <Wt/WPanel>
-#include <Wt/WBreak>
+#include <Wt/WPanel.h>
+#include <Wt/WBreak.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -6,8 +6,8 @@
 #define ZIPGENPAGE_H_
 
 #include "BasePage.h"
-#include <Wt/WPushButton>
-#include <Wt/WResource>
+#include <Wt/WPushButton.h>
+#include <Wt/WResource.h>
 
 using namespace Wt;
 

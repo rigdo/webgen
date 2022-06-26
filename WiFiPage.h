@@ -9,10 +9,10 @@
 
 #include "BasePage.h"
 #include "Settings.h"
-#include <Wt/WLineEdit>
-#include <Wt/WPushButton>
-#include <Wt/WComboBox>
-#include <Wt/WCheckBox>
+#include <Wt/WLineEdit.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WComboBox.h>
+#include <Wt/WCheckBox.h>
 
 using namespace Wt;
 

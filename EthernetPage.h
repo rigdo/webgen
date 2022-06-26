@@ -11,9 +11,9 @@
 #include "BasePage.h"
 #include "Settings.h"
 
-#include <Wt/WLineEdit>
-#include <Wt/WPushButton>
-#include <Wt/WComboBox>
+#include <Wt/WLineEdit.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WComboBox.h>
 
 using namespace Wt;
 

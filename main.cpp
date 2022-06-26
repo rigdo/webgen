@@ -1,6 +1,6 @@
-#include <Wt/WApplication>
-#include <Wt/WEnvironment>
-#include <Wt/WServer>
+#include <Wt/WApplication.h>
+#include <Wt/WEnvironment.h>
+#include <Wt/WServer.h>
 #include "SiteGui.h"
 #include "Settings.h"
 #include <sys/stat.h>

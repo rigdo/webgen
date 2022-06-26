@@ -5,7 +5,7 @@
  *      Author: bond
  */
 #include "UploadedFileWidget.h"
-#include <Wt/WText>
+#include <Wt/WText.h>
 
 #include <iostream>
 #include <fstream>

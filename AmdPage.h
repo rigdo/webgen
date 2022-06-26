@@ -10,8 +10,8 @@
 
 #include "BasePage.h"
 #include "Settings.h"
-#include <Wt/WText>
-#include <Wt/WTable>
+#include <Wt/WText.h>
+#include <Wt/WTable.h>
 
 using namespace Wt;
 

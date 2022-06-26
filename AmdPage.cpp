@@ -6,7 +6,7 @@
  */
 
 #include "AmdPage.h"
-#include <Wt/WLineEdit>
+#include <Wt/WLineEdit.h>
 #include "rocm_smi.h"
 #include <inttypes.h>
 

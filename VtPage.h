@@ -8,11 +8,11 @@
 #ifndef LOGPAGE_H_
 #define LOGPAGE_H_
 
-#include <Wt/WStackedWidget>
-#include <Wt/WText>
-#include <Wt/WPushButton>
-#include <Wt/WTextArea>
-#include <Wt/WSocketNotifier>
+#include <Wt/WStackedWidget.h>
+#include <Wt/WText.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WTextArea.h>
+#include <Wt/WSocketNotifier.h>
 #include <stdio.h>
 
 using namespace Wt;

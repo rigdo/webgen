@@ -1,9 +1,9 @@
 #include "LocalGui.h"
-#include <Wt/WString>
-#include <Wt/WMenu>
-#include <Wt/WStackedWidget>
-#include <Wt/WApplication>
-#include <Wt/WEnvironment>
+#include <Wt/WString.h>
+#include <Wt/WMenu.h>
+#include <Wt/WStackedWidget.h>
+#include <Wt/WApplication.h>
+#include <Wt/WEnvironment.h>
 
 #include "Settings.h"
 #include "EthernetPage.h"

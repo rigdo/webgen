@@ -11,13 +11,13 @@
 #include "BasePage.h"
 #include "Settings.h"
 #include "UploadedFileWidget.h"
-#include <Wt/WCheckBox>
-#include <Wt/WGroupBox>
-#include <Wt/WContainerWidget>
-#include <Wt/WLineEdit>
-#include <Wt/WPushButton>
-#include <Wt/WFileUpload>
-#include <Wt/WTable>
+#include <Wt/WCheckBox.h>
+#include <Wt/WGroupBox.h>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WLineEdit.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WFileUpload.h>
+#include <Wt/WTable.h>
 
 using namespace Wt;
 

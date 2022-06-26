@@ -6,7 +6,7 @@
  */
 
 #include "EthernetPage.h"
-#include <Wt/WRegExpValidator>
+#include <Wt/WRegExpValidator.h>
 
 //==============================================================================
 //===================== EthernetPage ===========================================

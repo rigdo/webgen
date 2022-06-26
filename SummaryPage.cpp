@@ -6,7 +6,7 @@
  */
 
 #include "SummaryPage.h"
-#include <Wt/WTimer>
+#include <Wt/WTimer.h>
 #include <time.h>
 #include <sys/utsname.h>
 

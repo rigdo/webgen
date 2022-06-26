@@ -7,7 +7,7 @@
 #include "VtPage.h"
 #include <string.h>
 #include <errno.h>
-#include <Wt/WApplication>
+#include <Wt/WApplication.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

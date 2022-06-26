@@ -5,12 +5,12 @@
  *      Author: bond
  */
 #include "OpenVpnPage.h"
-#include <Wt/WComboBox>
-#include <Wt/WTextArea>
-#include <Wt/WLengthValidator>
-#include <Wt/WAnchor>
-#include <Wt/WFileResource>
-#include <Wt/WLink>
+#include <Wt/WComboBox.h>
+#include <Wt/WTextArea.h>
+#include <Wt/WLengthValidator.h>
+#include <Wt/WAnchor.h>
+#include <Wt/WFileResource.h>
+#include <Wt/WLink.h>
 
 #include <sys/stat.h>
 #include <sys/types.h>

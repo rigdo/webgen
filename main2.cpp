@@ -5,14 +5,14 @@
  *      Author: bond
  */
 
-#include <Wt/WApplication>
-#include <Wt/WEnvironment>
-#include <Wt/WServer>
+#include <Wt/WApplication.h>
+#include <Wt/WEnvironment.h>
+#include <Wt/WServer.h>
 #include "LocalGui.h"
 #include "Settings.h"
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <Wt/WString>
+#include <Wt/WString.h>
 
 using namespace Wt;
 

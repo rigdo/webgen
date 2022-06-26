@@ -6,7 +6,7 @@
  */
 
 #include "NvidiaPage.h"
-#include <Wt/WLineEdit>
+#include <Wt/WLineEdit.h>
 
 #include "nvml.h"
 

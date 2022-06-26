@@ -8,7 +8,7 @@
 #ifndef SETINGS_H_
 #define SETINGS_H_
 
-#include <Wt/WString>
+#include <Wt/WString.h>
 #include <map>
 #include <list>
 #include <stdlib.h>

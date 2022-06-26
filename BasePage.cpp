@@ -5,7 +5,7 @@
  *      Author: bond
  */
 #include "BasePage.h"
-#include <Wt/WBreak>
+#include <Wt/WBreak.h>
 
 WComboBox *buildConsoleComboBox()
 {

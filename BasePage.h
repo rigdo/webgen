@@ -8,13 +8,13 @@
 #ifndef SETTINGSPAGE_H_
 #define SETTINGSPAGE_H_
 
-#include <Wt/WContainerWidget>
-#include <Wt/WText>
-#include <Wt/WCheckBox>
-#include <Wt/WPushButton>
-#include <Wt/WGroupBox>
-#include <Wt/WPanel>
-#include <Wt/WComboBox>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WText.h>
+#include <Wt/WCheckBox.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WGroupBox.h>
+#include <Wt/WPanel.h>
+#include <Wt/WComboBox.h>
 
 #include "ServiceControlWidget.h"
 

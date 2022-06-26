@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <Wt/WContainerWidget>
+#include <Wt/WContainerWidget.h>
 
 using namespace Wt;
 

@@ -8,11 +8,11 @@
 #ifndef SERVICECONTROLWIDGET_H_
 #define SERVICECONTROLWIDGET_H_
 
-#include <Wt/WContainerWidget>
-#include <Wt/WText>
-#include <Wt/WCheckBox>
-#include <Wt/WPushButton>
-#include <Wt/WGroupBox>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WText.h>
+#include <Wt/WCheckBox.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WGroupBox.h>
 
 using namespace Wt;
 
