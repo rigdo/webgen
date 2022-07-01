@@ -30,19 +30,15 @@ SummaryPage::SummaryPage(SettingsDir *sd):
 	this->sd = sd;
 	pagetitle_text->setText(tr("summary_title"));
 
-	text_w = new WText();
-	wifi_state_w = new WText();
-	eth_state_w = new WText();
-
-	datacolumn->addWidget(text_w);
-	datacolumn->addWidget(wifi_state_w);
-	datacolumn->addWidget(eth_state_w);
+	text_w = datacolumn->addWidget(std::make_unique<WText>());
+	wifi_state_w = datacolumn->addWidget(std::make_unique<WText>());
+	eth_state_w = datacolumn->addWidget(std::make_unique<WText>());
 
 	save_button->hide();
 	help_panel->hide();
 
 	WTimer *timer = new WTimer();
-	timer->setInterval(2000);
+	timer->setInterval(std::chrono::milliseconds(2000));
 	timer->timeout().connect(this, &SummaryPage::updateSummary);
 	timer->start();
 
