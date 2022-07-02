@@ -15,9 +15,15 @@
 #include "Xmrig.h"
 #include "Ethminer.h"
 #include "SummaryPage.h"
-#include "NvidiaPage.h"
-#include "AmdPage.h"
 #include "VtPage.h"
+#if USE_NVML
+#include "NvidiaPage.h"
+#endif
+#if USE_ROCM_SMI
+#include "AmdPage.h"
+#endif
+
+
 
 static VtState *vts[6 + 1];
 
@@ -64,8 +70,12 @@ LocalGui::LocalGui(const std::string &settings_dir): WContainerWidget()
 		topmenu->setInternalBasePath("/");
 
 		topmenu->addItem(tr("summary"), std::make_unique<SummaryPage>(sd));
+#if USE_NVML
 		topmenu->addItem(tr("nvidia_oc"), std::make_unique<NvidiaPage>(sd));
+#endif
+#if USE_ROCM_SMI
 		topmenu->addItem(tr("amd_oc"), std::make_unique<AmdPage>(sd));
+#endif
 		topmenu->addItem(tr("ethernet"), std::make_unique<EthernetPage>(sd));
 
 		topmenu->addItem(tr("wifi_client"), std::make_unique<WiFiPage>(sd));

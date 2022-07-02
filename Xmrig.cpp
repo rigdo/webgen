@@ -127,8 +127,8 @@ void Xmrig::loadParams()
 
 	donate_lineedit->setText(s.value("XMRIG_DONATE", "5"));
 
-	opencl_launch_lineedit->setText(s.value("XMRIG_OPENCL_LAUNCH", ""));
-	cuda_launch_lineedit->setText(s.value("XMRIG_CUDA_LAUNCH", ""));
+//	opencl_launch_lineedit->setText(s.value("XMRIG_OPENCL_LAUNCH", ""));
+//	cuda_launch_lineedit->setText(s.value("XMRIG_CUDA_LAUNCH", ""));
 
 	WString algo_str = s.value("XMRIG_ALGO", "");
 	int algo_idx = algo_combobox->findText(algo_str);

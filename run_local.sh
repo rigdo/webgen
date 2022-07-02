@@ -8,15 +8,15 @@ export WEBGUI_SETTNGSDIR="settings"
 
 export PATH=${PATH}:bin
 
-export LD_LIBRARY_PATH=/home/bond/projects/ad_rigdo/buildroot-2017.11/output/target/usr/lib
+#export LD_LIBRARY_PATH=/home/bond/projects/ad_rigdo/buildroot-2017.11/output/target/usr/lib
 
 #valgrind --trace-children=yes ./webgui --docroot . --http-address 0.0.0.0 --http-port 8081
 #exec valgrind  ./webgui --docroot . --http-address 0.0.0.0 --http-port 8081
 #strace -f ./webgui --docroot . --http-address 0.0.0.0 --http-port 8081
 #echo '--docroot . --http-address 0.0.0.0 --http-port 8081'
 #gdb ./webgui
-ulimit -s 1024
+#ulimit -s 1024
 #export WT_TMP_DIR=/home/bond
 exec ./localgui --docroot . --http-address 0.0.0.0 --http-port 8081
-#echo "--docroot . --http-address 0.0.0.0 --http-port 8081"
-#exec gdb ./webgui
+echo "--docroot . --http-address 0.0.0.0 --http-port 8081"
+exec gdb ./localgui

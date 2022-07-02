@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
-project(localgui)
-add_executable(${PROJECT_NAME}
+project(webgen)
+
+add_executable(localgui
         main2.cpp
         LocalGui.cpp
         LocalGui.h
         SummaryPage.cpp
         SummaryPage.h
-        NvidiaPage.cpp
-        NvidiaPage.h
         Settings.h
         Settings.cpp
         BasePage.h
@@ -34,21 +33,74 @@ add_executable(${PROJECT_NAME}
         RebootPage.cpp
         ServiceControlWidget.h
         ServiceControlWidget.cpp
-        AmdPage.h
-        AmdPage.cpp
         )
 
-target_include_directories(${PROJECT_NAME}
+target_link_libraries(localgui
         PRIVATE
-        .
-        )
-
-target_link_libraries(${PROJECT_NAME}
-        PRIVATE
-        nvidia-ml
         wthttp
         wt
         crypt
-        rocm_smi64
         )
 
+find_package(NVML)
+if (NVML_FOUND)
+    message("localgui: with nvml support")
+    target_compile_definitions(localgui PUBLIC USE_NVML=1)
+    target_sources( localgui PRIVATE
+            ${CMAKE_SOURCE_DIR}/hwrecog2/NvidiaPage.h
+            ${CMAKE_SOURCE_DIR}/hwrecog2/NvidiaPage.cpp)
+    #nvml.h
+    target_include_directories(localgui PUBLIC ${CMAKE_SOURCE_DIR}/)
+    #nvidia-ml
+    target_link_libraries(localgui PRIVATE NVML::NVML)
+endif ()
+
+find_package(ROCM_SMI)
+if (ROCM_SMI_FOUND)
+    message("localgui: with rocm_smi support")
+    target_compile_definitions(localgui PUBLIC USE_ROCM_SMI=1)
+    target_sources( localgui PRIVATE
+            ${CMAKE_SOURCE_DIR}/hwrecog2/AmdPage.h
+            ${CMAKE_SOURCE_DIR}/hwrecog2/AmdPage.cpp)
+    # rocm_smi.h
+    target_include_directories(localgui PUBLIC ${CMAKE_SOURCE_DIR}/)
+    # rocm_smi64
+    target_link_libraries(localgui PRIVATE ROCM_SMI::ROCM_SMI)
+endif ()
+
+add_executable(sitegui
+        main.cpp
+        SiteGui.cpp
+        SiteGui.h
+        Settings.h
+        Settings.cpp
+        BasePage.h
+        BasePage.cpp
+        EthernetPage.h
+        EthernetPage.cpp
+        OpenVpnPage.h
+        OpenVpnPage.cpp
+        UploadedFileWidget.h
+        UploadedFileWidget.cpp
+        WiFiPage.h
+        WiFiPage.cpp
+        Xmrig.h
+        Xmrig.cpp
+        Ethminer.h
+        Ethminer.cpp
+        xmrig_algos.h
+        xmrig_algos.cpp
+        ZipGenPage.h
+        ZipGenPage.cpp
+        PasswordPage.h
+        PasswordPage.cpp
+        ServiceControlWidget.h
+        ServiceControlWidget.cpp
+        )
+
+target_link_libraries(sitegui
+        PRIVATE
+        wthttp
+        wt
+        crypt
+        )

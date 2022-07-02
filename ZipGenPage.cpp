@@ -6,7 +6,7 @@
  */
 
 #include "ZipGenPage.h"
-#include <Wt/Http/Response>
+#include <Wt/Http/Response.h>
 
 
 //==============================================================================
@@ -64,15 +64,12 @@ ZipGenPage::ZipGenPage(std::string settings_dir):
 
 	ZipGen *zip_gen = new ZipGen(settings_dir);
 
-	zip_button = new WPushButton(tr("download_zip"));
 	{
-		WContainerWidget *c = new WContainerWidget();
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
 		c->setStyleClass("setting");
-		WText *label = new WText(tr("Result"));
+		WText *label = c->addWidget(std::make_unique<WText>(tr("Result")));
 		label->setStyleClass("label");
-		c->addWidget(label);
-		c->addWidget(zip_button);
-		datacolumn->addWidget(c);
+		zip_button = c->addWidget(std::make_unique<WPushButton>(tr("download_zip")));
 	}
 
 	save_button->hide();

@@ -17,15 +17,14 @@ std::string generateSettingsDir()
 	return sdir;
 }
 
-WApplication *createApplication(const WEnvironment &env)
+std::unique_ptr<WApplication> createApplication(const WEnvironment &env)
 {
-	WApplication *app = new WApplication(env);
+	std::unique_ptr<WApplication> app = std::make_unique<Wt::WApplication>(env);
 	app->setCssTheme("polished");
 	app->messageResourceBundle().use(app->docRoot() + "/webgui");
 
 	std::string sdir = generateSettingsDir();
-
-	app->root()->addWidget(new SiteGui(sdir));
+	app->root()->addWidget(std::make_unique<SiteGui>(sdir));
 	app->setTitle("rigdo settings generator");
 	app->useStyleSheet("css/style.css");
 	return app;
@@ -36,7 +35,7 @@ int main(int argc, char *argv[])
 	try {
 		WServer server(argv[0]);
 		server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
-		server.addEntryPoint(Wt::Application, createApplication);
+		server.addEntryPoint(Wt::EntryPointType::Application, createApplication);
 		if (server.start()) {
 			WServer::waitForShutdown();
 			server.stop();
