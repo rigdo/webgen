@@ -20,18 +20,14 @@ PasswordPage::PasswordPage(SettingsDir *sd) : BasePage()
 	pagetitle_text->setText(tr("Root password"));
 	help_text->setText( WString(tr("password_page_help")) );
 
-	password_lineedit = new WLineEdit();
-
 	{
-		{
-		WContainerWidget *c = new WContainerWidget();
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
 		c->setStyleClass("setting");
-		WText *label = new WText(tr("New root password"));
+		WText *label = c->addWidget(std::make_unique<WText>(tr("New root password")));
 		label->setStyleClass("label");
-		c->addWidget( label );
-		c->addWidget( password_lineedit );
-		datacolumn->addWidget( c );
-		}
+		password_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		password_lineedit->setTextSize(49);
+		password_lineedit->setStyleClass("settingvalue");
 	}
 	save_button->clicked().connect( this, &PasswordPage::saveParams );
 	loadParams();

@@ -15,102 +15,69 @@ Ethminer::Ethminer(SettingsDir *sd, std::string gpu_vendor, std::string servicen
 {
 	this->sd = sd;
 	this->gpu_vendor = gpu_vendor;
-
 	pagetitle_text->setText(tr("ethminer_" + gpu_vendor + "_title"));
-
 	help_text->setText(tr("ethminer_help_" + gpu_vendor));
 
-	autostart_checkbox = new WCheckBox();
-	pool_lineedit = new WLineEdit();
-	pool_lineedit->setTextSize(49);
-	pool_lineedit->setStyleClass("settingvalue");
-	user_lineedit = new WLineEdit();
-	user_lineedit->setTextSize(49);
-	user_lineedit->setStyleClass("settingvalue");
-
-	worker_lineedit = new WLineEdit();
-	worker_lineedit->setTextSize(49);
-	worker_lineedit->setStyleClass("settingvalue");
-
-	scheme_combobox = new WComboBox();
-	scheme_combobox->addItem("stratum+tcp");
-	scheme_combobox->addItem("http");
-
-	console_combobox = buildConsoleComboBox();
-	console_combobox->setStyleClass("xmrig_tty");
-
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("autostart")));
+		label->setStyleClass("label");
+		autostart_checkbox = c->addWidget(std::make_unique<WCheckBox>());
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_bind_tty")));
+		label->setStyleClass("label");
+		console_combobox = buildConsoleComboBox(c);
+		console_combobox->setStyleClass("xmrig_tty");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("ethminer_scheme")));
+		label->setStyleClass("label");
+		scheme_combobox = c->addWidget(std::make_unique<WComboBox>());
+		scheme_combobox->addItem("stratum+tcp");
+		scheme_combobox->addItem("http");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("ethminer_pool")));
+		label->setStyleClass("label");
+		pool_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		pool_lineedit->setTextSize(49);
+		pool_lineedit->setStyleClass("settingvalue");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("ethminer_user")));
+		label->setStyleClass("label");
+		user_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		user_lineedit->setTextSize(100);
+		user_lineedit->setStyleClass("settingvalue");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("ethminer_worker")));
+		label->setStyleClass("label");
+		worker_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		worker_lineedit->setTextSize(49);
+		worker_lineedit->setStyleClass("settingvalue");
+	}
 	opencl_mode_combobox = 0;
 	if (gpu_vendor == "amd"){
-		opencl_mode_combobox = new WComboBox();
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("amd_opencl_mode")));
+		label->setStyleClass("label");
+		opencl_mode_combobox = c->addWidget(std::make_unique<WComboBox>());
 		opencl_mode_combobox->addItem("amdgpu-pro");
 		opencl_mode_combobox->addItem("rocm");
-	}
-
-	{
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("autostart"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(autostart_checkbox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_bind_tty"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(console_combobox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("ethminer_scheme"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(scheme_combobox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("ethminer_pool"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(pool_lineedit);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("ethminer_user"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(user_lineedit);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("ethminer_worker"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(worker_lineedit);
-			datacolumn->addWidget(c);
-		}
-		if (opencl_mode_combobox){
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("amd_opencl_mode"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(opencl_mode_combobox);
-			datacolumn->addWidget(c);
-		}
-
 	}
 	save_button->clicked().connect(this, &Ethminer::saveParams);
 	loadParams();

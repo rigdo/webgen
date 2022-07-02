@@ -7,7 +7,7 @@
 
 #include "NvidiaPage.h"
 #include <Wt/WLineEdit.h>
-
+#include <algorithm>
 #include "nvml.h"
 
 std::string toStr(int v)
@@ -92,11 +92,9 @@ NvidiaPage::NvidiaPage(SettingsDir *sd)
 {
 	this->sd = sd;
 
-	table = new Wt::WTable();
+	table = datacolumn->addWidget(std::make_unique<WTable>());
 	table->setHeaderCount(1);
 	table->setWidth(WLength("100%"));
-
-	datacolumn->addWidget(table);
 
 	//create sock to nvoc service
 	std::vector<std::map<std::string, std::string> > gpu_info = nvPciList();
@@ -117,13 +115,10 @@ class EditApplySave: public WContainerWidget
 public:
 	EditApplySave()
 	{
-		line_edit = new WLineEdit();
+		line_edit = this->addWidget(std::make_unique<WLineEdit>());
 		line_edit->setTextSize(6);
-		addWidget(line_edit);
-		apply_button = new WPushButton(tr("apply"));
-		addWidget(apply_button);
-		save_button = new WPushButton(tr("save"));
-		addWidget(save_button);
+		apply_button = this->addWidget(std::make_unique<WPushButton>(tr("apply")));
+		save_button = this->addWidget(std::make_unique<WPushButton>(tr("save")));
 	}
 
 public:
@@ -150,12 +145,12 @@ void NvidiaPage::tableReceived(
 		const std::vector<std::map<std::string, std::string> > &gpu_info)
 {
 	table->clear();
-	table->elementAt(0, 0)->addWidget(new WText("pciid"));
-	table->elementAt(0, 1)->addWidget(new WText("name"));
-	table->elementAt(0, 2)->addWidget(new WText("coreclk"));
-	table->elementAt(0, 3)->addWidget(new WText("memclk"));
-	table->elementAt(0, 4)->addWidget(new WText("fan"));
-	table->elementAt(0, 5)->addWidget(new WText("plim"));
+	table->elementAt(0, 0)->addWidget(std::make_unique<WText>("pciid"));
+	table->elementAt(0, 1)->addWidget(std::make_unique<WText>("name"));
+	table->elementAt(0, 2)->addWidget(std::make_unique<WText>("coreclk"));
+	table->elementAt(0, 3)->addWidget(std::make_unique<WText>("memclk"));
+	table->elementAt(0, 4)->addWidget(std::make_unique<WText>("fan"));
+	table->elementAt(0, 5)->addWidget(std::make_unique<WText>("plim"));
 
 	for (unsigned i = 0; i < gpu_info.size(); i++) {
 		std::map<std::string, std::string> f = gpu_info[i];;
@@ -163,46 +158,46 @@ void NvidiaPage::tableReceived(
 		std::string uuid = fieldByName(f, "uuid", "");
 
 		table->elementAt(i + 1, 0)->addWidget(
-				new WText(fieldByName(f, "pciid", "")));
+				std::make_unique<WText>(fieldByName(f, "pciid", "")));
 		table->elementAt(i + 1, 1)->addWidget(
-				new WText(fieldByName(f, "name", "")));
-		EditApplySave *w_coreclk = new EditApplySave();
+				std::make_unique<WText>(fieldByName(f, "name", "")));
+
+		EditApplySave *w_coreclk = table->elementAt(i + 1, 2)->addWidget(std::make_unique<EditApplySave>());
 		w_coreclk->line_edit->setText(fieldByName(f, "coreclk", ""));
-		table->elementAt(i + 1, 2)->addWidget(w_coreclk);
-		EditApplySave *w_memclk = new EditApplySave();
+
+		EditApplySave *w_memclk = table->elementAt(i + 1, 3)->addWidget(std::make_unique<EditApplySave>());
 		w_memclk->line_edit->setText(fieldByName(f, "memclk", ""));
-		table->elementAt(i + 1, 3)->addWidget(w_memclk);
-		EditApplySave *w_fan = new EditApplySave();
+
+		EditApplySave *w_fan = table->elementAt(i + 1, 4)->addWidget(std::make_unique<EditApplySave>());
 		w_fan->line_edit->setText(fieldByName(f, "fan", ""));
-		table->elementAt(i + 1, 4)->addWidget(w_fan);
-		EditApplySave *w_plim = new EditApplySave();
+
+		EditApplySave *w_plim = table->elementAt(i + 1, 5)->addWidget(std::make_unique<EditApplySave>());
 		w_plim->line_edit->setText(fieldByName(f, "plim", ""));
-		table->elementAt(i + 1, 5)->addWidget(w_plim);
 
 		w_coreclk->save_button->clicked().connect(
-				boost::bind(&NvidiaPage::saveCoreClock, this, uuid,
+				std::bind(&NvidiaPage::saveCoreClock, this, uuid,
 						w_coreclk->line_edit));
 		w_memclk->save_button->clicked().connect(
-				boost::bind(&NvidiaPage::saveMemClock, this, uuid,
+				std::bind(&NvidiaPage::saveMemClock, this, uuid,
 						w_memclk->line_edit));
 		w_fan->save_button->clicked().connect(
-				boost::bind(&NvidiaPage::saveFan, this, uuid,
+				std::bind(&NvidiaPage::saveFan, this, uuid,
 						w_fan->line_edit));
 		w_plim->save_button->clicked().connect(
-				boost::bind(&NvidiaPage::savePlim, this, uuid,
+				std::bind(&NvidiaPage::savePlim, this, uuid,
 						w_plim->line_edit));
 
 		w_coreclk->apply_button->clicked().connect(
-				boost::bind(&NvidiaPage::applyCoreClock, this, uuid,
+				std::bind(&NvidiaPage::applyCoreClock, this, uuid,
 						w_coreclk->line_edit));
 		w_memclk->apply_button->clicked().connect(
-				boost::bind(&NvidiaPage::applyMemClock, this, uuid,
+				std::bind(&NvidiaPage::applyMemClock, this, uuid,
 						w_memclk->line_edit));
 		w_fan->apply_button->clicked().connect(
-				boost::bind(&NvidiaPage::applyFan, this, uuid,
+				std::bind(&NvidiaPage::applyFan, this, uuid,
 						w_fan->line_edit));
 		w_plim->apply_button->clicked().connect(
-				boost::bind(&NvidiaPage::applyPlim, this, uuid,
+				std::bind(&NvidiaPage::applyPlim, this, uuid,
 						w_plim->line_edit));
 	}
 }

@@ -16,42 +16,30 @@ WiFiPage::WiFiPage(SettingsDir *sd):
 	pagetitle_text->setText(tr("wifi_client"));
 	help_text->setText(tr("wifi_client_help"));
 
-	autostart_checkbox = new WCheckBox();
-	ssid_lineedit = new WLineEdit();
-	ssid_lineedit->setTextSize(49);
-	ssid_lineedit->setStyleClass("settingvalue");
-	psk_lineedit = new WLineEdit();
-	psk_lineedit->setTextSize(49);
-	psk_lineedit->setStyleClass("settingvalue");
-
 	{
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("autostart"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(autostart_checkbox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("SSID"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(ssid_lineedit);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("PSK"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(psk_lineedit);
-			datacolumn->addWidget(c);
-		}
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("autostart")));
+		label->setStyleClass("label");
+		autostart_checkbox = c->addWidget(std::make_unique<WCheckBox>());
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("SSID")));
+		label->setStyleClass("label");
+		ssid_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		ssid_lineedit->setTextSize(49);
+		ssid_lineedit->setStyleClass("settingvalue");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("PSK")));
+		label->setStyleClass("label");
+		psk_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		psk_lineedit->setTextSize(49);
+		psk_lineedit->setStyleClass("settingvalue");
 	}
 	save_button->clicked().connect(this, &WiFiPage::saveParams);
 	loadParams();

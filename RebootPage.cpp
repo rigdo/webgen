@@ -14,15 +14,13 @@ RebootPage::RebootPage( ) : BasePage()
 {
 	pagetitle_text->setText(tr("Reboot"));
 	help_text->setText( WString(tr("reboot_page_help")) );
-	reboot_button = new WPushButton(tr("Reboot"));
+
 	{
-		WContainerWidget *buttonscontainer = new WContainerWidget();
-		buttonscontainer->setStyleClass("buttonscontainer");
-		buttonscontainer->addWidget( reboot_button );
-		datacolumn->addWidget( buttonscontainer );
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("buttonscontainer");
+		reboot_button = c->addWidget(std::make_unique<WPushButton>(tr("Reboot")));
 	}
 	save_button->hide();
-
 	reboot_button->clicked().connect( this, &RebootPage::rebootPressed );
 }
 

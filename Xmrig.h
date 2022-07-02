@@ -1,3 +1,4 @@
+
 /*
  * Xmrig.h
  *
@@ -31,7 +32,6 @@ public:
 private:
 	void loadParams();
 	void saveParams();
-	void modeChanged();
 
 private:
 	SettingsDir *sd;

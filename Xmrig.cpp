@@ -20,137 +20,98 @@ Xmrig::Xmrig(SettingsDir *sd, std::string gpu_vendor, std::string servicename):
 	pagetitle_text->setText(tr("xmrig-" + gpu_vendor + "_title"));
 	help_text->setText(tr("xmrig-" + gpu_vendor + "_help"));
 
-	autostart_checkbox = new WCheckBox();
-	pool_lineedit = new WLineEdit();
-	pool_lineedit->setTextSize(49);
-	pool_lineedit->setStyleClass("settingvalue");
-	user_lineedit = new WLineEdit();
-	user_lineedit->setTextSize(100);
-	user_lineedit->setStyleClass("settingvalue");
-	pass_lineedit = new WLineEdit();
-	pass_lineedit->setTextSize(49);
-	pass_lineedit->setStyleClass("settingvalue");
-
-	donate_lineedit = new WLineEdit();
-	donate_lineedit->setTextSize(3);
-	donate_lineedit->setStyleClass("settingvalue");
-
-	opencl_launch_lineedit = new WLineEdit();
-	opencl_launch_lineedit->setTextSize(49);
-	opencl_launch_lineedit->setStyleClass("settingvalue");
-
-	cuda_launch_lineedit = new WLineEdit();
-	cuda_launch_lineedit->setTextSize(49);
-	cuda_launch_lineedit->setStyleClass("settingvalue");
-
-
-	algo_combobox = new WComboBox();
-	for (int i = 0; i < 25; i++) {
-		algo_combobox->addItem(xmrig_algos[i]);
-	}
-	algo_combobox->setStyleClass("xmrig_tty");
-
-	nicehash_combobox = new WComboBox();
-	nicehash_combobox->addItem("auto");
-	nicehash_combobox->addItem("on");
-	nicehash_combobox->addItem("off");
-	nicehash_combobox->setStyleClass("xmrig_tty");
-
-	console_combobox = buildConsoleComboBox();
-	console_combobox->setStyleClass("xmrig_tty");
-
 	{
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("autostart"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(autostart_checkbox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_bind_tty"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(console_combobox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_pool"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(pool_lineedit);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_user"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(user_lineedit);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_pass"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(pass_lineedit);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_algo"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(algo_combobox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_nicehash_mode"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(nicehash_combobox);
-			datacolumn->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("xmrig_donate"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(donate_lineedit);
-			datacolumn->addWidget(c);
-		}
-//		if (gpu_vendor == "amd") {
-//			WContainerWidget *c = new WContainerWidget();
-//			c->setStyleClass("setting");
-//			WText *label = new WText(tr("xmrig-amd_opencl-launch"));
-//			label->setStyleClass("label");
-//			c->addWidget(label);
-//			c->addWidget(opencl_launch_lineedit);
-//			datacolumn->addWidget(c);
-//		}
-//		if (gpu_vendor == "nvidia") {
-//			WContainerWidget *c = new WContainerWidget();
-//			c->setStyleClass("setting");
-//			WText *label = new WText(tr("xmrig-nvidia_cuda-launch"));
-//			label->setStyleClass("label");
-//			c->addWidget(label);
-//			c->addWidget(opencl_launch_lineedit);
-//			datacolumn->addWidget(c);
-//		}
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("autostart")));
+		label->setStyleClass("label");
+		autostart_checkbox = c->addWidget(std::make_unique<WCheckBox>());
 	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_bind_tty")));
+		label->setStyleClass("label");
+		console_combobox = buildConsoleComboBox(c);
+		console_combobox->setStyleClass("xmrig_tty");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_pool")));
+		label->setStyleClass("label");
+		pool_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		pool_lineedit->setTextSize(49);
+		pool_lineedit->setStyleClass("settingvalue");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_user")));
+		label->setStyleClass("label");
+		user_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		user_lineedit->setTextSize(100);
+		user_lineedit->setStyleClass("settingvalue");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_pass")));
+		label->setStyleClass("label");
+		pass_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		pass_lineedit->setTextSize(49);
+		pass_lineedit->setStyleClass("settingvalue");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_algo")));
+		label->setStyleClass("label");
+		algo_combobox = c->addWidget(std::make_unique<WComboBox>());
+		for (int i = 0; i < 25; i++) {
+			algo_combobox->addItem(xmrig_algos[i]);
+		}
+		algo_combobox->setStyleClass("xmrig_tty");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_nicehash_mode")));
+		label->setStyleClass("label");
+		nicehash_combobox = c->addWidget(std::make_unique<WComboBox>());
+		nicehash_combobox->addItem("auto");
+		nicehash_combobox->addItem("on");
+		nicehash_combobox->addItem("off");
+		nicehash_combobox->setStyleClass("xmrig_tty");
+	}
+	{
+		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig_donate")));
+		label->setStyleClass("label");
+		donate_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+		donate_lineedit->setTextSize(3);
+		donate_lineedit->setStyleClass("settingvalue");
+	}
+//	if (gpu_vendor == "amd") {
+//		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+//		c->setStyleClass("setting");
+//		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig-amd_opencl-launch")));
+//		label->setStyleClass("label");
+//		opencl_launch_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+//		opencl_launch_lineedit->setTextSize(49);
+//		opencl_launch_lineedit->setStyleClass("settingvalue");
+//	}
+//	if (gpu_vendor == "nvidia") {
+//		WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+//		c->setStyleClass("setting");
+//		WText *label = c->addWidget(std::make_unique<WText>(tr("xmrig-nvidia_cuda-launch")));
+//		label->setStyleClass("label");
+//		cuda_launch_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+//		cuda_launch_lineedit->setTextSize(49);
+//		cuda_launch_lineedit->setStyleClass("settingvalue");
+//	}
+
 	save_button->clicked().connect(this, &Xmrig::saveParams);
 	loadParams();
 }

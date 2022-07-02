@@ -20,7 +20,7 @@
 
 using namespace Wt;
 
-WComboBox *buildConsoleComboBox();
+WComboBox *buildConsoleComboBox(WContainerWidget *father);
 
 //==============================================================================
 //===================== BasePage ===========================================

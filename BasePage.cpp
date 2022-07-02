@@ -6,10 +6,11 @@
  */
 #include "BasePage.h"
 #include <Wt/WBreak.h>
+#include <Wt/WContainerWidget.h>
 
-WComboBox *buildConsoleComboBox()
+WComboBox *buildConsoleComboBox(WContainerWidget *father)
 {
-	WComboBox *console_combobox = new WComboBox();
+	WComboBox *console_combobox = father->addWidget(std::make_unique<WComboBox>());
 	console_combobox->addItem("");
 	for (int i = 1; i <= 6; i++) {
 		console_combobox->addItem(WString("{1}").arg(i));
@@ -22,29 +23,19 @@ WComboBox *buildConsoleComboBox()
 //==============================================================================
 BasePage::BasePage(): WContainerWidget()
 {
-	WContainerWidget *pagetitle_div = new WContainerWidget();
+	WContainerWidget *pagetitle_div = this->addWidget(std::make_unique<WContainerWidget>());
 	pagetitle_div->setStyleClass("pagetitle");
-	pagetitle_text = new WText();
-	pagetitle_div->addWidget(pagetitle_text);
+	pagetitle_text = pagetitle_div->addWidget(std::make_unique<WText>());
 
-	datacolumn = new WContainerWidget();
+	WContainerWidget *ep = this->addWidget(std::make_unique<WContainerWidget>());
+	datacolumn = ep->addWidget(std::make_unique<WContainerWidget>());
 	datacolumn->setStyleClass("datacolumn");
-
-	help_text = new WText();
-	help_panel = new WPanel();
+	ep->addWidget(std::make_unique<WBreak>());
+	save_button = ep->addWidget(std::make_unique<WPushButton>(tr("Save")));
+	ep->addWidget(std::make_unique<WBreak>());
+	help_panel = ep->addWidget(std::make_unique<WPanel>());
 	help_panel->setTitle(tr("Help"));
-	help_panel->setCentralWidget(help_text);
-
-	save_button = new WPushButton(tr("Save"));
-
-	addWidget(pagetitle_div);
-	WContainerWidget *ep = new WContainerWidget();
-	ep->addWidget(datacolumn);
-	ep->addWidget(new WBreak());
-	ep->addWidget(save_button);
-	ep->addWidget(new WBreak());
-	ep->addWidget(help_panel);
-	addWidget(ep);
+	help_text = help_panel->setCentralWidget(std::make_unique<WText>());
 }
 
 //==============================================================================
@@ -54,30 +45,18 @@ BaseServicePage::BaseServicePage(std::string servicename): WContainerWidget()
 {
 	this->servicename = servicename;
 
-	WContainerWidget *pagetitle_div = new WContainerWidget();
+	WContainerWidget *pagetitle_div = this->addWidget(std::make_unique<WContainerWidget>());
 	pagetitle_div->setStyleClass("pagetitle");
-	pagetitle_text = new WText();
-	pagetitle_div->addWidget(pagetitle_text);
+	pagetitle_text = pagetitle_div->addWidget(std::make_unique<WText>());
 
-	servicecontrol = new ServiceControlWidget(servicename);
-
-	datacolumn = new WContainerWidget();
+	WContainerWidget *ep = this->addWidget(std::make_unique<WContainerWidget>());
+	servicecontrol = ep->addWidget(std::make_unique<ServiceControlWidget>(servicename));
+	datacolumn = ep->addWidget(std::make_unique<WContainerWidget>());
 	datacolumn->setStyleClass("datacolumn");
-
-	help_text = new WText();
-	help_panel = new WPanel();
+	ep->addWidget(std::make_unique<WBreak>());
+	save_button = ep->addWidget(std::make_unique<WPushButton>(tr("Save")));
+	ep->addWidget(std::make_unique<WBreak>());
+	help_panel = ep->addWidget(std::make_unique<WPanel>());
 	help_panel->setTitle(tr("Help"));
-	help_panel->setCentralWidget(help_text);
-
-	save_button = new WPushButton(tr("Save"));
-
-	addWidget(pagetitle_div);
-	WContainerWidget *ep = new WContainerWidget();
-	ep->addWidget(servicecontrol);
-	ep->addWidget(datacolumn);
-	ep->addWidget(new WBreak());
-	ep->addWidget(save_button);
-	ep->addWidget(new WBreak());
-	ep->addWidget(help_panel);
-	addWidget(ep);
+	help_text = help_panel->setCentralWidget(std::make_unique<WText>());
 }
