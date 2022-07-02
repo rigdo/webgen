@@ -49,7 +49,7 @@ private:
 	WPushButton *uploadbutton;
 
 	WText *ftext;
-	WFileResource *fresource;
+	std::shared_ptr<WFileResource> fresource;
 	WAnchor *fanchor;
 	WPushButton *delbutton;
 };
@@ -82,7 +82,7 @@ private:
 
 	struct filewidgets
 	{
-		WFileResource *fresource;
+		std::shared_ptr<WFileResource> fresource;
 		WAnchor *fanchor;
 		WPushButton *delbutton;
 	};

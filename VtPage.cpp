@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 VtState::VtState()
 {
@@ -87,19 +88,14 @@ VtPage::VtPage(VtState *vt):
 		WContainerWidget()
 {
 	this->vt = vt;
-	WContainerWidget *label_div = new WContainerWidget();
+	WContainerWidget *label_div = addWidget(std::make_unique<WContainerWidget>());
 	label_div->setStyleClass("pagetitle");
-	WText *pagetitle_text = new WText(WString("vt{1}").arg(vt->idx));
-	label_div->addWidget(pagetitle_text);
-	addWidget(label_div);
-	log_textarea = new WTextArea;
+	label_div->addWidget(std::make_unique<WText>(WString("vt{1}").arg(vt->idx)));
+	log_textarea = addWidget(std::make_unique<WTextArea>());
 	log_textarea->setColumns(vt->cols() + 1);
 	log_textarea->setRows(vt->rows());
 	log_textarea->setInline(false);
-	addWidget(log_textarea);
-	refresh_button = new WPushButton("Refresh");
-	addWidget(refresh_button);
-
+	refresh_button = addWidget(std::make_unique<WPushButton>("Refresh"));
 	readLog();
 	refresh_button->clicked().connect(this, &VtPage::readLog);
 }
@@ -108,6 +104,4 @@ void VtPage::readLog()
 {
 	WString s = vt->grabScreen();
 	log_textarea->setText(s);
-
 }
-

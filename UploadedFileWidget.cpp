@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
+#include <unistd.h>
 
 
 void copy_file(const char *input, const char *output)
@@ -35,24 +36,19 @@ UploadedFileWidget::UploadedFileWidget(std::string workingdir,
 	this->workingdir = workingdir;
 	this->filename = filename;
 	this->filepath = workingdir + "/" + filename;
-	fileuploadcontainer = new WContainerWidget();
-	fileupload = 0;
-	uploadbutton = new WPushButton(tr("Upload"));
+	fileupload = nullptr;
 
-	ftext = new WText(comment);
+
+	ftext = addWidget(std::make_unique<WText>(comment));
 	ftext->setStyleClass("labelcomment");
-	fresource = new WFileResource(filepath);
-	fanchor = new WAnchor(WLink(fresource), filename);
-	delbutton = new WPushButton(tr("Delete"));
-	delbutton->clicked().connect(
-			boost::bind(&UploadedFileWidget::delFile, this));
-
+	fileuploadcontainer = addWidget(std::make_unique<WContainerWidget>());
 	fileuploadcontainer->setInline(true);
-	addWidget(ftext);
-	addWidget(fileuploadcontainer);
-	addWidget(uploadbutton);
-	addWidget(fanchor);
-	addWidget(delbutton);
+	uploadbutton = addWidget(std::make_unique<WPushButton>(tr("Upload")));
+	fresource = std::make_shared<WFileResource>(filepath);
+	fanchor = addWidget(std::make_unique<WAnchor>(WLink(fresource), filename));
+	delbutton = addWidget(std::make_unique<WPushButton>(tr("Delete")));
+	delbutton->clicked().connect(
+			std::bind(&UploadedFileWidget::delFile, this));
 	updateView();
 }
 
@@ -60,22 +56,26 @@ void UploadedFileWidget::updateView()
 {
 	struct stat statbuf;
 	if (stat(filepath.c_str(), &statbuf) == 0) { //has file
-		delete fileupload;
-		fileupload = 0;
+		if (fileupload) {
+			fileuploadcontainer->removeChild(fileupload);
+			delete fileupload;
+			fileupload = 0;
+		}
 		uploadbutton->hide();
 		ftext->hide();
 		fanchor->show();
 		delbutton->show();
 	} else {
-		if (fileupload)
-			delete fileupload;
-		fileupload = new WFileUpload();
-		fileupload->setFileTextSize(15);
+		if (fileupload) {
+			fileuploadcontainer->removeChild(fileupload);
+//			delete fileupload;
+		}
 		uploadbutton->clicked().connect(fileupload, &WFileUpload::upload);
 		fileupload->uploaded().connect(this, &UploadedFileWidget::fileUploaded);
 		fileupload->fileTooLarge().connect(this,
 				&UploadedFileWidget::fileTooLarge);
-		fileuploadcontainer->addWidget(fileupload);
+		fileupload = fileuploadcontainer->addWidget(std::make_unique<WFileUpload>());
+		fileupload->setFileTextSize(15);
 		uploadbutton->show();
 		if (comment != "")
 			ftext->show();
@@ -114,17 +114,13 @@ UploadedFilesTable::UploadedFilesTable(std::string workingdir):
 		WGroupBox()
 {
 	this->workingdir = workingdir;
-	table = new WTable();
-	fileupload = new WFileUpload();
-//	fileupload->setFileTextSize(10);
-	uploadbutton = new WPushButton(tr("Upload"));
-	addWidget(table);
-	addWidget(fileupload);
-	addWidget(uploadbutton);
 
-	uploadbutton->clicked().connect(fileupload, &WFileUpload::upload);
+	table = addWidget(std::make_unique<WTable>());
+	fileupload = addWidget(std::make_unique<WFileUpload>());
 	fileupload->uploaded().connect(this, &UploadedFilesTable::fileUploaded);
 	fileupload->fileTooLarge().connect(this, &UploadedFilesTable::fileTooLarge);
+	uploadbutton = addWidget(std::make_unique<WPushButton>(tr("Upload")));
+	uploadbutton->clicked().connect(fileupload, &WFileUpload::upload);
 
 	loadFromDir(workingdir);
 }
@@ -168,15 +164,12 @@ void UploadedFilesTable::addFile(WString name, std::string filepath)
 	}
 	int row = table->rowCount();
 	struct filewidgets fw;
-	fw.fresource = new WFileResource(filepath);
-	fw.fanchor = new WAnchor(WLink(fw.fresource), name);
-	fw.delbutton = new WPushButton(tr("Delete"));
-	files.push_back(fw);
-	table->elementAt(row, 0)->addWidget(fw.fanchor);
-	table->elementAt(row, 1)->addWidget(fw.delbutton);
-
+	fw.fresource = std::make_shared<WFileResource>(filepath);
+	fw.fanchor = table->elementAt(row, 0)->addWidget(std::make_unique<WAnchor>(WLink(fw.fresource), name));
+	fw.delbutton = table->elementAt(row, 1)->addWidget(std::make_unique<WPushButton>(tr("Delete")));
 	fw.delbutton->clicked().connect(
-			boost::bind(&UploadedFilesTable::delFileByName, this, name));
+			std::bind(&UploadedFilesTable::delFileByName, this, name));
+	files.push_back(fw);
 }
 
 void UploadedFilesTable::delFileByName(WString name)
@@ -195,9 +188,12 @@ void UploadedFilesTable::delFileByName(WString name)
 
 void UploadedFilesTable::delFileByidx(int idx)
 {
+	// ToDo
+#if 0
 	unlink(files[idx].fresource->fileName().c_str());
 	files.erase(files.begin() + idx);
 	table->deleteRow(idx);
+#endif
 }
 
 void UploadedFilesTable::fileUploaded()

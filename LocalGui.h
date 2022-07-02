@@ -20,7 +20,7 @@ using namespace Wt;
 class LocalGui: public WContainerWidget
 {
 public:
-	LocalGui(std::string settings_dir);
+	LocalGui(const std::string &settings_dir);
 
 	virtual ~LocalGui()
 	{}

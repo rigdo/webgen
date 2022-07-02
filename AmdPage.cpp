@@ -105,11 +105,9 @@ AmdPage::AmdPage(SettingsDir *sd)
 {
 	this->sd = sd;
 
-	table = new Wt::WTable();
+	table = datacolumn->addWidget(std::make_unique<WTable>());
 	table->setHeaderCount(1);
 	table->setWidth(WLength("100%"));
-
-	datacolumn->addWidget(table);
 
 	//create sock to nvoc service
 	std::vector<std::map<std::string, std::string> > gpu_info = amdPciList();
@@ -130,13 +128,10 @@ class EditApplySave2: public WContainerWidget
 public:
 	EditApplySave2()
 	{
-		line_edit = new WLineEdit();
+		line_edit = addWidget(std::make_unique<WLineEdit>());
 		line_edit->setTextSize(6);
-		addWidget(line_edit);
-		apply_button = new WPushButton(tr("apply"));
-		addWidget(apply_button);
-		save_button = new WPushButton(tr("save"));
-		addWidget(save_button);
+		apply_button = addWidget(std::make_unique<WPushButton>(tr("apply")));
+		save_button = addWidget(std::make_unique<WPushButton>(tr("save")));
 	}
 
 public:
@@ -167,12 +162,12 @@ void AmdPage::tableReceived(
 		const std::vector<std::map<std::string, std::string> > &gpu_info)
 {
 	table->clear();
-	table->elementAt(0, 0)->addWidget(new WText("pciid"));
-	table->elementAt(0, 1)->addWidget(new WText("name"));
-	table->elementAt(0, 2)->addWidget(new WText("coreclk"));
-	table->elementAt(0, 3)->addWidget(new WText("memclk"));
-	table->elementAt(0, 4)->addWidget(new WText("fan"));
-	table->elementAt(0, 5)->addWidget(new WText("plim"));
+	table->elementAt(0, 0)->addWidget(std::make_unique<WText>("pciid"));
+	table->elementAt(0, 1)->addWidget(std::make_unique<WText>("name"));
+	table->elementAt(0, 2)->addWidget(std::make_unique<WText>("coreclk"));
+	table->elementAt(0, 3)->addWidget(std::make_unique<WText>("memclk"));
+	table->elementAt(0, 4)->addWidget(std::make_unique<WText>("fan"));
+	table->elementAt(0, 5)->addWidget(std::make_unique<WText>("plim"));
 
 	for (unsigned i = 0; i < gpu_info.size(); i++) {
 		std::map<std::string, std::string> f = gpu_info[i];;
@@ -180,46 +175,42 @@ void AmdPage::tableReceived(
 		std::string uuid = fieldByName(f, "uuid", "");
 
 		table->elementAt(i + 1, 0)->addWidget(
-				new WText(fieldByName(f, "pciid", "")));
+				std::make_unique<WText>(fieldByName(f, "pciid", "")));
 		table->elementAt(i + 1, 1)->addWidget(
-				new WText(fieldByName(f, "name", "")));
-		EditApplySave2 *w_coreclk = new EditApplySave2();
+				std::make_unique<WText>(fieldByName(f, "name", "")));
+		EditApplySave2 *w_coreclk = table->elementAt(i + 1, 2)->addWidget(std::make_unique<EditApplySave2>());
 		w_coreclk->line_edit->setText(fieldByName(f, "coreclk", ""));
-		table->elementAt(i + 1, 2)->addWidget(w_coreclk);
-		EditApplySave2 *w_memclk = new EditApplySave2();
+		EditApplySave2 *w_memclk = table->elementAt(i + 1, 3)->addWidget(std::make_unique<EditApplySave2>());
 		w_memclk->line_edit->setText(fieldByName(f, "memclk", ""));
-		table->elementAt(i + 1, 3)->addWidget(w_memclk);
-		EditApplySave2 *w_fan = new EditApplySave2();
+		EditApplySave2 *w_fan = table->elementAt(i + 1, 4)->addWidget(std::make_unique<EditApplySave2>());
 		w_fan->line_edit->setText(fieldByName(f, "fan", ""));
-		table->elementAt(i + 1, 4)->addWidget(w_fan);
-		EditApplySave2 *w_plim = new EditApplySave2();
+		EditApplySave2 *w_plim = table->elementAt(i + 1, 5)->addWidget(std::make_unique<EditApplySave2>());
 		w_plim->line_edit->setText(fieldByName(f, "plim", ""));
-		table->elementAt(i + 1, 5)->addWidget(w_plim);
 
 		w_coreclk->save_button->clicked().connect(
-				boost::bind(&AmdPage::saveCoreClock, this, uuid,
+				std::bind(&AmdPage::saveCoreClock, this, uuid,
 						w_coreclk->line_edit));
 		w_memclk->save_button->clicked().connect(
-				boost::bind(&AmdPage::saveMemClock, this, uuid,
+				std::bind(&AmdPage::saveMemClock, this, uuid,
 						w_memclk->line_edit));
 		w_fan->save_button->clicked().connect(
-				boost::bind(&AmdPage::saveFan, this, uuid,
+				std::bind(&AmdPage::saveFan, this, uuid,
 						w_fan->line_edit));
 		w_plim->save_button->clicked().connect(
-				boost::bind(&AmdPage::savePlim, this, uuid,
+				std::bind(&AmdPage::savePlim, this, uuid,
 						w_plim->line_edit));
 
 		w_coreclk->apply_button->clicked().connect(
-				boost::bind(&AmdPage::applyCoreClock, this, uuid,
+				std::bind(&AmdPage::applyCoreClock, this, uuid,
 						w_coreclk->line_edit));
 		w_memclk->apply_button->clicked().connect(
-				boost::bind(&AmdPage::applyMemClock, this, uuid,
+				std::bind(&AmdPage::applyMemClock, this, uuid,
 						w_memclk->line_edit));
 		w_fan->apply_button->clicked().connect(
-				boost::bind(&AmdPage::applyFan, this, uuid,
+				std::bind(&AmdPage::applyFan, this, uuid,
 						w_fan->line_edit));
 		w_plim->apply_button->clicked().connect(
-				boost::bind(&AmdPage::applyPlim, this, uuid,
+				std::bind(&AmdPage::applyPlim, this, uuid,
 						w_plim->line_edit));
 	}
 }

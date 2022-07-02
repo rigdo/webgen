@@ -216,7 +216,7 @@ bool Settings::saveFile(const char *fname, std::string data)
 //==============================================================================
 //===================== Settings ===========================================
 //==============================================================================
-SettingsDir::SettingsDir(std::string dir)
+SettingsDir::SettingsDir(const std::string &dir)
 {
 	this->dir = dir;
 }

@@ -91,7 +91,7 @@ private:
 class SettingsDir
 {
 public:
-	SettingsDir(std::string dir);
+	SettingsDir(const std::string &dir);
 	Settings
 	byService(std::string service, int instance = -1, bool ignore_cache = true);
 

@@ -64,7 +64,6 @@ EthernetPage::EthernetPage(SettingsDir *sd):
 	ip_lineedit->setStyleClass("iplineedit");
 	mask_lineedit->setValidator(ip_validaor);
 	mask_lineedit->setStyleClass("iplineedit");
-	gateway_lineedit = new WLineEdit();
 	gateway_lineedit->setValidator(ip_validaor);
 	gateway_lineedit->setStyleClass("iplineedit");
 	dns_lineedit->setValidator(ip_validaor);

@@ -24,121 +24,81 @@ static VtState *vts[6 + 1];
 //==============================================================================
 //===================== LocalGui ================================================
 //==============================================================================
-LocalGui::LocalGui(std::string settings_dir): WContainerWidget()
+LocalGui::LocalGui(const std::string &settings_dir): WContainerWidget()
 {
 	SettingsDir *sd = new SettingsDir(settings_dir);
 
-	SummaryPage *summarry_page = new SummaryPage(sd);
-	NvidiaPage *nvidia_page = new NvidiaPage(sd);
-	AmdPage *amd_page = new AmdPage(sd);
+	setStyleClass("wrap");
 
-	EthernetPage *ethernet_page = new EthernetPage(sd);
-	//OpenVpnPage *openvpn_page = new OpenVpnPage(sd,0);
-	WiFiPage *wfi_page = new WiFiPage(sd);
-	PasswordPage *password_page = new PasswordPage( sd );
-	RebootPage *reboot_page = new RebootPage();
+	WContainerWidget *header = addWidget(std::make_unique<WContainerWidget>());
+	header->setStyleClass("header");
+	WContainerWidget *navigation = addWidget(std::make_unique<WContainerWidget>());
+	navigation->setStyleClass("navigation");
+	WStackedWidget *content = addWidget(std::make_unique<WStackedWidget>());
+	content->setStyleClass("content");
 
-
-	Xmrig *xmrig = new Xmrig(sd, "cpu", "xmrig0");
-	Xmrig *xmrig_amd = new Xmrig(sd, "amd", "xmrig-amd0");
-	Xmrig *xmrig_nvidia = new Xmrig(sd, "nvidia", "xmrig-nvidia0");
-	Ethminer *ethminer_amd = new Ethminer(sd, "amd", "ethminer-amd0");
-	Ethminer *ethminer_nvidia = new Ethminer(sd, "nvidia", "ethminer-nvidia0");
-//	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
 	bool localgui = WApplication::instance()->environment().clientAddress() == "127.0.0.1";
 
-	VtPage *vt_pages[6 + 1];
-	if (!localgui){
-		for (int vt_idx = 1; vt_idx <= 6; vt_idx++) {
-			VtState *vt = 0;
-			if (!vts[vt_idx]) {
-				vts[vt_idx] = new VtState();
-				bool ok = vts[vt_idx]->init(vt_idx);
-				if (ok)
-					vt = vts[vt_idx];
-			} else {
-				vt = vts[vt_idx];
-			}
-			vt_pages[vt_idx] = 0;
-			if (vt) {
-				vt_pages[vt_idx] = new VtPage(vt);
-			}
-		}
-	}
-
-	WContainerWidget *header;
 	{
-		header = new WContainerWidget();
-		header->setStyleClass("header");
-
+		// header
 		if (localgui) {
-			WPushButton *lang_en_button = new WPushButton("[en]");
-			lang_en_button->clicked().connect( this, &LocalGui::setLangEn );
-			WPushButton *lang_ru_button = new WPushButton("[ru]");
-			lang_ru_button->clicked().connect( this, &LocalGui::setLangRu );
-
-			WContainerWidget *lang_box = new WContainerWidget();
-
+			WContainerWidget *lang_box = header->addWidget(std::make_unique<WContainerWidget>());
 			lang_box->setStyleClass("langbox");
-			lang_box->addWidget( lang_en_button );
-			lang_box->addWidget( lang_ru_button );
-			header->addWidget( lang_box );
-
-			header->addWidget(new WText(tr("control_panel_header_local")));
+			WPushButton *lang_en_button = lang_box->addWidget(std::make_unique<WPushButton>());
+			lang_en_button->clicked().connect( this, &LocalGui::setLangEn );
+			WPushButton *lang_ru_button = lang_box->addWidget(std::make_unique<WPushButton>());
+			lang_ru_button->clicked().connect( this, &LocalGui::setLangRu );
+			header->addWidget(std::make_unique<WText>(tr("control_panel_header_local")));
 		}
 		else{
-			header->addWidget(new WText(tr("control_panel_header_remote")));
+			header->addWidget(std::make_unique<WText>(tr("control_panel_header_remote")));
 		}
 
 	}
 
-	WStackedWidget *content = new WStackedWidget();
 	{
-		content = new WStackedWidget();
-		content->setStyleClass("content");
-	}
-
-	WContainerWidget *navigation;
-	WMenu *topmenu;
-	{
-		navigation = new WContainerWidget();
-		navigation->setStyleClass("navigation");
-
-		topmenu = new WMenu(content, Vertical);
+		//, Vertical
+		WMenu *topmenu = navigation->addWidget(std::make_unique<WMenu>(content));
 		topmenu->setStyleClass("menu");
 		topmenu->setInternalPathEnabled();
 		topmenu->setInternalBasePath("/");
 
+		topmenu->addItem(tr("summary"), std::make_unique<SummaryPage>(sd));
+		topmenu->addItem(tr("nvidia_oc"), std::make_unique<NvidiaPage>(sd));
+		topmenu->addItem(tr("amd_oc"), std::make_unique<AmdPage>(sd));
+		topmenu->addItem(tr("ethernet"), std::make_unique<EthernetPage>(sd));
 
-		topmenu->addItem(tr("summary"), summarry_page);
-		topmenu->addItem(tr("nvidia_oc"), nvidia_page);
-		topmenu->addItem(tr("amd_oc"), amd_page);
-		topmenu->addItem(tr("ethernet"), ethernet_page);
-		topmenu->addItem(tr("wifi_client"), wfi_page);
-		topmenu->addItem(tr("Password"), password_page);
-		topmenu->addItem(tr("Reboot"), reboot_page);
+		topmenu->addItem(tr("wifi_client"), std::make_unique<WiFiPage>(sd));
+		topmenu->addItem(tr("Password"), std::make_unique<PasswordPage>(sd));
+		topmenu->addItem(tr("Reboot"), std::make_unique<RebootPage>());
+		//	ZipGenPage *zipgen = new ZipGenPage(settings_dir);
 
+		//OpenVpnPage *openvpn_page = new OpenVpnPage(sd,0);
 //		topmenu->addItem(tr("openvpn"), openvpn_page);
-		topmenu->addItem(tr("xmrig-cpu_title"), xmrig);
-		topmenu->addItem(tr("xmrig-amd_title"), xmrig_amd);
-		topmenu->addItem(tr("xmrig-nvidia_title"), xmrig_nvidia);
-		topmenu->addItem(tr("ethminer-amd"), ethminer_amd);
-		topmenu->addItem(tr("ethminer-nvidia"), ethminer_nvidia);
+		topmenu->addItem(tr("xmrig-cpu_title"), std::make_unique<Xmrig>(sd, "cpu", "xmrig0"));
+		topmenu->addItem(tr("xmrig-amd_title"), std::make_unique<Xmrig>(sd, "amd", "xmrig-amd0"));
+		topmenu->addItem(tr("xmrig-nvidia_title"), std::make_unique<Xmrig>(sd, "nvidia", "xmrig-nvidia0"));
+		topmenu->addItem(tr("ethminer-amd"), std::make_unique<Ethminer>(sd, "amd", "ethminer-amd0"));
+		topmenu->addItem(tr("ethminer-nvidia"), std::make_unique<Ethminer>(sd, "nvidia", "ethminer-nvidia0"));
 //		topmenu->addItem(tr("zipgen"), zipgen);
+
 		if (!localgui){
-			for (int i = 1; i <= 6; i++) {
-				if (!vt_pages[i])
+			for (int vt_idx = 1; vt_idx <= 6; vt_idx++) {
+				VtState *vt_state = nullptr;
+				if (!vts[vt_idx]) {
+					vts[vt_idx] = new VtState();
+					bool ok = vts[vt_idx]->init(vt_idx);
+					if (ok)
+						vt_state = vts[vt_idx];
+				} else {
+					vt_state = vts[vt_idx];
+				}
+				if (!vt_state)
 					continue;
-				topmenu->addItem(WString("vt{1}").arg(i), vt_pages[i]);
+				topmenu->addItem(WString("vt{1}").arg(vt_idx), std::make_unique<VtPage>(vt_state));
 			}
 		}
-		navigation->addWidget(topmenu);
 	}
-
-	setStyleClass("wrap");
-	addWidget(header);
-	addWidget(navigation);
-	addWidget(content);
 }
 
 void LocalGui::setLangEn()
