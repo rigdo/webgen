@@ -22,7 +22,7 @@ using namespace Wt;
 class ServiceControlWidget: public WGroupBox
 {
 public:
-	ServiceControlWidget(std::string service);
+	ServiceControlWidget(const std::string &service);
 
 	virtual ~ServiceControlWidget()
 	{}

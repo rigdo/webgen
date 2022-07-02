@@ -59,9 +59,7 @@ EthernetPage::EthernetPage(SettingsDir *sd):
 			dns_lineedit = c->addWidget(std::make_unique<WLineEdit>());
 		}
 	}
-	WRegExpValidator *ip_validaor = std::make_shared<WRegExpValidator>("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
-	WRegExpValidator *ip_validaor = new WRegExpValidator(
-			"((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+	auto ip_validaor = std::make_shared<WRegExpValidator>("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
 	ip_lineedit->setValidator(ip_validaor);
 	ip_lineedit->setStyleClass("iplineedit");
 	mask_lineedit->setValidator(ip_validaor);

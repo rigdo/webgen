@@ -25,303 +25,223 @@ OpenVpnPage::OpenVpnPage(SettingsDir *sd, int idx):
 	this->idx = idx;
 	pagetitle_text->setText(tr("OpenVPN{1}").arg(idx + 1));
 
-	autostart_checkbox = new WCheckBox();
-
 	WString servicename = WString("openvpn{1}").arg(idx);
-	servicecontrol = new ServiceControlWidget(servicename.toUTF8());
-
-	mainsettings_groupbox = new WGroupBox();
-	mainsettings_groupbox->setTitle(tr("Main Settings"));
-	configmode_combobox = new WComboBox();
-	configmode_combobox->addItem(tr("Config File"));
-	configmode_combobox->addItem(tr("Web"));
-
-	files_container = new WContainerWidget();
 	Settings s = sd->byService("openvpn", idx);
-	config_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("usrconfig").toUTF8(), "openvpn.conf");
-	ftable = new UploadedFilesTable(
-			s.additionalSettingsDirName("usrconfig").toUTF8());
-	ftable->setTitle(tr("Additional Files"));
 
-	workmode_combobox = new WComboBox();
-	workmode_combobox->addItem(tr("Client"));
-	workmode_combobox->addItem(tr("Server"));
-	workmode_combobox->addItem(tr("P2P Client"));
-	workmode_combobox->addItem(tr("P2P Server"));
-
-	proto_combobox = new WComboBox();
-	proto_combobox->addItem("udp");
-	proto_combobox->addItem("tcp");
-	devtype_combobox = new WComboBox();
-	devtype_combobox->addItem("tun");
-	devtype_combobox->addItem("tap");
-	cipher_combobox = new WComboBox();
-	cipher_combobox->addItem("BF-CBC");
-	cipher_combobox->addItem("AES-128-CBC");
-	cipher_combobox->addItem("DES-EDE3-CBC");
-
-	connectaddr_lineedit = new WLineEdit();
-	connectaddr_lineedit->setStyleClass("iplineedit");
-	connectport_lineedit = new WLineEdit();
-	connectport_lineedit->setStyleClass("portlineedit");
-	listenport_lineedit = new WLineEdit();
-
-	p2psettings_groupbox = new WGroupBox();
-	p2psettings_groupbox->setTitle(tr("Point-to-Point settings"));
-	ifconfiglocalip_lineedit = new WLineEdit();
-	ifconfiglocalip_lineedit->setStyleClass("iplineedit");
-	ifconfigremoteip_lineedit = new WLineEdit();
-	ifconfigremoteip_lineedit->setStyleClass("iplineedit");
-	statickey_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guip2pconfig").toUTF8(), "static.key");
 //	statickey_textarea = new WTextArea();
 //	statickey_textarea->setColumns(40);
 //	statickey_textarea->setRows(22);
 //	WLengthValidator *validator = new WLengthValidator( 0, 4095 );
 //	statickey_textarea->setValidator( validator );
-	generatestatickey_button = new WPushButton(tr("Generate"));
 
-	clientsettings_groupbox = new WGroupBox();
-	clientsettings_groupbox->setTitle(tr("Client settings"));
-	cacrt_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiclientconfig").toUTF8(), "ca.crt",
-			"ca(ca.crt)");
-	takey_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiclientconfig").toUTF8(), "ta.key",
-			"tls-auth(ta.key)");
-	authby_combobox = new WComboBox();
-	authby_combobox->addItem("Key files");
-	authby_combobox->addItem("Password");
-	authbykey_container = new WContainerWidget();
-	clientcrt_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiclientconfig").toUTF8(),
-			"client.crt", "cert(client.crt)");
-	clientkey_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiclientconfig").toUTF8(),
-			"client.key", "key(client.key)");
-	authbypass_container = new WContainerWidget();
-	authuser_lineedit = new WLineEdit();
-	authpass_lineedit = new WLineEdit();
-	additionaloptsclient_textarea = new WTextArea();
-	additionaloptsclient_textarea->setColumns(55);
-	additionaloptsclient_textarea->setRows(2);
-	WLengthValidator *validator2 = new WLengthValidator(0, 4095);
-	additionaloptsclient_textarea->setValidator(validator2);
-
-	serversettings_groupbox = new WGroupBox();
-	serversettings_groupbox->setTitle(tr("Server settings"));
-	servifconfig_lineedit = new WLineEdit();
-	servcacrt_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiservconfig").toUTF8(), "ca.crt",
-			"ca(ca.crt)");
-	servcrt_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiservconfig").toUTF8(), "server.crt",
-			"cert(server.crt)");
-	servkey_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiservconfig").toUTF8(), "server.key",
-			"key(server.key)");
-	servtakey_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiservconfig").toUTF8(), "ta.key",
-			"tls-auth(ta.key)");
-	dhkey_fileupload = new UploadedFileWidget(
-			s.additionalSettingsDirName("guiservconfig").toUTF8(), "dh1024.pem",
-			"dh(dh1024.pem)");
-	additionaloptsserver_textarea = new WTextArea();
-	additionaloptsserver_textarea->setColumns(55);
-	additionaloptsserver_textarea->setRows(2);
-	WLengthValidator *validator3 = new WLengthValidator(0, 4095);
-	additionaloptsserver_textarea->setValidator(validator3);
 
 	{
-		datacolumn->addWidget(servicecontrol);
+		servicecontrol = datacolumn->addWidget(std::make_unique<ServiceControlWidget>(servicename.toUTF8()));
 		{
-			WContainerWidget *c = new WContainerWidget();
+			WContainerWidget *c = datacolumn->addWidget(std::make_unique<WContainerWidget>());
 			c->setStyleClass("setting");
-			WText *label = new WText(tr("Autostart"));
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Autostart")));
 			label->setStyleClass("shortlabel");
-			c->addWidget(label);
-			c->addWidget(autostart_checkbox);
-			datacolumn->addWidget(c);
+			autostart_checkbox = c->addWidget(std::make_unique<WCheckBox>());
 		}
 		{
-			configmode_conteiner = new WContainerWidget();
+			configmode_conteiner = datacolumn->addWidget(std::make_unique<WContainerWidget>());
 			configmode_conteiner->setStyleClass("setting");
-			WText *label = new WText(tr("Config via"));
+			WText *label = configmode_conteiner->addWidget(std::make_unique<WText>(tr("Config via")));
 			label->setStyleClass("label");
-			configmode_conteiner->addWidget(label);
-			configmode_conteiner->addWidget(configmode_combobox);
-			datacolumn->addWidget(configmode_conteiner);
+			configmode_combobox = configmode_conteiner->addWidget(std::make_unique<WComboBox>());
+			configmode_combobox->addItem(tr("Config File"));
+			configmode_combobox->addItem(tr("Web"));
 		}
 
+		mainsettings_groupbox = datacolumn->addWidget(std::make_unique<WGroupBox>());
+		mainsettings_groupbox->setTitle(tr("Main Settings"));
 		{
-			WContainerWidget *c = new WContainerWidget();
+			WContainerWidget *c = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			c->setStyleClass("setting");
-			WText *label = new WText(tr("Work Mode"));
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Work Mode")));
 			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(workmode_combobox);
-			mainsettings_groupbox->addWidget(c);
-		}
+			workmode_combobox = c->addWidget(std::make_unique<WComboBox>());
+			workmode_combobox->addItem(tr("Client"));
+			workmode_combobox->addItem(tr("Server"));
+			workmode_combobox->addItem(tr("P2P Client"));
+			workmode_combobox->addItem(tr("P2P Server"));
 
+		}
 		{
-			connectaddr_container = new WContainerWidget();
+			connectaddr_container = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			connectaddr_container->setStyleClass("setting");
-			WText *label = new WText(tr("Connect Addr"));
+			WText *label = connectaddr_container->addWidget(std::make_unique<WText>(tr("Connect Addr")));
 			label->setStyleClass("label");
-			connectaddr_container->addWidget(label);
-			connectaddr_container->addWidget(connectaddr_lineedit);
-			mainsettings_groupbox->addWidget(connectaddr_container);
+			connectaddr_lineedit = connectaddr_container->addWidget(std::make_unique<WLineEdit>());
+			connectaddr_lineedit->setStyleClass("iplineedit");
 		}
 		{
-			connectport_container = new WContainerWidget();
+			connectport_container = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			connectport_container->setStyleClass("setting");
-			WText *label = new WText(tr("Connect Port"));
+			WText *label = connectport_container->addWidget(std::make_unique<WText>(tr("Connect Port")));
 			label->setStyleClass("label");
-			connectport_container->addWidget(label);
-			connectport_container->addWidget(connectport_lineedit);
-			mainsettings_groupbox->addWidget(connectport_container);
+			connectport_lineedit = connectport_container->addWidget(std::make_unique<WLineEdit>());
+			connectport_lineedit->setStyleClass("portlineedit");
 		}
 		{
-			listenport_container = new WContainerWidget();
+			listenport_container = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			listenport_container->setStyleClass("setting");
-			WText *label = new WText(tr("Listening Port"));
+			WText *label = listenport_container->addWidget(std::make_unique<WText>(tr("Listening Port")));
 			label->setStyleClass("label");
-			listenport_container->addWidget(label);
-			listenport_container->addWidget(listenport_lineedit);
-			mainsettings_groupbox->addWidget(listenport_container);
+			listenport_lineedit = listenport_container->addWidget(std::make_unique<WLineEdit>());
+		}
+		{
+			WContainerWidget *c = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
+			c->setStyleClass("setting");
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Protocol")));
+			label->setStyleClass("label");
+			proto_combobox = c->addWidget(std::make_unique<WComboBox>());
+			proto_combobox->addItem("udp");
+			proto_combobox->addItem("tcp");
+		}
+		{
+			WContainerWidget *c = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
+			c->setStyleClass("setting");
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Tunnel device")));
+			label->setStyleClass("label");
+			devtype_combobox = c->addWidget(std::make_unique<WComboBox>());
+			devtype_combobox->addItem("tun");
+			devtype_combobox->addItem("tap");
+		}
+		{
+			WContainerWidget *c = mainsettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
+			c->setStyleClass("setting");
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Cipher")));
+			label->setStyleClass("label");
+			cipher_combobox = c->addWidget(std::make_unique<WComboBox>());
+			cipher_combobox->addItem("BF-CBC");
+			cipher_combobox->addItem("AES-128-CBC");
+			cipher_combobox->addItem("DES-EDE3-CBC");
 		}
 
+		p2psettings_groupbox = datacolumn->addWidget(std::make_unique<WGroupBox>());
+		p2psettings_groupbox->setTitle(tr("Point-to-Point settings"));
 		{
-			WContainerWidget *c = new WContainerWidget();
+			WContainerWidget *c = p2psettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			c->setStyleClass("setting");
-			WText *label = new WText(tr("Protocol"));
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Local Ip in tunnel")));
 			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(proto_combobox);
-			mainsettings_groupbox->addWidget(c);
+			ifconfiglocalip_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+			ifconfiglocalip_lineedit->setStyleClass("iplineedit");
 		}
 		{
-			WContainerWidget *c = new WContainerWidget();
+			WContainerWidget *c = p2psettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			c->setStyleClass("setting");
-			WText *label = new WText(tr("Tunnel device"));
+			WText *label = c->addWidget(std::make_unique<WText>(tr("Remote Ip in tunnel")));
 			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(devtype_combobox);
-			mainsettings_groupbox->addWidget(c);
+			ifconfigremoteip_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+			ifconfigremoteip_lineedit->setStyleClass("iplineedit");
 		}
 		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("Cipher"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(cipher_combobox);
-			mainsettings_groupbox->addWidget(c);
-		}
-
-		datacolumn->addWidget(mainsettings_groupbox);
-
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("Local Ip in tunnel"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(ifconfiglocalip_lineedit);
-			p2psettings_groupbox->addWidget(c);
-		}
-		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("Remote Ip in tunnel"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(ifconfigremoteip_lineedit);
-			p2psettings_groupbox->addWidget(c);
-		}
-		{
-			WGroupBox *c = new WGroupBox();
+			WGroupBox *c = p2psettings_groupbox->addWidget(std::make_unique<WGroupBox>());
 			c->setTitle(tr("Encryption key"));
-//		statickey_textarea->setInline( false );
-			c->addWidget(statickey_fileupload);
-			c->addWidget(generatestatickey_button);
-			p2psettings_groupbox->addWidget(c);
+			statickey_fileupload = c->addWidget(std::make_unique<UploadedFileWidget>(s.additionalSettingsDirName("guip2pconfig").toUTF8(), "static.key"));
+			generatestatickey_button = c->addWidget(std::make_unique<WPushButton>(tr("Generate")));
 		}
-		datacolumn->addWidget(p2psettings_groupbox);
 
 
+		clientsettings_groupbox = datacolumn->addWidget(std::make_unique<WGroupBox>());
+		clientsettings_groupbox->setTitle(tr("Client settings"));
 		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("User"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(authuser_lineedit);
-			authbypass_container->addWidget(c);
+			cacrt_fileupload = clientsettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(s.additionalSettingsDirName("guiclientconfig").toUTF8(), "ca.crt",
+																									   "ca(ca.crt)"));
 		}
 		{
-			WContainerWidget *c = new WContainerWidget();
-			c->setStyleClass("setting");
-			WText *label = new WText(tr("Password"));
-			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(authpass_lineedit);
-			authbypass_container->addWidget(c);
+			takey_fileupload = clientsettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(
+					s.additionalSettingsDirName("guiclientconfig").toUTF8(), "ta.key",
+					"tls-auth(ta.key)"));
 		}
 		{
-			clientsettings_groupbox->addWidget(cacrt_fileupload);
-			clientsettings_groupbox->addWidget(takey_fileupload);
+			WGroupBox *gb = clientsettings_groupbox->addWidget(std::make_unique<WGroupBox>());
+			gb->setTitle(tr("Auth by"));
+			authby_combobox = gb->addWidget(std::make_unique<WComboBox>());
+			authby_combobox->addItem("Key files");
+			authby_combobox->addItem("Password");
+			authbykey_container = gb->addWidget(std::make_unique<WContainerWidget>());
+			clientcrt_fileupload = authbykey_container->addWidget(std::make_unique<UploadedFileWidget>(
+					s.additionalSettingsDirName("guiclientconfig").toUTF8(),
+					"client.crt", "cert(client.crt)"));
+			clientkey_fileupload = authbykey_container->addWidget(std::make_unique<UploadedFileWidget>(
+					s.additionalSettingsDirName("guiclientconfig").toUTF8(),
+					"client.key", "key(client.key)"));
+
+			authbypass_container = gb->addWidget(std::make_unique<WContainerWidget>());
 			{
-				WGroupBox *gb = new WGroupBox();
-				gb->setTitle(tr("Auth by"));
-				gb->addWidget(authby_combobox);
-				gb->addWidget(authbykey_container);
-				gb->addWidget(authbypass_container);
-				clientsettings_groupbox->addWidget(gb);
+				WContainerWidget *c = authbypass_container->addWidget(std::make_unique<WContainerWidget>());
+				c->setStyleClass("setting");
+				WText *label = c->addWidget(std::make_unique<WText>(tr("User")));
+				label->setStyleClass("label");
+				authuser_lineedit = c->addWidget(std::make_unique<WLineEdit>());
 			}
-			authbykey_container->addWidget(clientcrt_fileupload);
-			authbykey_container->addWidget(clientkey_fileupload);
-//		authbykey_container->addWidget(takey_fileupload);
-			WGroupBox *gc = new WGroupBox();
-			gc->setTitle(tr("Additionl options"));
-			gc->addWidget(additionaloptsclient_textarea);
-			clientsettings_groupbox->addWidget(gc);
+			{
+				WContainerWidget *c = authbypass_container->addWidget(std::make_unique<WContainerWidget>());
+				c->setStyleClass("setting");
+				WText *label = c->addWidget(std::make_unique<WText>(tr("Password")));
+				label->setStyleClass("label");
+				authpass_lineedit = c->addWidget(std::make_unique<WLineEdit>());
+			}
 		}
-		datacolumn->addWidget(clientsettings_groupbox);
-
-
 		{
-			WContainerWidget *c = new WContainerWidget();
+			WGroupBox *gc = clientsettings_groupbox->addWidget(std::make_unique<WGroupBox>());
+			gc->setTitle(tr("Additionl options"));
+			additionaloptsclient_textarea = gc->addWidget(std::make_unique<WTextArea>());
+			additionaloptsclient_textarea->setColumns(55);
+			additionaloptsclient_textarea->setRows(2);
+			additionaloptsclient_textarea->setValidator(std::make_shared<WLengthValidator>(0, 4095));
+		}
+
+
+		serversettings_groupbox = datacolumn->addWidget(std::make_unique<WGroupBox>());
+		serversettings_groupbox->setTitle(tr("Server settings"));
+		{
+			WContainerWidget *c = serversettings_groupbox->addWidget(std::make_unique<WContainerWidget>());
 			c->setStyleClass("setting");
-			WText *label = new WText(tr("VPN subnet"));
+			WText *label = c->addWidget(std::make_unique<WText>(tr("VPN subnet")));
 			label->setStyleClass("label");
-			c->addWidget(label);
-			c->addWidget(servifconfig_lineedit);
+			servifconfig_lineedit = c->addWidget(std::make_unique<WLineEdit>());
 			servifconfig_lineedit->setTextSize(24);
-			serversettings_groupbox->addWidget(c);
 		}
-		serversettings_groupbox->addWidget(servcacrt_fileupload);
-		serversettings_groupbox->addWidget(servcrt_fileupload);
-		serversettings_groupbox->addWidget(servkey_fileupload);
-		serversettings_groupbox->addWidget(servtakey_fileupload);
-		serversettings_groupbox->addWidget(dhkey_fileupload);
-		{
-			WGroupBox *gc = new WGroupBox();
-			gc->setTitle(tr("Additionl options"));
-			gc->addWidget(additionaloptsserver_textarea);
-			serversettings_groupbox->addWidget(gc);
-		}
-		datacolumn->addWidget(serversettings_groupbox);
+
+		servcacrt_fileupload = serversettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(
+				s.additionalSettingsDirName("guiservconfig").toUTF8(), "ca.crt",
+				"ca(ca.crt)"));
+		servcrt_fileupload = serversettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(
+				s.additionalSettingsDirName("guiservconfig").toUTF8(), "server.crt",
+				"cert(server.crt)"));
+		servkey_fileupload = serversettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(
+				s.additionalSettingsDirName("guiservconfig").toUTF8(), "server.key",
+				"key(server.key)"));
+		servtakey_fileupload = serversettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(
+				s.additionalSettingsDirName("guiservconfig").toUTF8(), "ta.key",
+				"tls-auth(ta.key)"));
+		dhkey_fileupload = serversettings_groupbox->addWidget(std::make_unique<UploadedFileWidget>(
+				s.additionalSettingsDirName("guiservconfig").toUTF8(), "dh1024.pem",
+				"dh(dh1024.pem)"));
 
 		{
-			WGroupBox *c = new WGroupBox();
-			c->setTitle(tr("Main config File"));
-			c->addWidget(config_fileupload);
-			files_container->addWidget(c);
+			WGroupBox *gc = serversettings_groupbox->addWidget(std::make_unique<WGroupBox>());
+			gc->setTitle(tr("Additionl options"));
+			additionaloptsserver_textarea = gc->addWidget(std::make_unique<WTextArea>());
+			additionaloptsserver_textarea->setColumns(55);
+			additionaloptsserver_textarea->setRows(2);
+			additionaloptsserver_textarea->setValidator(std::make_shared<WLengthValidator>(0, 4095));
+
 		}
-		files_container->addWidget(ftable);
-		datacolumn->addWidget(files_container);
+
+		files_container = datacolumn->addWidget(std::make_unique<WContainerWidget>());
+		{
+			WGroupBox *gc = files_container->addWidget(std::make_unique<WGroupBox>());
+			gc->setTitle(tr("Main config File"));
+			config_fileupload = gc->addWidget(std::make_unique<UploadedFileWidget>(s.additionalSettingsDirName("usrconfig").toUTF8(), "openvpn.conf"));
+		}
+		ftable = files_container->addWidget(std::make_unique<UploadedFilesTable>(s.additionalSettingsDirName("usrconfig").toUTF8()));
+		ftable->setTitle(tr("Additional Files"));
 	}
 //	autostart_checkbox->checked().connect( this,
 //			&OpenVpnPage::enableChanged );
@@ -365,6 +285,7 @@ void OpenVpnPage::enableChanged()
 void OpenVpnPage::configModeChanged(int newval)
 {
 	switch (newval) {
+		default:
 		case 0: //File
 			mainsettings_groupbox->hide();
 			p2psettings_groupbox->hide();

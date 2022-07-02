@@ -6,49 +6,36 @@
  */
 #include "ServiceControlWidget.h"
 #include <Wt/WPanel.h>
-#include <Wt/WBreak.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
 //==============================================================================
 //===================== ServiceControlWidget =========================================
 //==============================================================================
-ServiceControlWidget::ServiceControlWidget( std::string service )
+ServiceControlWidget::ServiceControlWidget( const std::string &service )
 {
 	this->service = service;
 	setTitle( tr("Service Contol"));
 
-	startstopstate = new WText();
-	start_button = new WPushButton( tr("Start") );
-	stop_button = new WPushButton( tr("Stop")  );
-	restart_tbutton = new WPushButton( tr("Restart"));
-
-	WContainerWidget *buttonscontainer = new WContainerWidget();
-	buttonscontainer->setStyleClass("servicebuttonscontainer");
-	buttonscontainer->addWidget( start_button );
-	buttonscontainer->addWidget( stop_button );
-	buttonscontainer->addWidget( restart_tbutton );
-//	addWidget( buttonscontainer );
-	
 	{
-	WContainerWidget *c = new WContainerWidget();
-	c->setStyleClass("setting");
-	WText *label = new WText(tr("Control"));
-	label->setStyleClass("shortlabel");
-	c->addWidget( label );
-	c->addWidget( buttonscontainer );
-	addWidget( c );
+		WContainerWidget *c = this->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("Control")));
+		label->setStyleClass("shortlabel");
+
+		WContainerWidget *buttonscontainer = c->addWidget(std::make_unique<WContainerWidget>());
+		buttonscontainer->setStyleClass("servicebuttonscontainer");
+		start_button = buttonscontainer->addWidget( std::make_unique<WPushButton>(tr("Start")) );
+		stop_button = buttonscontainer->addWidget( std::make_unique<WPushButton>(tr("Stop")));
+		restart_tbutton = buttonscontainer->addWidget( std::make_unique<WPushButton>(tr("Restart")) );
 	}
 	{
-	WContainerWidget *c = new WContainerWidget();
-	c->setStyleClass("setting");
-	WText *label = new WText(tr("State"));
-	label->setStyleClass("shortlabel");
-	c->addWidget( label );
-	c->addWidget( startstopstate );
-	addWidget( c );
+		WContainerWidget *c = this->addWidget(std::make_unique<WContainerWidget>());
+		c->setStyleClass("setting");
+		WText *label = c->addWidget(std::make_unique<WText>(tr("State")));
+		label->setStyleClass("shortlabel");
+		startstopstate = c->addWidget( std::make_unique<WText>() );
 	}
 
 	start_button->clicked().connect( this, &ServiceControlWidget::start );
@@ -100,7 +87,6 @@ void ServiceControlWidget::updateView()
 		stop_button->setDisabled( false );
 		restart_tbutton->setDisabled( false );
 	}
-	return ;
 }
 
 void ServiceControlWidget::addService()
@@ -112,7 +98,7 @@ void ServiceControlWidget::addService()
 	int cnt = 0;
 	do
 	{
-		struct stat f;
+		struct stat f{};
 		std::string statfile = "/var/service/" + service + "/supervise/stat";
 		if( stat( statfile.c_str(), &f) == 0 )
 			break;
