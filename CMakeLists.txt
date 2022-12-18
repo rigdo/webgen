@@ -47,8 +47,8 @@ if (NVML_FOUND)
     message("localgui: with nvml support")
     target_compile_definitions(localgui PUBLIC USE_NVML=1)
     target_sources( localgui PRIVATE
-            ${CMAKE_SOURCE_DIR}/hwrecog2/NvidiaPage.h
-            ${CMAKE_SOURCE_DIR}/hwrecog2/NvidiaPage.cpp)
+            ${CMAKE_SOURCE_DIR}/NvidiaPage.h
+            ${CMAKE_SOURCE_DIR}/NvidiaPage.cpp)
     #nvml.h
     target_include_directories(localgui PUBLIC ${CMAKE_SOURCE_DIR}/)
     #nvidia-ml
@@ -60,8 +60,8 @@ if (ROCM_SMI_FOUND)
     message("localgui: with rocm_smi support")
     target_compile_definitions(localgui PUBLIC USE_ROCM_SMI=1)
     target_sources( localgui PRIVATE
-            ${CMAKE_SOURCE_DIR}/hwrecog2/AmdPage.h
-            ${CMAKE_SOURCE_DIR}/hwrecog2/AmdPage.cpp)
+            ${CMAKE_SOURCE_DIR}/AmdPage.h
+            ${CMAKE_SOURCE_DIR}/AmdPage.cpp)
     # rocm_smi.h
     target_include_directories(localgui PUBLIC ${CMAKE_SOURCE_DIR}/)
     # rocm_smi64
